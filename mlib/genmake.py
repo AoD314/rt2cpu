@@ -39,7 +39,7 @@ for n in nlist:
 	f.write('\n\t$(CC) $(flags) -c ' + n + '.cpp -o ../build/' + n + '.o\n' )
 
 f.write('\n\nclean:')
-f.write('\n\trm -rf ../build/*.o\n')
+f.write('\n\trm -rf ' + obj + '\n')
 
 f.close()
 
