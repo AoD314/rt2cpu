@@ -1,0 +1,180 @@
+
+\subsection{Примитивы}
+\subsubsection{\index{Плоскость}Плоскость}
+Для определения пресечения луча с плоскостью, необходимо найти точку в пространстве, которая будет удовлетворять двум уравнениям: уравнению луча и уравнению плоскости.
+\par
+Уравнение луча:
+\begin{equation}
+\left\{
+\begin{array}{ccccc}
+x & = & x_0 & + & t \cdot x_d \\
+y & = & y_0 & + & t \cdot y_d \\
+z & = & z_0 & + & t \cdot z_d \\
+\end{array}
+\right.
+\label{equation_ray}
+\end{equation}
+или
+$$
+\vec{R}(t) = \vec{O} + t \cdot \vec{D}
+$$
+где $O = \VECXYZ{0} $ - начало луча, а $D = \VECXYZ{d} $ - направление луча. 
+\par
+Уравнение плоскости задается следующим образом:
+\begin{equation}
+Ax + By + Cz + D = 0
+\label{equation_plane}
+\end{equation}
+\par
+Для того, что бы найти точку пересечения луча с плоскостью, необходимо подставить уравнение (\ref{equation_ray}) в (\ref{equation_plane}):
+$$
+A(x_0 + t \cdot x_d) + B(y_0 + t \cdot y_d) + C(z_0 + t \cdot z_d) + D = 0
+$$
+Раскроем скобки и приведем подобные
+$$
+t(Ax_d + By_d + Cz_d ) + Ax_0 + By_0 + Cz_0 + D = 0
+$$
+найдем неизвестную величину t
+$$
+ t = - \frac{Ax_0 + By_0 + Cz_0 + D}{Ax_d + By_d + Cz_d}
+$$
+из уравнения видно, что луч либо пересекает плоскость в какой то точке, либо нет. Это связано с тем, что если $Ax_d + By_d + Cz_d = 0$, то плоскость и луч параллельны друг другу. Т.к. $P = \VEC A B C $ - это нормаль к поверхности, то из геометрии известно, что если $( D , P ) = 0$, то вектора параллельны.
+\par
+   Для того, что бы найти величину $t$, необходимо рассчитать всего несколько скалярных произведений:
+$$
+t = - \frac{(O, P) + D}{(D, P)}
+$$
+при условии, что $(D, P) \neq 0$
+
+\subsubsection{\index{Сфера}Сфера}
+Для сферы необходимо проделать те же выкладки. Уравнение сферы записывается следующем образом:
+\begin{equation}
+(x-x_c)^2 + (y-y_c)^2 + (z-z_c)^2 = r^2
+\label{equation_sphere}
+\end{equation}
+где $S = \VECXYZ{c}$ - центр сферы, а $r$ - радиус. Подставим уравнение (\ref{equation_ray}) в (\ref{equation_sphere}):
+$$
+\left( (x_0 + t \cdot x_d) - x_c \right)^2 + 
+\left( (y_0 + t \cdot y_d) - y_c \right)^2 + 
+\left( (z_0 + t \cdot z_d) - z_c \right)^2 = r^2
+$$
+приведем это уравнение в виду
+\begin{equation}
+A \cdot t^2 + B \cdot t + C = 0
+\label{equation_square}
+\end{equation}
+после раскрытия скобок и приведения подобных, получаем:
+\par
+$$
+A = x^2_d + y^2_d + z^2_d
+$$ 
+\par
+$$
+B = 2x_d(x_0 - x_c) + 2y_d(y_0 - y_c)  + 2z_d(z_0 - z_c) 
+$$ 
+\par
+$$
+C = (x_0 - x_c)^2 + (y_0 - y_c)^2 + (z_0 - z_c)^2 
+$$
+Если уравнение (\ref{equation_square}) не имеет вещественных решений, то луч не пересекает сферу. Если имеется два решения, то наименьший положительный корень этого уравнения определит на луче ближайшую точку пересечения луча со сферой.
+\par
+Рассмотрим подробнее как вычисляются коэффициенты $A$, $B$, $C$:
+\par
+$$
+A = x^2_d + y^2_d + z^2_d = (D, D)
+$$ 
+\par
+$$
+B = 2x_d(x_0 - x_c) + 2y_d(y_0 - y_c)  + 2z_d(z_0 - z_c)  = 2 \cdot (D, D - S)
+$$ 
+\par
+$$
+C = (x_0 - x_c)^2 + (y_0 - y_c)^2 + (z_0 - z_c)^2 = (O - S, O - S )
+$$
+Далее решаем обыкновенное квадратное уравнение и находим корни и получаем значение $t$
+$$
+t_{1,2} = \frac{-B \pm \sqrt{B^2 - 4 \cdot A \cdot C}}{2 \cdot A}
+$$
+
+\subsubsection{\index{Треугольник}Треугольник}
+Алгоритм пересечения луча и треугольника основан на барицентрических координатах.
+\par
+Барицентрические координаты -- координаты точки $n$-мерного аффинного пространства $A^n$, отнесенные к некоторой фиксированной системе из $(n + 1)$-ой точки $p_0, p_1, \dots, p_n$ , не лежащих в $(n -1)$-мерном подпространстве. Пусть $z$ есть произвольная точка в $A^n$. Каждая точка $x \in A^n$ может быть единственным образом представлена в виде суммы
+$$
+	x = z + \alpha_1 \cdot z\vec{p_1} + \alpha_2 \cdot z\vec{p_2} + \cdots + \alpha_n \cdot z\vec{p_n} 
+$$
+где $\alpha_1, \alpha_2, \dots,  \alpha_n $ вещественные числа, удовлетворяющие условию
+$$
+\alpha_1 + \alpha_2 + \cdots + \alpha_n  = 1
+$$
+Числа $\alpha_1, \alpha_2, \dots,  \alpha_n $ называются барицентрическими координатами точки $x$. Легко видеть, что барицентрические координаты не зависят от выбора $z$.
+
+Точка $T(u,v)$, принадлежащая треугольнику, может быть записана в виде:
+\begin{equation}
+\label{triangle_bar}
+T(u,v) = (1-u-v)V_0 + uV_1 + uV_2
+\end{equation}
+
+\noindent где $(u,v)$ -- это бариецентрические координаты такие, что $u \geq 0$, $v \geq 0$ и $u + v \leq 1$
+
+Вычисление пересечения между лучем(\ref{equation_ray}) и треугольником(\ref{triangle_bar}), это решение следующего уравнения:
+
+$$
+O + tD = (1-u-v)V_0 + uV_1 + uV_2
+$$
+
+\noindent это можно переписать так:
+
+\begin{equation}
+\label{ray_cross_tr}
+\left[ -D, V_1 - V_0 , V_2 - V_0\right] 
+\left[  
+\begin{array}{c} t \\ u \\ v \\ \end{array}
+\right] = O - V_0
+\end{equation}
+
+Что бы решить задачу, необходимо найти вектор $\VEC{t}{u}{v}$. Обозначив $E_1 = V_1 - V_0$, $E_2 = V_2 - V_0$ и $T = O - V_0$ решим уравнение (\ref{ray_cross_tr}), используя метод Крамера:
+
+\begin{equation}
+\label{ray_cross_tr_solv}
+\left[  
+\begin{array}{c} t \\ u \\ v \\ \end{array}
+\right] = 
+\frac{1}{| -D , E_2, E_1|} 
+\left[  
+	\begin{array}{lcccl}
+	|& T , & E_1, &E_2 & | \\
+	|&-D , & T  , &E_2 & | \\
+	|&-D , & E_1, &T   & | \\
+	\end{array}
+\right] 
+\end{equation}
+
+\noindent Из курса линейной алгебры известно, что: $|A, B, C| = - (A \times C) \cdot B = - (C \times B) \cdot A$. Принимая во внимания этот факт, перепишем уравление (\ref{ray_cross_tr_solv}).
+
+\begin{equation}
+\label{ray_cross_tr_solv2}
+\left[  
+\begin{array}{c} t \\ u \\ v \\ \end{array}
+\right] = 
+\frac{1}{(D \times E_2)\cdot E_1} 
+\left[  
+	\begin{array}{c}
+	(T \times E_1) \cdot E_2 \\
+	(D \times E_2) \cdot T \\
+	(T \times E_1) \cdot D \\
+	\end{array}
+\right] = 
+\frac{1}{P \cdot E_1} 
+\left[  
+	\begin{array}{c}
+	Q \cdot E_2 \\
+	P \cdot T \\	
+	Q \cdot D \\	
+	\end{array}
+\right]
+\end{equation}
+где $P = (D \times E_2)$ и $Q = T \times E_1$
+
+
+

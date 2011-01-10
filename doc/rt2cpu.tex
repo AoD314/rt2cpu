@@ -1,0 +1,161 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[cp1251]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel} 
+\usepackage{graphicx}
+\usepackage{amstext}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage[usenames,dvipsnames]{color} % для source-highlight
+\usepackage{indentfirst}
+
+% меняем размеры страницы
+\usepackage{geometry}
+\geometry{left=2.5cm}
+\geometry{right=2.0cm}
+\geometry{top=1.5cm}
+\geometry{bottom=2.5cm}
+
+
+% изменение межстрочного интервала
+\def\heightline{1.2}
+\linespread{\heightline} % 1.3 - это полуторный
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% добавляем точки в Оглавление
+
+\renewcommand{\thesection}{\arabic{section}.} 
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.} 
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% определим новые команды
+\def\VEC#1#2#3{\left( \begin{array}{c} #1 \\ #2 \\ #3 \end{array} \right) }
+\def\VECXYZ#1{\left( \begin{array}{c} x_#1 \\ y_#1 \\ z_#1 \end{array} \right) }
+
+\newcounter{sourcecode}
+\setcounter{sourcecode}{1}
+\newcommand*{\cppsource}[2]{\par{\tt \noindent \ Листинг \arabic{sourcecode}. {\rm \small #2}}%
+\addtocounter{sourcecode}{1}\input{#1}}
+
+\makeindex
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+{ \large
+Федеральное агентство по образованию Российской Федерации \\ 
+\vspace{0.25em}
+Государственное образовательное учреждение \\
+высшего профессионального образования \\
+Нижегородский государственный университет им. Н.И. Лобачевского \\
+\vspace{0.25em}
+Факультет вычислительной математики и кибернетики \\
+\vspace{0.25em}
+Кафедра математического обеспечения ЭВМ \\
+\vspace{3em}
+Дипломная работа \\
+}
+\vspace{1em}
+{\bf \huge
+	\textsf{ Трассировка лучей в реальном времени на x64~архитектуре \\ } 
+}
+\end{center}
+\vspace{0.5cm}
+\begin{multicols}{2}
+\large 
+\noindent 
+Работа допущена к защите \\
+Заведующий кафедрой МО ЭВМ \\
+д.ф.--м.н., проф. \\
+
+\vspace*{1em}
+{ \noindent
+\hspace*{1.5cm}\hbox to 0cm{\raisebox{-1em}{\small Подпись}}\hspace{-1.5cm}{\hrulefill\ Стронгин Р. Г. }
+}
+
+\vspace*{1.0em}
+{ \noindent
+\hbox to 0cm{\raisebox{0.25em}{<<\ \ \ \ \ \  >>}}{\hrulefill\ 2011 г. }
+}
+\vbox to 5 cm{\ }
+Исполнитель: \\
+студент 2 курса магистратуры \\
+факультета ВМК группы 86М1 \\
+
+\vspace*{1em}
+{ \noindent
+\hspace*{1.5cm}\hbox to 0cm{\raisebox{-1em}{\small Подпись}}\hspace{-1.5cm}{\hrulefill\ Морозов А. С. }
+}
+
+\vspace*{1.0em}
+{ \noindent
+\hbox to 0cm{\raisebox{0.25em}{<<\ \ \ \ \ \  >>}}{\hrulefill\ 2011 г. }
+}
+\\
+Научный руководитель: д. т. н., \\
+профессор кафедры МО ЭВМ \\
+
+\vspace*{1em}
+{ \noindent
+\hspace*{1.5cm}\hbox to 0cm{\raisebox{-1em}{\small Подпись}}\hspace{-1.5cm}{\hrulefill\ Турлапов В. Е. }
+}
+
+\vspace*{1.0em}
+{ \noindent\newcommand{\z}{\textbf{Задача. }}
+\hbox to 0cm{\raisebox{0.25em}{<<\ \ \ \ \ \  >>}}{\hrulefill\ 2011 г. }
+}
+\end{multicols}
+
+\vfill 
+\begin{center} 
+{\rm \large Нижний Новгород \\ 2011 г.} 
+\end {center} 
+\end{titlepage} 
+
+\tableofcontents
+
+\input{introduction}
+
+\input{target_setting}
+
+\input{architecture_cpu}
+
+\input{ray_tracing}
+
+\input{optimization}
+
+\input{results}
+
+\input{conclusion}
+
+
+\newpage
+\begin{thebibliography}{99}
+	\bibitem{morozov_kazan} Морозов А. С. Трассировка лучей в реальном времени на многоядерном процессоре. Высокопроизводительные параллельные вычисления на кластерных системах (HPC-2008). Материалы Восьмой Международной конференции-семинара. Казань, ноябрь 17-19, 2008. Труды конференции — Казань: Изд. КГТУ, 2008. - С. 241.
+	\bibitem{morozov_microsoft} Морозов А. С. Высокопроизводительная реализация трассировки лучей с использованием Microsoft MPI. Технологии Microsoft в теории и практике программирования. Материалы конференции /Под ред. Проф. В.П. Гергеля. - Нижний Новгород: Изд-во Нижегородского госуниверситета, 2009. - 527 с.
+	\bibitem{morozov_pavt} Морозов А. С. Сравнительный анализ алгоритма трассировки лучей на системах с общей и разделяемой памятью. Параллельные вычислительные технологии (ПаВТ’2009): Труды международной научной конференции (Нижний Новгород, 30 марта - 3 апреля 2009 г.). - Челябинск: Изд. ЮурГУ, 2009. - 839 с
+	\bibitem{latex} Львовский С.М. Набор и верстка в системе \LaTeX. – 4-е изд., стереотипн. – М.: МЦНМО, 2006
+	\bibitem{alloftex} Кнут, Дональд, Э. Все про \TeX. : Пер. с англ. --- М. : Издательский дом ''Вильямс'', 2003. --- 560 с. : ил. --- Парал. Тит. англ.
+	\bibitem{inteloptimize} Гербер Р., Бик А., Смит К., Тиан К. Оптимизация ПО. Сборник рецептов. --- СПб.: Питер, 2010. --- 352 с.: ил. --- (Серия ''Библиотека программиста'').
+	\bibitem{templatecpp} Вандевурд, Дэвид, Джосаттис, Николаи М. Шаблоны C++: справочник разработчика. : Пер. с англ. --- М. : Издательский дом ''Вильямс'', 2008. --- 544 с. : ил. --- парал. тит. англ.
+	\bibitem{straustrupcpp} Б. Страуструп Язык программирования C++. Специальное издание / Пер. с англ. --- М.: ООО ''Бином-Пресс'', 2006. --- 1104 с.: ил.
+	\bibitem{sivakov} Сиваков И. Как компьютер рассчитывает изображения. Технология программного рендеринга, 11.03.2004. \\ (\href{http://www.fcenter.ru/online.shtml?articles/hardware/videos/8749}{http://www.fcenter.ru/online.shtml?articles/hardware/videos/8749})
+	\bibitem{biovulf} Дмитрий Мороз. "Беовульф": Создание фильма, 11.12.2007.\\ (\href{http://www.3dnews.ru/editorial/beowulf}{http://www.3dnews.ru/editorial/beowulf})
+	\bibitem{intelintrinsic} Intel® C++ Intrinsics Reference \\ (\href{http://www.intel.com/products/processor/manuals/}{http://www.intel.com/products/processor/manuals/})
+	\bibitem{intelmanual} Intel 64 and IA-32.Architectures Software Developer's Manual \\ (\href{http://www.intel.com/products/processor/manuals/}{http://www.intel.com/products/processor/manuals/})
+	\bibitem{tbbtutor} Intel® Threading Building Blocks. Tutorial \\ (\href{http://www.threadingbuildingblocks.org/}{http://www.threadingbuildingblocks.org/})
+	\bibitem{tbbmanual} Intel® Threading Building Blocks. Reference Manual \\ (\href{http://www.threadingbuildingblocks.org/}{http://www.threadingbuildingblocks.org/})
+	\bibitem{cppexpressiontemplate} C++ Expression Templates An Introduction to the Principles of Expression Templates, 2003 \\ (\href{http://www.angelikalanger.com/Articles/Cuj/ExpressionTemplates/ExpressionTemplates.htm}{http://www.angelikalanger.com/.../ExpressionTemplates.htm})
+	\bibitem{intelcore980x} Шесть ядер для десктопа: Intel Core i7-980X Extreme Edition, 07.04.2010 \\ (\href{http://www.fcenter.ru/online.shtml?articles/hardware/processors/28480}{http://www.fcenter.ru/online.shtml?articles/hardware/processors/28480})
+
+\end{thebibliography}
+
+\newpage
+\input{rt2cpu.ind}
+
+\end{document}
