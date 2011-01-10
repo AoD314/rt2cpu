@@ -1,14 +1,14 @@
 
 CC=g++
 
-flags=-O2 -msse3 -msse4.2 -fPIC
+flags=-O3 -msse3 -msse4.2 -g -Wall -fPIC -fopenmp
 
 version=0.1
 
 all: mlib
 
 mlib: ../build/console_parameters.o ../build/double.o ../build/float.o ../build/integer.o ../build/long.o ../build/mmemory.o ../build/objfile.o ../build/processor.o ../build/randomize.o ../build/timer.o 
-	g++ -shared -W1,-soname,libmlib.so.1 -o ../build/libmlib.so.$(version) ../build/console_parameters.o ../build/double.o ../build/float.o ../build/integer.o ../build/long.o ../build/mmemory.o ../build/objfile.o ../build/processor.o ../build/randomize.o ../build/timer.o 
+	g++ -shared -W1,-soname,libmlib.so.1 -o ../build/libmlib.so.$(version) ../build/console_parameters.o ../build/double.o ../build/float.o ../build/integer.o ../build/long.o ../build/mmemory.o ../build/objfile.o ../build/processor.o ../build/randomize.o ../build/timer.o  -lgomp
 	ln -s -f ../build/libmlib.so.$(version) ../build/libmlib.so
 
 
@@ -44,4 +44,4 @@ mlib: ../build/console_parameters.o ../build/double.o ../build/float.o ../build/
 
 
 clean:
-	rm -rf ../build/*.o
+	rm -rf ../build/console_parameters.o ../build/double.o ../build/float.o ../build/integer.o ../build/long.o ../build/mmemory.o ../build/objfile.o ../build/processor.o ../build/randomize.o ../build/timer.o 

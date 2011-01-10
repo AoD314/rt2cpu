@@ -5,7 +5,7 @@ import subprocess
 f = open('Makefile', 'w')
 
 f.write("\nCC=g++")
-f.write("\n\nflags=-O2 -msse3 -msse4.2 -fPIC")
+f.write("\n\nflags=-O3 -msse3 -msse4.2 -g -Wall -fPIC -fopenmp")
 
 f.write("\n\nversion=0.1")
 f.write("\n\nall: mlib\n")
@@ -29,7 +29,7 @@ for n in nlist:
 
 f.write('\nmlib: ' + obj)
 
-f.write('\n\tg++ -shared -W1,-soname,libmlib.so.1 -o ../build/libmlib.so.$(version) ' + obj)
+f.write('\n\tg++ -shared -W1,-soname,libmlib.so.1 -o ../build/libmlib.so.$(version) ' + obj + ' -lgomp')
 f.write('\n\tln -s -f ../build/libmlib.so.$(version) ../build/libmlib.so')
 
 f.write('\n\n')
