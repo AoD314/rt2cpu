@@ -6,15 +6,16 @@
 
 namespace mlib
 {
-class Double
-{
-public:
-    static double Parce ( std::string val );
-    static std::string ToString ( double val );
-    static double MaxValue();
-    static double MinValue();
-    static int SizeOfByte();
-};
+	class Double
+	{
+		public:
+			static double Parce ( std::string val );
+			static std::string ToString ( double val );
+			static double MaxValue();
+			static double MinValue();
+			static int SizeOfByte();
+	};
 }
 
 #endif
+

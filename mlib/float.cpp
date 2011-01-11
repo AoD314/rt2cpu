@@ -1,38 +1,42 @@
 
+#include <sstream>
+#include <limits>
+
 #include "mlib/float.hpp"
 
 namespace mlib
 {
-    float Float::Parce(string val)
-    {
-        std::istringstream i(val);
-        float x;
+	float Float::Parce(std::string val)
+	{
+		std::istringstream i(val);
+		float x;
 
-        if (!(i >> x)) return 0;
+		if (!(i >> x)) return 0;
 
-        return x;
-    }
+		return x;
+	}
 
-    float Float::MaxValue()
-    {
-        return numeric_limits<float>::max ();
-    }
+	float Float::MaxValue()
+	{
+		return std::numeric_limits<float>::max ();
+	}
 
-    float Float::MinValue()
-    {
-        return numeric_limits<float>::min ();
-    }
+	float Float::MinValue()
+	{
+		return std::numeric_limits<float>::min ();
+	}
 
-    int Float::SizeOfByte()
-    {
-        return sizeof(float);
-    }
+	int Float::SizeOfByte()
+	{
+		return sizeof(float);
+	}
 
-    string Float::ToString(float val)
-    {
-        std::ostringstream s;
-        s << val;
-        return s.str();
-    }
+	std::string Float::ToString(float val)
+	{
+		std::ostringstream s;
+		s << val;
+		return s.str();
+	}
 
 }
+

@@ -32,3 +32,4 @@ class ConsoleParameters
 std::ostream& operator << (std::ostream& out, const ConsoleParameters & params);
 
 #endif
+

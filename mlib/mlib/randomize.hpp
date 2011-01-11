@@ -7,13 +7,14 @@
 
 namespace mlib
 {
-    class Rand
-    {
-        public:
-            static void Randomize();
-            static int Next();
-            static int Next(unsigned int from, unsigned int to);
-    };
+	class Rand
+	{
+		public:
+			static void Randomize();
+			static size_t Next();
+			static size_t Next(size_t from, size_t to);
+	};
 }
 
 #endif
+
