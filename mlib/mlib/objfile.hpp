@@ -11,31 +11,30 @@
 
 namespace mlib
 {
-    class Objfile
-    {
-        private:
-            std::vector<std::valarray<float> >  v;  // array vertex
-            std::vector<std::valarray<float> >  vn; // array normals
-            std::vector<std::valarray<int> >    f;  // array face{набор вершин из которых можно собрать треугольники}
-            std::vector<int>                    fn; // array face normal
+	class Objfile
+	{
+		private:
+			std::vector<std::valarray<float> >  v;  // array vertex
+			std::vector<std::valarray<float> >  vn; // array normals
+			std::vector<std::valarray<int> >    f;  // array face{набор вершин из которых можно собрать треугольники}
+			std::vector<int>                    fn; // array face normal
 
-        public:
-            Objfile ();
+		public:
+			Objfile ();
 
-            bool read (std::string filename);
+			bool read (std::string filename);
 
-            vec4 GetPointInTriangle   (std::size_t num_triangle, std::size_t num_vertex);
-            vec4 GetNormalForTriangle (std::size_t num_triangle);
-
-            std::size_t GetCountTriangle();
-    };
+			vec4 GetPointInTriangle   (size_t num_triangle, size_t num_vertex);
+			vec4 GetNormalForTriangle (size_t num_triangle);
+			size_t GetCountTriangle();
+	};
 }
 
 #endif
 
 /*
 
-  Example
+Example
 
 # Blender3D v249 OBJ File:
 # www.blender3d.org
