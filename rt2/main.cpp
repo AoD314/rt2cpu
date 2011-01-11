@@ -92,17 +92,23 @@ int main ( int argc, char ** argv )
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        sc.allocate_p ( objfile.GetCountTriangle () + 1 );
+	int super_v = 1;
 
-        vec4 v0,v1,v2, n;
-        Triangle * tr = new_memory<Triangle> (objfile.GetCountTriangle ());
+        vec4 v0, v1, v2, n;
+        Triangle * tr = new_memory<Triangle> (objfile.GetCountTriangle());
 
-        for (std::size_t i = 0; i < objfile.GetCountTriangle (); i++)
+        for (std::size_t i = 0; i < objfile.GetCountTriangle(); i++)
         {
+		std::cout << "\ni:" << i;
+		std::cout.flush();
+
                 v0 = objfile.GetPointInTriangle (i, 0);
                 v1 = objfile.GetPointInTriangle (i, 1);
                 v2 = objfile.GetPointInTriangle (i, 2);
                 n  = objfile.GetNormalForTriangle (i);
+		
+		std::cout << "\nget 3 point"; std::cout.flush();
+
                 tr[i].SetCoordinate (v0,v1,v2);
                 tr[i].SetMaterial (&mtrRed);
                 tr[i].SetNormal (n);

@@ -30,13 +30,7 @@ namespace mlib
 
                 if (str == "v")
                 {
-                    infile >> str;
-                    vf[0] = Float::Parce(str);
-                    infile >> str;
-                    vf[1] = Float::Parce(str);
-                    infile >> str;
-                    vf[2] = Float::Parce(str);
-
+                    infile >> vf[0] >> vf[1] >> vf[2];
                     v.push_back( vf );
                 }
 

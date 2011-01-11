@@ -6,7 +6,7 @@ import os
 f = open('Makefile', 'w')
 
 f.write("\nCC=g++")
-f.write("\n\nflags=-O3 -msse3 -msse4.2 -g -I../mlib")
+f.write("\n\nflags=-O0 -msse3 -msse4.2 -g -ggdb -I../mlib")
 
 f.write("\n\nall: rt2cpu\n")
 
@@ -23,18 +23,20 @@ for n in list:
 #####
 
 obj = ''
+o = ''
 
 for n in nlist:
 	obj = obj + '../build/' + n + '.o '
+	o = o + n + '.o '
 
-f.write('\nrt2cpu: ' + obj)
+f.write('\nrt2cpu: ' + o)
 
 f.write('\n\t$(CC) $(flags) ' + obj + '-lgomp -lSDL -lmlib -L../build/')
 
 f.write('\n\n')
 
 for n in nlist:
-	f.write('\n../build/'+n+'.o: ' + n + '.cpp ')
+	f.write('\n'+n+'.o: ' + n + '.cpp ')
 	if os.path.isfile(n + '.hpp'): 
 		f.write(n + '.hpp')
 	f.write('\n\t$(CC) $(flags) -c ' + n + '.cpp -o ../build/' + n + '.o\n' )

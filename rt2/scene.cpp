@@ -26,11 +26,10 @@ namespace scene
         {
                 obj_size = new_size;
 
-                size_t i;
                 Primitives** temp;
                 temp = new_memory<Primitives*>(new_size);
 
-                for ( i = 0; i < obj_count - 1; i++ )
+                for (size_t i = 0; i < obj_count-1; i++ )
                         temp[i] = obj_primitiv[i];
 
                 del_memory ( obj_primitiv );
@@ -41,11 +40,10 @@ namespace scene
         {
                 light_size = new_size;
 
-                size_t i;
                 Lights** temp;
                 temp = new_memory<Lights*>(new_size);
 
-                for ( i = 0; i < light_count - 1; i++ )
+                for ( size_t i = 0; i < light_count-1; i++ )
                         temp[i] = obj_light[i];
 
                 del_memory ( obj_light );
@@ -78,9 +76,8 @@ namespace scene
                 obj_primitiv = new_memory<Primitives*>(obj_count);
                 obj_light    = new_memory<Lights*>(light_count);
                 cam = s.cam;
-                size_t i;
-                for ( i = 0; i < obj_count; i++ )   obj_primitiv[i] = s.obj_primitiv[i];
-                for ( i = 0; i < light_count; i++ ) obj_light[i] = s.obj_light[i];
+                for ( size_t i = 0; i < obj_count; i++ )   obj_primitiv[i] = s.obj_primitiv[i];
+                for ( size_t i = 0; i < light_count; i++ ) obj_light[i] = s.obj_light[i];
         }
 
         size_t Scene::GetCountObj ( )
@@ -201,3 +198,4 @@ namespace scene
         }
 
 }
+
