@@ -31,7 +31,7 @@ for n in nlist:
 
 f.write('\nrt2cpu: ' + o)
 
-f.write('\n\t$(CC) $(flags) ' + obj + '-lgomp -lSDL -lmlib -L../build/')
+f.write('\n\t$(CC) $(flags) ' + obj + '-lgomp -lSDL -lmlib -L../build/ -o ../build/rt2cpu')
 
 f.write('\n\n')
 

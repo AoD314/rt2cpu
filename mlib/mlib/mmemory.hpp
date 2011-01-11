@@ -25,10 +25,10 @@ namespace mlib
                     ptr = static_cast<T*>(memalign(aligned, sizeof (T) * count)); // posix
             #endif
 
-            for (std::size_t i = 0; i<count; i++)
+            for (std::size_t i = 0; i < count; i++)
             {
                     T * p = ptr + i;
-                    new(p)T;
+                    new(p) T;
             }
 
             return ptr;

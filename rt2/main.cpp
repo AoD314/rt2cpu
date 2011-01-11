@@ -87,15 +87,17 @@ int main ( int argc, char ** argv )
         Objfile objfile;
         objfile.read (settings.path_to_objfile);
 
-        std::cout << "done\nCount triangles: " << objfile.GetCountTriangle ();
-        std::cout.flush ();
+        //std::cout << "done\nCount triangles: " << objfile.GetCountTriangle ();
+        //std::cout.flush ();
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	int super_v = 1;
-
+	/*
         vec4 v0, v1, v2, n;
-        Triangle * tr = new_memory<Triangle> (objfile.GetCountTriangle());
+        
+	size_t count_tr = objfile.GetCountTriangle();
+		
+        Triangle * tr = new_memory<Triangle> (count_tr);
 
         for (std::size_t i = 0; i < objfile.GetCountTriangle(); i++)
         {
@@ -135,6 +137,8 @@ int main ( int argc, char ** argv )
                 ln[0].settings(light_pos, light01_a, light01_s, light01_d);
                 sc.AddLight (ln);
         }
+
+	*/
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

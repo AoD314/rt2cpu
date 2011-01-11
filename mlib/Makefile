@@ -1,7 +1,8 @@
 
 CC=g++
 
-flags=-O0 -msse3 -msse4.2 -g -Wall -fPIC -fopenmp
+flags=-msse3 -msse4.2 -g -ggdb -fPIC
+#flags=-g -openmp -fast -axS
 
 version=0.1
 

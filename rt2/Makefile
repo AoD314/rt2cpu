@@ -1,12 +1,12 @@
 
 CC=g++
 
-flags=-O0 -msse3 -msse4.2 -g -ggdb -I../mlib
+flags=-msse3 -msse4.2 -g -ggdb -I../mlib
 
 all: rt2cpu
 
 rt2cpu: all_obj.o boundingvolume.o bvh-aabb.o camera.o engine.o lights.o main.o material.o primitives.o pr_mesh.o pr_plane.o pr_sphere.o pr_triangle.o ray.o scene.o settings.o smath.o texture.o 
-	$(CC) $(flags) ../build/all_obj.o ../build/boundingvolume.o ../build/bvh-aabb.o ../build/camera.o ../build/engine.o ../build/lights.o ../build/main.o ../build/material.o ../build/primitives.o ../build/pr_mesh.o ../build/pr_plane.o ../build/pr_sphere.o ../build/pr_triangle.o ../build/ray.o ../build/scene.o ../build/settings.o ../build/smath.o ../build/texture.o -lgomp -lSDL -lmlib -L../build/
+	$(CC) $(flags) ../build/all_obj.o ../build/boundingvolume.o ../build/bvh-aabb.o ../build/camera.o ../build/engine.o ../build/lights.o ../build/main.o ../build/material.o ../build/primitives.o ../build/pr_mesh.o ../build/pr_plane.o ../build/pr_sphere.o ../build/pr_triangle.o ../build/ray.o ../build/scene.o ../build/settings.o ../build/smath.o ../build/texture.o -lgomp -lSDL -lmlib -L../build/ -o ../build/rt2cpu
 
 
 all_obj.o: all_obj.cpp all_obj.hpp
