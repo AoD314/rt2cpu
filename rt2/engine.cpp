@@ -195,7 +195,7 @@ namespace engine
                 if ( threads > 0 )
                         omp_set_num_threads ( threads );
 
-                const int AA = 1;
+                const int AA = 4;
                 const int NN = AA * AA;
 
                 //time.Start();
@@ -275,6 +275,7 @@ namespace engine
                                         color = color / static_cast<float>(NN);
 
                                         vbuf[(j - (p - 1) * height / parts) * width + i] += ToColor(color);
+					//std::cout << "\ncolor: "<< ToColor(color) << "\n";
                                 }
                         }
                 }

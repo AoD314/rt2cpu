@@ -147,8 +147,8 @@ namespace mlib
 
             inline void clamp(float min, float max)
             {
-                data = _mm_min_ps(_mm_set1_ps(min), data);
-                data = _mm_max_ps(_mm_set1_ps(max), data);
+                data = _mm_min_ps(_mm_set1_ps(max), data);
+                data = _mm_max_ps(_mm_set1_ps(min), data);
             }
 
         };

@@ -42,11 +42,12 @@ namespace mlib
 
                 else if (str == "f")
                 {
-                    infile	>> vi[0];
-                    infile	>> vi[1];
-                    infile	>> vi[2];
+		    int t; char c;
+                    infile	>> vi[0] >> c >> c >> t;
+                    infile	>> vi[1] >> c >> c >> t;
+                    infile	>> vi[2] >> c >> c >> t;
                     f.push_back(vi);
-                    //fn.push_back (t);
+                    fn.push_back (t);
                 }
             }
         }

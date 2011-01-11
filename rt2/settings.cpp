@@ -10,19 +10,19 @@ Settings::Settings (int argc, char ** argv)
 
     lights   = params.get("--lights  | -l", 1);
     depth    = params.get("--depth   | -d", 4);
-    threads  = params.get("--threads | -t", 12);
+    threads  = params.get("--threads | -t", 1);
     width    = params.get("--width   | -w", 512);
     height   = params.get("--height  | -h", 512);
 
-    count_frame = params.get<size_t>("--frame    | -f", 8);
-    depth_bvh   = params.get<size_t>("--depthBVH | -dt", 4);
+    count_frame = params.get<size_t>("--frame    | -f",  8);
+    depth_bvh   = params.get<size_t>("--depthBVH | -dt", 6);
 
     benchmark_mode = params.has("--benchmark | -b");
     active_event   = params.has("--event     | -e");
     file_write     = params.has("--saveimg   | -s");
     quiet_mode     = params.has("--quiet     | -q");
 
-    path_to_objfile = params.get<std::string>("--obj | -o", "./my_stul.obj");
+    path_to_objfile = params.get<std::string>("--obj | -o", "./my_cube.obj");
 
     is_exit = false;
 

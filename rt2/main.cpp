@@ -54,19 +54,19 @@ int main ( int argc, char ** argv )
         // init camera
 
         vec4 cam_pos(3.0f , 0.0f , 2.0f , 0.0f);
-        vec4 cam_dir(0.0f , 0.0f , 0.0f , 0.0f);
+        vec4 cam_dir(1.0f , 1.0f , 1.0f , 0.0f);
         vec4 cam_upd(3.0f , 0.0f , 3.0f , 0.0f);
 
         Camera cam (cam_pos, cam_dir, cam_upd, settings.width, settings.height, 3.14159265f / 3.0f);
 
         // material
 
-        vec4 mat_amb(0.15f , 0.15f , 0.15f , 0.0f);
-        vec4 mat_spc(0.75f , 0.75f , 0.75f , 0.0f);
-        vec4 mat_dif(0.95f , 0.95f , 0.95f , 0.0f);
+        vec4 mat_amb(0.05f , 0.05f , 0.05f , 0.0f);
+        vec4 mat_spc(0.65f , 0.65f , 0.65f , 0.0f);
+        vec4 mat_dif(0.85f , 0.85f , 0.85f , 0.0f);
         vec4 mat_rf2(0.35f , 0.35f , 0.35f , 0.0f);
 
-        vec4 Red(1, 1, 1, 0);
+        vec4 Red(1, 0, 0, 0);
         TextureColor tcred(Red);
         MaterialSimple mtrRed;
         mtrRed.AddTexture(&tcred);
@@ -87,30 +87,23 @@ int main ( int argc, char ** argv )
         Objfile objfile;
         objfile.read (settings.path_to_objfile);
 
-        //std::cout << "done\nCount triangles: " << objfile.GetCountTriangle ();
-        //std::cout.flush ();
+        std::cout << "done\nCount triangles: " << objfile.GetCountTriangle ();
+        std::cout.flush ();
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	/*
+	
         vec4 v0, v1, v2, n;
         
-	size_t count_tr = objfile.GetCountTriangle();
-		
-        Triangle * tr = new_memory<Triangle> (count_tr);
+        Triangle * tr = new_memory<Triangle> (objfile.GetCountTriangle());
 
-        for (std::size_t i = 0; i < objfile.GetCountTriangle(); i++)
+	for (std::size_t i = 0; i < objfile.GetCountTriangle(); i++)
         {
-		std::cout << "\ni:" << i;
-		std::cout.flush();
-
                 v0 = objfile.GetPointInTriangle (i, 0);
                 v1 = objfile.GetPointInTriangle (i, 1);
                 v2 = objfile.GetPointInTriangle (i, 2);
                 n  = objfile.GetNormalForTriangle (i);
 		
-		std::cout << "\nget 3 point"; std::cout.flush();
-
                 tr[i].SetCoordinate (v0,v1,v2);
                 tr[i].SetMaterial (&mtrRed);
                 tr[i].SetNormal (n);
@@ -120,7 +113,8 @@ int main ( int argc, char ** argv )
 
         std::cout << "\nProgress: 100%";
         std::cout.flush ();
-
+	
+	
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         vec4 light01_a (0.05f/(float)settings.lights , 0.05f/(float)settings.lights , 0.05f/(float)settings.lights , 0.0f);
@@ -138,9 +132,7 @@ int main ( int argc, char ** argv )
                 sc.AddLight (ln);
         }
 
-	*/
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// init SDL ///
 

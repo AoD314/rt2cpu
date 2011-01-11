@@ -1,7 +1,7 @@
 
 CC=g++
 
-flags=-msse3 -msse4.2 -g -ggdb -fPIC
+flags=-msse3 -msse4.2 -g -ggdb -fPIC -fopenmp
 #flags=-g -openmp -fast -axS
 
 version=0.1

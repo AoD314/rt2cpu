@@ -1,7 +1,7 @@
 
 CC=g++
 
-flags=-msse3 -msse4.2 -g -ggdb -I../mlib
+flags=-msse3 -msse4.2 -g -ggdb -I../mlib -fopenmp
 
 all: rt2cpu
 

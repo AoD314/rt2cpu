@@ -1,10 +1,10 @@
 
 import os
 
-#num_cpu = int(os.environ.get('NUM_CPU', 12))
-#SetOption('num_jobs', num_cpu)
+num_cpu = int(os.environ.get('NUM_CPU', 12))
+SetOption('num_jobs', num_cpu)
 
-env = Environment(CC = 'g++', CCFLAGS = '-msse3 -msse4.2 -fopenmp')
+env = Environment(CC = 'g++', CCFLAGS = '-msse3 -msse4.2 -fopenmp -g -ggdb')
 
 mlib_src = Glob('mlib/*.cpp')
 rt2_src = Glob('rt2/*.cpp')

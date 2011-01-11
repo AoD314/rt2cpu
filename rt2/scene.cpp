@@ -24,8 +24,6 @@ namespace scene
 
         void Scene::allocate_p(std::size_t new_size)
         {
-		std::cout << "\ncall allocate_p(" << new_size << ");"; std::cout.flush();
-
                 obj_size = new_size;
 
                 Primitives** temp;
@@ -184,7 +182,6 @@ namespace scene
 
         void Scene::AddPrimitives ( Primitives* p )
         {
-		std::cout << "\nAddPrimitives ();"; std::cout.flush();
                 obj_count++;
 
                 if (obj_count >= obj_size)

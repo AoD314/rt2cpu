@@ -97,9 +97,9 @@ namespace primitives
         {
                 Primitives * p = 0;
 
-                float near, far;
+                //float near, far;
 
-                if (node->bv.is_crossing_r (r, near, far) == false) return 0;
+                //if (node->bv.is_crossing_r (r, near, far) == false) return 0;
 
                 if (node->left != 0)
                         p = BoxCrossing (r,point, node->left);

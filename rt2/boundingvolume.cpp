@@ -18,35 +18,35 @@ namespace primitives
 
         BoundingVolume BoundingVolume::split(std::size_t num)
         {
-                vec4 delta = point_max - point_min;
+                vec4 bv_size = point_max - point_min;
 
-                float max = Abs (delta[0]);
+                float max = Abs(bv_size[0]);
                 int os = 0;
 
-                if ( Abs (delta[1]) > max)
+                if ( Abs(bv_size[1]) > max)
                 {
-                        max =  Abs (delta[1]);
+                        max = Abs(bv_size[1]);
                         os = 1;
                 }
 
-                if ( Abs (delta[2]) > max)
+                if ( Abs(bv_size[2]) > max)
                 {
-                        max =  Abs (delta[2]);
+                        max =  Abs(bv_size[2]);
                         os = 2;
                 }
 
                 max /= 2;
 
-                delta.set1(max);
+                bv_size(os, max);
 
-                BoundingVolume b1(point_min, point_min + delta);
+                BoundingVolume b1(point_min, point_min + bv_size);
 
-                delta(0, 0.0f);
-                delta(1, 0.0f);
-                delta(2, 0.0f);
-                delta(os, max);
+                bv_size(0, 0.0f);
+                bv_size(1, 0.0f);
+                bv_size(2, 0.0f);
+                bv_size(os, max);
 
-                BoundingVolume b2(point_min + delta, point_max);
+                BoundingVolume b2(point_min + bv_size, point_max);
 
                 if (num == 0)
                         return b1;
@@ -59,7 +59,6 @@ namespace primitives
                 vec4 p0_min, p0_max;
                 p0_max = bv.point_min;
                 p0_min = bv.point_max;
-
                 return true;
         }
 
