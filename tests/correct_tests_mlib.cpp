@@ -77,10 +77,30 @@ bool test_mlib_fixed_vector_complex_add()
 	return e[0] == 6.0f && e[1] == 7.0f && e[2] == 2.0f && e[3] == -1.0f;
 }
 
+bool test_mlib_fixed_vector_add_and_sub()
+{
+	vec4 a (1.0f, 1.0f, 1.0f, 1.0f);
+	vec4 b (2.0f, 2.0f, 2.0f, 2.0f);
+	vec4 c (2.0f, 1.0f, 2.0f, 1.0f);
+	vec4 d (1.0f, 3.0f, -3.0f, -5.0f);
+	vec4 e = b - a - c + d;
+	return e[0] == 0.0f && e[1] == 3.0f && e[2] == -4.0f && e[3] == -5.0f;
+}
+
+bool test_mlib_fixed_vector_mul()
+{
+	vec4 a (1.0f, 2.0f, 3.0f,  3.0f);
+	vec4 b (2.0f, 2.0f, 1.0f, -3.0f);
+	vec4 c = a * b;
+	return c[0] == 2.0f && c[1] == 4.0f && c[2] == 3.0f && c[3] == -9.0f;
+}
+
+
+
 /*
 bool test_mlib_fixed_vector_()
 {
-	return true;
+	return [0] == .0f && [1] == .0f && [2] == .0f && [3] == .0f;
 }
 */
 
@@ -112,6 +132,8 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_fixed_vector_double_add,     "mlib_fixed_vector_double_add")
 	TEST (test_mlib_fixed_vector_complex_add,    "mlib_fixed_vector_complex_add")
 	TEST (test_mlib_fixed_vector_sub,            "mlib_fixed_vector_sub")
+	TEST (test_mlib_fixed_vector_add_and_sub,    "mlib_fixed_vector_add_and_sub")
+	TEST (test_mlib_fixed_vector_mul,            "mlib_fixed_vector_mul")
 
 	timer.Stop();
 	
