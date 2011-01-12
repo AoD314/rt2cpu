@@ -95,6 +95,30 @@ bool test_mlib_fixed_vector_mul()
 	return c[0] == 2.0f && c[1] == 4.0f && c[2] == 3.0f && c[3] == -9.0f;
 }
 
+bool test_mlib_fixed_vector_complex_mul()
+{
+	vec4 a (1.0f, 2.0f,  3.0f,  3.0f);
+	vec4 b (2.0f, 2.0f,  1.0f, -3.0f);
+	vec4 c (1.0f, 3.0f, -2.0f, -2.0f);
+	vec4 d = a * b * c;
+	return d[0] == 2.0f && d[1] == 12.0f && d[2] == -6.0f && d[3] == 18.0f;
+}
+
+bool test_mlib_fixed_vector_mul_num()
+{
+	vec4 a (1.0f, 2.0f,  3.0f, -1.0f);
+	vec4 b = a * 3.0f;
+	return b[0] == 3.0f && b[1] == 6.0f && b[2] == 9.0f && b[3] == -3.0f;
+}
+
+bool test_mlib_fixed_vector_complex_mul_num()
+{
+	vec4 a (2.0f, 2.0f,  5.0f, -2.0f);
+	vec4 b (1.0f, 0.0f,  2.0f, -1.0f);
+	vec4 c = 2.0f * a - 3.0f * b;
+	return c[0] == 1.0f && c[1] == 4.0f && c[2] == 4.0f && c[3] == -1.0f;
+}
+
 
 
 /*
@@ -128,12 +152,15 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_long,    "mlib_long")
 	TEST (test_mlib_int,     "mlib_int")
 
-	TEST (test_mlib_fixed_vector_add,            "mlib_fixed_vector_add")
-	TEST (test_mlib_fixed_vector_double_add,     "mlib_fixed_vector_double_add")
-	TEST (test_mlib_fixed_vector_complex_add,    "mlib_fixed_vector_complex_add")
-	TEST (test_mlib_fixed_vector_sub,            "mlib_fixed_vector_sub")
-	TEST (test_mlib_fixed_vector_add_and_sub,    "mlib_fixed_vector_add_and_sub")
-	TEST (test_mlib_fixed_vector_mul,            "mlib_fixed_vector_mul")
+	TEST (test_mlib_fixed_vector_add,                      "mlib_fixed_vector_add")
+	TEST (test_mlib_fixed_vector_double_add,               "mlib_fixed_vector_double_add")
+	TEST (test_mlib_fixed_vector_complex_add,              "mlib_fixed_vector_complex_add")
+	TEST (test_mlib_fixed_vector_sub,                      "mlib_fixed_vector_sub")
+	TEST (test_mlib_fixed_vector_add_and_sub,              "mlib_fixed_vector_add_and_sub")
+	TEST (test_mlib_fixed_vector_mul,                      "mlib_fixed_vector_mul")
+	TEST (test_mlib_fixed_vector_complex_mul,              "mlib_fixed_vector_complex_mul")
+	TEST (test_mlib_fixed_vector_mul_num,                  "mlib_fixed_vector_mul_num")
+	TEST (test_mlib_fixed_vector_complex_mul_num,          "mlib_fixed_vector_complex_mul_num")
 
 	timer.Stop();
 	
