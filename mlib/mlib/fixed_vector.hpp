@@ -6,282 +6,270 @@
 #include <math.h>
 #include <iostream>
 
+#include <xmmintrin.h>
+#include <mmintrin.h>
+#include <pmmintrin.h>
+#include <smmintrin.h>
+
 namespace mlib
 {
-        ///////////////////////////////
-        ///////// control sse /////////
-        ///////////////////////////////
+	///////////////////////////////
 
-        #include <xmmintrin.h>
-        #include <mmintrin.h>
-        #include <pmmintrin.h>
-        #include <smmintrin.h>
+	#ifndef WIN32
+		#define _align_ __attribute__((aligned(16)))
+	#else
+		#define _align_ __declspec(align(16))
+	#endif
 
-        ///////////////////////////////
-        ///////////////////////////////
-        ///////////////////////////////
+	///////////////////////////////
 
-        #ifndef WIN32
-                #define _align_ __attribute__((aligned(16)))
-        #else
-                #define _align_ __declspec(align(16))
-        #endif
+	template <typename Left, typename Op, typename Right>
+	struct X;
 
-        ///////////////////////////////
-        ///////////////////////////////
-        ///////////////////////////////
+	///////////////////////////////
 
-        template <typename Left, typename Op, typename Right>
-        struct X;
+	struct vec4
+	{
+		_align_ __m128 data;
 
-        ///////////////////////////////
-        ///////////////////////////////
-        ///////////////////////////////
+		template<typename Left, typename Op, typename Right >
+		vec4 (const X<Left, Op, Right> & expression)
+		{
+			data = expression();
+		}
 
-        struct vec4
-        {
-            _align_ __m128 data;
+		vec4 ()
+		{
+			data = _mm_set1_ps(0.0f);
+		}
 
-            template<typename Left, typename Op, typename Right >
-            vec4 (const X<Left, Op, Right> & expression)
-            {
-                data = expression();
-            }
+		void set1(const float val)
+		{
+			data = _mm_set1_ps(val);
+		}
 
-            vec4 ()
-            {
-                data = _mm_set1_ps(0.0f);
-            }
+		vec4 (const float val)
+		{
+			set1(val);
+		}
 
-            void set1(const float val)
-            {
-                data = _mm_set1_ps(val);
-            }
+		void set (float x, float y, float z, float w)
+		{
+			data = _mm_setr_ps(x,y,z,w);
+		}
 
-            vec4 (const float val)
-            {
-                set1(val);
-            }
+		vec4 (float x, float y, float z, float w)
+		{
+			set(x,y,z,w);
+		}
 
-            void set (float x, float y, float z, float w)
-            {
-                data = _mm_setr_ps(x,y,z,w);
-            }
+		vec4 (const vec4 & v)
+		{
+			data = v.data;
+		}
 
-            vec4 (float x, float y, float z, float w)
-            {
-                set(x,y,z,w);
-            }
+		vec4 (const __m128 d)
+		{
+			data = d;
+		}
 
-            vec4 (const vec4 & v)
-            {
-                data = v.data;
-            }
+		inline vec4(const float * data_a)
+		{
+			data = _mm_load1_ps(data_a);
+		}
 
-            vec4 (const __m128 d)
-            {
-                data = d;
-            }
+		template<typename Left, typename Op, typename Right>
+		inline void operator = (const X<Left, Op, Right>& expression)
+		{
+			data = expression();
+		}
 
-            inline vec4(const float * data_a)
-            {
-                data = _mm_load1_ps(data_a);
-            }
+		inline void operator = (const vec4 & val)
+		{
+			data = val.data;
+		}
 
-            template<typename Left, typename Op, typename Right>
-            inline void operator = (const X<Left, Op, Right>& expression)
-            {
-                data = expression();
-            }
+		template<typename Left, typename Op, typename Right>
+		inline void operator += (const X<Left, Op, Right>& expression)
+		{
+			data = _mm_add_ps(data, expression());
+		}
 
-            inline void operator = (const vec4 & val)
-            {
-                data = val.data;
-            }
+		template<typename Left, typename Op, typename Right>
+		inline void operator -= (const X<Left, Op, Right>& expression)
+		{
+			data = _mm_sub_ps(data, expression());
+		}
 
-            template<typename Left, typename Op, typename Right>
-            inline void operator += (const X<Left, Op, Right>& expression)
-            {
-                data = _mm_add_ps(data, expression());
-            }
+		inline float operator[] (size_t i) const
+		{
+			_align_ float d[4];
+			_mm_store_ps(&d[0], data);
+			return d[i];
+		}
 
-            template<typename Left, typename Op, typename Right>
-            inline void operator -= (const X<Left, Op, Right>& expression)
-            {
-                data = _mm_sub_ps(data, expression());
-            }
+		inline void operator() (size_t i, float val)
+		{
+			_align_ float d[4];
+			_mm_store_ps(&d[0], data);
+			d[i] = val;
+			data = _mm_load1_ps(&d[0]);
+		}
 
-            inline float operator[] (std::size_t i) const
-            {
-                _align_ float d[4];
-                _mm_store_ps(&d[0], data);
-                return d[i];
-            }
+		inline void zero()
+		{
+			data = _mm_set1_ps(0.0f);
+		}
 
-            inline void operator() (std::size_t i, float val)
-            {
-                _align_ float d[4];
-                _mm_store_ps(&d[0], data);
-                d[i] = val;
-                data = _mm_load1_ps(&d[0]);
-            }
+		inline void one()
+		{
+			data = _mm_set1_ps(1.0f);
+		}
 
-            inline void zero()
-            {
-                data = _mm_set1_ps(0.0f);
-            }
+		inline void normalize()
+		{
+			__m128 m = _mm_dp_ps(data, data, 0xFF);
+			_align_ float d[4];
+			_mm_store_ps(&d[0], m);
+			d[0] = 1.0 / sqrt(d[0]);
+			data = _mm_mul_ps(data, _mm_set1_ps(d[0]));
+		}
 
-            inline void one()
-            {
-                data = _mm_set1_ps(1.0f);
-            }
+		inline void clamp(float min, float max)
+		{
+			data = _mm_min_ps(_mm_set1_ps(max), data);
+			data = _mm_max_ps(_mm_set1_ps(min), data);
+		}
+	};
 
-            inline void normalize()
-            {
-                __m128 m = _mm_dp_ps(data, data, 0xFF);
-                _align_ float d[4];
-                _mm_store_ps(&d[0], m);
-                d[0] = 1.0 / sqrt(d[0]);
-                data = _mm_mul_ps(data, _mm_set1_ps(d[0]));
-            }
+	///////////////////////////////////////////
+	/// - - - - - - Dot product - - - - - - ///
+	///////////////////////////////////////////
 
-            inline void clamp(float min, float max)
-            {
-                data = _mm_min_ps(_mm_set1_ps(max), data);
-                data = _mm_max_ps(_mm_set1_ps(min), data);
-            }
+	inline float dot(const vec4 & a, const vec4 & b)
+	{
+		_align_ float res;
+		_align_ __m128 m3;
+		m3 = _mm_dp_ps(a.data, b.data, 0xF1);
+		_mm_store_ss(&res, m3);
+		return res;
+	}
 
-        };
+	template <typename Left, typename Op, typename Right>
+	inline float dot(const vec4 & a, const X<Left, Op, Right> & b)
+	{
+		return dot( a, vec4(b) );
+	}
 
-        ///////////////////////////////////////////
-        /// - - - - - - Dot product - - - - - - ///
-        ///////////////////////////////////////////
+	template <typename Left, typename Op, typename Right>
+	inline float dot(const X<Left, Op, Right> & a, const vec4 & b)
+	{
+		return dot(vec4(a), b);
+	}
 
-        inline float dot(const vec4 & a, const vec4 & b)
-        {
-            _align_ float res;
-            _align_ __m128 m3;
-            m3 = _mm_dp_ps(a.data, b.data, 0xF1);
-            _mm_store_ss(&res, m3);
-            return res;
-        }
+	template <typename Left1, typename Left2, typename Op1, typename Op2, typename Right1, typename Right2>
+	inline float dot(const X<Left1, Op1, Right1> & a, const X<Left2, Op2, Right2> & b)
+	{
+		return dot(vec4 (a), vec4 (b));
+	}
 
-        template <typename Left, typename Op, typename Right>
-        inline float dot(const vec4 & a, const X<Left, Op, Right> & b)
-        {
-            return dot( a, vec4(b) );
-        }
+	///////////////////////////////////////////
+	/// - - - - - - Normalize - - - - - - - ///
+	///////////////////////////////////////////
 
-        template <typename Left, typename Op, typename Right>
-        inline float dot(const X<Left, Op, Right> & a, const vec4 & b)
-        {
-            return dot(vec4(a), b);
-        }
+	inline vec4 normalize(const vec4 & a)
+	{
+		vec4 v(a);
+		v.normalize();
+		return v;
+	}
 
-        template <typename Left1, typename Left2, typename Op1, typename Op2, typename Right1, typename Right2>
-        inline float dot(const X<Left1, Op1, Right1> & a, const X<Left2, Op2, Right2> & b)
-        {
-            return dot(vec4 (a), vec4 (b));
-        }
+	template <typename Left, typename Op, typename Right>
+	inline vec4 normalize(const X<Left, Op, Right> & a)
+	{
+		return normalize( vec4(a) );
+	}
 
-        ///////////////////////////////////////////
-        /// - - - - - - Normalize - - - - - - - ///
-        ///////////////////////////////////////////
+	///////////////////////////////////////////
+	/// - - - - - - std::ostream& - - - - - ///
+	///////////////////////////////////////////
 
-        inline vec4 normalize(const vec4 & a)
-        {
-            vec4 v(a);
-            v.normalize();
-            return v;
-        }
+	inline std::ostream & operator << ( std::ostream& out, const vec4 & x )
+	{
+		_align_ float v[4];
+		_mm_store_ps(v, x.data);
 
-        template <typename Left, typename Op, typename Right>
-        inline vec4 normalize(const X<Left, Op, Right> & a)
-        {
-            return normalize( vec4(a) );
-        }
+		for (size_t i = 0; i < 4; i++)
+			out << v[i] << " ";
+		return out;
+	}
 
-        ///////////////////////////////////////////
-        /// - - - - - - std::ostream& - - - - - ///
-        ///////////////////////////////////////////
+	///////////////////////////////////////////
+	/// - - - - - - CalcDistance - - - - - -///
+	///////////////////////////////////////////
 
-        inline std::ostream & operator << ( std::ostream& out, const vec4 & x )
-        {
-            float v[4];
-            _mm_store_ps(v, x.data);
+	inline float calc_distance(const vec4 & a, const vec4 & b)
+	{
+		__m128 r = _mm_sub_ps(a.data, b.data);
+		return sqrt(dot(r, r));
+	}
 
-            for (size_t i = 0; i < 4; i++)
-                    out << v[i] << " ";
-            return out;
-        }
+	template <typename Left, typename Op, typename Right>
+	inline float calc_distance(const X<Left, Op, Right> & a, const X<Left, Op, Right> & b)
+	{
+		return calc_distance(vec4(a), vec4(b));
+	}
 
-        ///////////////////////////////////////////
-        /// - - - - - - CalcDistance - - - - - -///
-        ///////////////////////////////////////////
+	template <typename Left, typename Op, typename Right>
+	inline float calc_distance(const X<Left, Op, Right> & a, const vec4 & b)
+	{
+		return calc_distance(vec4(a), b);
+	}
 
-        inline float  calc_distance(const vec4 & a, const vec4 & b)
-        {
-            __m128 r = _mm_sub_ps(a.data, b.data);
-            return sqrt(dot(r, r));
-        }
+	template <typename Left, typename Op, typename Right>
+	inline float calc_distance(const vec4 & a, const X<Left, Op, Right> & b)
+	{
+		return calc_distance(a, vec4(b));
+	}
 
-        template <typename Left, typename Op, typename Right>
-        inline float  calc_distance(const X<Left, Op, Right> & a, const X<Left, Op, Right> & b)
-        {
-                return calc_distance(vec4(a), vec4(b));
-        }
+	///////////////////////////////////////////
+	/// - - - - - - - Cross - - - - - - - - ///
+	///////////////////////////////////////////
 
-        template <typename Left, typename Op, typename Right>
-        inline float calc_distance(const X<Left, Op, Right> & a, const vec4 & b)
-        {
-                return calc_distance(vec4(a), b);
-        }
+	inline vec4 cross(const vec4 & v1, const vec4 & v2)
+	{
+		__m128 a, b, c;
 
-        template <typename Left, typename Op, typename Right>
-        inline float  calc_distance(const vec4 & a, const X<Left, Op, Right> & b)
-        {
-                return calc_distance(a, vec4(b));
-        }
+		a = _mm_shuffle_ps(v1.data, v1.data, 0xC9); /// 11 00 10 01
+		b = _mm_shuffle_ps(v2.data, v2.data, 0xD2); /// 11 01 00 10
+		c = _mm_mul_ps(a, b);
 
-        ///////////////////////////////////////////
-        /// - - - - - - - Cross - - - - - - - - ///
-        ///////////////////////////////////////////
+		a = _mm_shuffle_ps(v1.data, v1.data, 0xD2); /// 11 01 00 10
+		b = _mm_shuffle_ps(v2.data, v2.data, 0xC9); /// 11 00 10 01
+		a = _mm_mul_ps(a, b);
 
-        inline vec4 cross(const vec4 & v1, const vec4 & v2)
-        {
-                __m128 a, b, c;
+		c = _mm_sub_ps(c, a);
 
-                a = _mm_shuffle_ps(v1.data, v1.data, 0xC9); /// 11 00 10 01
-                b = _mm_shuffle_ps(v2.data, v2.data, 0xD2); /// 11 01 00 10
-                c = _mm_mul_ps(a, b);
+		return c;
+	}
 
-                a = _mm_shuffle_ps(v1.data, v1.data, 0xD2); /// 11 01 00 10
-                b = _mm_shuffle_ps(v2.data, v2.data, 0xC9); /// 11 00 10 01
-                a = _mm_mul_ps(a, b);
+	template <typename Left, typename Op, typename Right>
+	inline vec4 cross(const X<Left, Op, Right> & v1, const X<Left, Op, Right> & v2)
+	{
+		return cross(vec4(v1), vec4(v2));
+	}
 
-                c = _mm_sub_ps(c, a);
+	template <typename Left, typename Op, typename Right>
+	inline vec4 cross(const X<Left, Op, Right> & v1, const vec4 & v2)
+	{
+		return cross(vec4(v1), v2);
+	}
 
-                return c;
-        }
-
-        template <typename Left, typename Op, typename Right>
-        inline vec4 cross(const X<Left, Op, Right> & v1, const X<Left, Op, Right> & v2)
-        {
-            return cross(vec4(v1), vec4(v2));
-        }
-
-        template <typename Left, typename Op, typename Right>
-        inline vec4 cross(const X<Left, Op, Right> & v1, const vec4 & v2)
-        {
-                return cross(vec4(v1), v2);
-        }
-
-        template <typename Left, typename Op, typename Right>
-        inline vec4 cross(const vec4 & v1, const X<Left, Op, Right> & v2)
-        {
-                return cross(v1, vec4(v2));
-        }
-
+	template <typename Left, typename Op, typename Right>
+	inline vec4 cross(const vec4 & v1, const X<Left, Op, Right> & v2)
+	{
+		return cross(v1, vec4(v2));
+	}
 
         ///////////////////////////////////////////
         /// - - - - - - - ToColor - - - - - - - ///
