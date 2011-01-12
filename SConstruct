@@ -12,7 +12,7 @@ rt2_src = Glob('rt2/*.cpp')
 tests_src = ['tests/correct_tests_mlib.cpp']
 perf_src = ['tests/performance_tests_mlib.cpp']
 
-env.SharedLibrary('./build/mlib.so', mlib_src)
+perf.SharedLibrary('./build/mlib.so', mlib_src)
 
 perf.Program('./build/rt2cpu', rt2_src, CPPPATH='./mlib/', LIBS=['SDL', 'gomp', 'mlib'], LIBPATH='./build')
 env.Program('./build/correct_tests_mlib', tests_src, CPPPATH='./mlib/', LIBS=['gomp', 'mlib'], LIBPATH='./build')

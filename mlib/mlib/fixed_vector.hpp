@@ -89,6 +89,14 @@ namespace mlib
 			data = val.data;
 		}
 
+		inline bool operator >= (const vec4& val)
+		{
+			_align_ __m128 cmp = _mm_cmpge_ps(data, val.data);
+			_align_ float d[4];
+			_mm_store_ps(&d[0], cmp);
+			return d[0] == d[1] && d[1] == d[2] && d[2] == d[3] && d[3] == d[4] && d[4] == 0xffffffff;
+		}
+
 		template<typename Left, typename Op, typename Right>
 		inline void operator += (const X<Left, Op, Right>& expression)
 		{
@@ -116,14 +124,9 @@ namespace mlib
 			data = _mm_load1_ps(&d[0]);
 		}
 
-		inline void zero()
+		static inline vec4 zero()
 		{
-			data = _mm_set1_ps(0.0f);
-		}
-
-		inline void one()
-		{
-			data = _mm_set1_ps(1.0f);
+			return vec4(0.0f);
 		}
 
 		inline void normalize()
