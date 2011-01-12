@@ -46,12 +46,17 @@ bool test_mlib_fixed_vector_add()
 	vec4 a (1.0f, 2.0f, 3.0f, 4.0f);
 	vec4 b (4.0f, 3.0f, 2.0f, 1.0f);
 	vec4 c = a + b;
-	
-	vec4 d;
 
-	d.set1(5.0f);
+	return  c[0] == 5.0f && c[1] == 5.0f && c[2] == 5.0f && c[3] == 5.0f;
+}
 
-	return  Abs(dot(c - d, d - c)) <= 0.0000001f ;
+bool test_mlib_fixed_vector_sub()
+{
+	vec4 a (3.0f, 3.0f, 3.0f, 3.0f);
+	vec4 b (a);
+	vec4 c = a - b;
+
+	return  c[0] == 0.0f && c[1] == 0.0f && c[2] == 0.0f && c[3] == 0.0f;
 }
 
 int main(int argc, char ** argv)
@@ -79,6 +84,7 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_int,     "mlib_int")
 
 	TEST (test_mlib_fixed_vector_add,     "mlib_fixed_vector_add")
+	TEST (test_mlib_fixed_vector_sub,     "mlib_fixed_vector_sub")
 
 	timer.Stop();
 	
