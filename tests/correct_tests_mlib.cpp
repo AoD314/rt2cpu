@@ -201,14 +201,19 @@ bool test_mlib_fixed_vector_cross()
 	return c[0] == 8.0f && c[1] == 6.0f && c[2] == -4.0f && c[3] == 0.0f;
 }
 
-
-
 bool test_mlib_min_and_max()
 {
-	int a = 1;
-	int b = 2;
-	int c = 3;
-	return min(a,b) == 1 && max(b,c) == 3;
+	return min(3,4) == 3 && max(4,5) == 5;
+}
+
+bool test_mlib_min_and_max_vec()
+{
+	vec4 a ( 1.0f, 2.0f, 3.0f, 4.0f );
+	vec4 b ( 4.0f, 3.0f, 2.0f, 1.0f );
+	vec4 mn = min(a,b);
+	vec4 mx = max(a,b);
+	return  mn[0] == 1.0f && mn[1] == 2.0f && mn[2] == 2.0f && mn[3] == 1.0f &&
+		mx[0] == 4.0f && mx[1] == 3.0f && mx[2] == 3.0f && mx[3] == 4.0f;
 }
 
 
@@ -263,7 +268,8 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_fixed_vector_calc_distance,            "mlib_fixed_vector_calc_distance")
 	TEST (test_mlib_fixed_vector_cross,                    "mlib_fixed_vector_cross")
 
-	TEST (test_mlib_min_and_max,        "mlib_min_and_max")
+	TEST (test_mlib_min_and_max,                  "mlib_min_and_max")
+	TEST (test_mlib_min_and_max_vec,              "mlib_min_and_max_vec")
 
 	timer.Stop();
 	
