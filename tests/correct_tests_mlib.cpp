@@ -132,11 +132,21 @@ bool test_mlib_fixed_vector_complex_operation()
 
 bool test_mlib_fixed_vector_dot()
 {
-	vec4 a ( 2.0f,  2.0f, 5.0f, -2.0f);
-	vec4 b ( 1.0f,  1.0f, 0.0f, 1.0f);
+	vec4 a ( -1.0f, 3.0f, 5.0f, -2.0f);
+	vec4 b (  3.0f, 7.0f, 0.0f,  1.0f);
 	float d = dot(a,b);
-	return d == 2.0f;
+	return d == 16.0f;
 }
+
+bool test_mlib_fixed_vector_complex_dot()
+{
+	vec4 a ( 2.0f,  2.0f, 5.0f, -3.0f);
+	vec4 b ( 1.0f,  1.0f, 0.0f,  1.0f);
+	vec4 c ( 2.0f, -1.0f, 2.0f,  2.0f);
+	float d = dot(2.0f * a, b + c);
+	return d == 14.0f;
+}
+
 
 /*
 bool test_mlib_fixed_vector_()
@@ -180,6 +190,7 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_fixed_vector_complex_mul_num,          "mlib_fixed_vector_complex_mul_num")
 	TEST (test_mlib_fixed_vector_complex_operation,        "mlib_fixed_vector_complex_operation")
 	TEST (test_mlib_fixed_vector_dot,                      "mlib_fixed_vector_dot")
+	TEST (test_mlib_fixed_vector_complex_dot,              "mlib_fixed_vector_complex_dot")
 
 	timer.Stop();
 	
