@@ -1,6 +1,4 @@
 
-
-
 #include "tests.hpp"
 #define TEST(method, label) print_result ( method(), label, total_tests, total_good_tests );
 
@@ -11,6 +9,8 @@
 #include <mlib/double.hpp>
 #include <mlib/long.hpp>
 #include <mlib/integer.hpp>
+#include <mlib/fixed_vector.hpp>
+#include <mlib/minmax.hpp>
 using namespace mlib;
 
 bool print_debug_info;
@@ -30,8 +30,8 @@ bool test_mlib_double()
 bool test_mlib_int()
 {
 	int i = Int::Parce("6");
-	std::string str = Int::ToString(i);
-	return str == "6";
+	std::string str = Int::ToString(i + 1);
+	return str == "7";
 }
 
 bool test_mlib_long()
@@ -39,6 +39,19 @@ bool test_mlib_long()
 	long l = Long::Parce("-7");
 	std::string str = Long::ToString(l);
 	return str == "-7";
+}
+
+bool test_mlib_fixed_vector_add()
+{
+	vec4 a (1.0f, 2.0f, 3.0f, 4.0f);
+	vec4 b (4.0f, 3.0f, 2.0f, 1.0f);
+	vec4 c = a + b;
+	
+	vec4 d;
+
+	d.set1(5.0f);
+
+	return  Abs(dot(c - d, d - c)) <= 0.0000001f ;
 }
 
 int main(int argc, char ** argv)
@@ -65,12 +78,15 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_long,    "mlib_long")
 	TEST (test_mlib_int,     "mlib_int")
 
+	TEST (test_mlib_fixed_vector_add,     "mlib_fixed_vector_add")
+
 	timer.Stop();
 	
 	std::cout.setf( std::ios::right );
 	std::cout       << "\n" << std::setfill('0') << std::setw(3) << total_good_tests << " / " << std::setw(3) << total_tests << " passed. " 
 			<< "       " << std::setw(3) << total_tests - total_good_tests <<  " errors.\n\n";
 	std::cout << "Time: " << std::fixed << std::setprecision(8) << timer.GetTimeInSeconds() << " sec. \n\n";
+
 	return 0;
 }
 
