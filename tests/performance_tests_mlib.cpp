@@ -34,12 +34,42 @@ bool performance_test_vector_add()
 	
 	unsigned long long t = timer.GetTimeInTick();
 
-	std::cout << "c : " << c << "\n";
+	std::cout << "vec : " << c << "\n";
 
 	std::cout << "time vector add(" << N << ") : " << t << " tick.\n";
 
 	return t < 3 * N;
 }
+
+bool performance_test_vector_big_add()
+{
+	vec4 a (1.0f, 2.0f, 33.0f, 4.0f);
+	vec4 b (2.0f, 3.0f, -4.0f, 5.0f);
+	vec4 c (2.0f, 5.0f, -2.0f, 5.0f);
+	vec4 d (2.0f, 6.0f, -3.0f, 5.0f);
+	vec4 e (2.0f, 7.0f, -4.0f, 5.0f);
+	vec4 f (2.0f, 8.0f, -8.0f, 5.0f);
+	vec4 g (2.0f, 0.0f, -9.0f, 5.0f);
+	vec4 h;
+
+	timer.Start();
+
+	for (size_t i = 0; i < N; i++)
+	{
+		h = a + b + c + d + e + f + g;
+	}
+
+	timer.Stop();
+	
+	unsigned long long t = timer.GetTimeInTick();
+
+	std::cout << "vec : " << h << "\n";
+
+	std::cout << "time vector add(" << N << ") : " << t << " tick.\n";
+
+	return t < 7 * N;
+}
+
 
 int main(int argc, char ** argv)
 {
@@ -59,7 +89,8 @@ int main(int argc, char ** argv)
 
 	std::cout << "Tests:\n";
 
-	TEST (performance_test_vector_add,   "performance_test_vector_add")
+	TEST (performance_test_vector_add,                 "performance_test_vector_add")
+	TEST (performance_test_vector_big_add,             "performance_test_vector_big_add")
 
 	std::cout.setf( std::ios::right );
 	std::cout       << "\n" << std::setfill('0') << std::setw(3) << total_good_tests << " / " << std::setw(3) << total_tests << " passed. " 
