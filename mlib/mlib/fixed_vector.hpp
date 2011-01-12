@@ -5,6 +5,7 @@
 #include "mmemory.hpp"
 #include <math.h>
 #include <iostream>
+#include <iomanip>
 
 #include <xmmintrin.h>
 #include <mmintrin.h>
@@ -94,7 +95,7 @@ namespace mlib
 			_align_ __m128 cmp = _mm_cmpge_ps(data, val.data);
 			_align_ float d[4];
 			_mm_store_ps(&d[0], cmp);
-			return d[0] == d[1] && d[1] == d[2] && d[2] == d[3] && d[3] == d[4] && d[4] == 0xffffffff;
+			return !(d[0] == d[1] && d[1] == d[2] && d[2] == d[3] && d[3] == d[4] && d[4] == 0x0);
 		}
 
 		template<typename Left, typename Op, typename Right>
@@ -203,7 +204,7 @@ namespace mlib
 		_mm_store_ps(v, x.data);
 
 		for (size_t i = 0; i < 4; i++)
-			out << v[i] << " ";
+			out << std::fixed << std::setprecision(8) << v[i] << " ";
 		return out;
 	}
 

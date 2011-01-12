@@ -45,7 +45,7 @@ bool performance_test_ray_cross_triangle_ok()
 
 		vec4 tuv = tmp * 1.0f / dot (p, e1);
 
-		if (tuv >= vec4::zero() && (tuv[1] + tuv[2] <= 1.0f))
+		if (tuv[0]>=0 && tuv[1]>=0 && tuv[2]>=0 && (tuv[1] + tuv[2] <= 1.0f))
 		{
 			count_tr++;
 			point = pos + tuv[0] * dir;
@@ -60,20 +60,20 @@ bool performance_test_ray_cross_triangle_ok()
 
 	std::cout << "time ray cross triangle(" << N << ") : " << t << " tick. = " << t / N << " tick per one operation\n";
 
-	return t < 314 * N;
+	return t <= 314 * N;
 }
 
 bool performance_test_vector_add()
 {
-	vec4 a (1.0f, 2.0f, 3.0f, 4.0f);
-	vec4 b (2.0f, 3.0f, 4.0f, 5.0f);
+	float rand = static_cast<float>(Rand::Next(1,100));
+	vec4 a (0.025f, 0.025f, 0.0075f, rand / 1000.0f);
 	vec4 c;
 
 	timer.Start();
 
 	for (size_t i = 0; i < N; i++)
 	{
-		c = a + b;
+		c = a + c;
 	}
 
 	timer.Stop();
@@ -84,25 +84,33 @@ bool performance_test_vector_add()
 
 	std::cout << "time vector add(" << N << ") : " << t << " tick. = " << t / N << " tick per one operation\n";
 
-	return t < 3 * N;
+	return t <= 5 * N;
 }
 
 bool performance_test_vector_big_add()
 {
-	vec4 a (1.0f, 2.0f, 33.0f, 4.0f);
-	vec4 b (2.0f, 3.0f, -4.0f, 5.0f);
-	vec4 c (2.0f, 5.0f, -2.0f, 5.0f);
-	vec4 d (2.0f, 6.0f, -3.0f, 5.0f);
-	vec4 e (2.0f, 7.0f, -4.0f, 5.0f);
-	vec4 f (2.0f, 8.0f, -8.0f, 5.0f);
-	vec4 g (2.0f, 0.0f, -9.0f, 5.0f);
+	float rand = static_cast<float>(Rand::Next(1,10)) / 1000000000.0f;
+	vec4 a (0.0f, 0.00f, 0.00f,  rand);
+	vec4 b (0.0f, 0.00f,  rand, 0.00f);
+	vec4 c (rand, 0.00f, 0.00f, 0.00f);
+	vec4 d (0.0f,  rand, 0.00f, 0.00f);
+	vec4 e (rand, 0.00f, 0.00f, 0.00f);
+	vec4 f (0.1f, -rand, 0.00f, 0.00f);
+	vec4 g (0.0f, 0.00f, -rand, 0.00f);
 	vec4 h;
 
 	timer.Start();
 
 	for (size_t i = 0; i < N; i++)
 	{
-		h = a + b + c + d + e + f + g;
+		a = a + b;
+		b = b + c;
+		c = c + d;
+		d = d + e;
+		e = e + f;
+		f = f + g;
+		g = g + h;
+		h = h + a;
 	}
 
 	timer.Stop();
@@ -113,7 +121,7 @@ bool performance_test_vector_big_add()
 	
 	std::cout << "time vector add(" << N << ") : " << t << " tick. = " << t / N << " tick per one operation\n";
 
-	return t < 7 * N;
+	return t <= 16 * N;
 }
 
 

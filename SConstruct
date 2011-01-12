@@ -15,7 +15,7 @@ perf_src = ['tests/performance_tests_mlib.cpp']
 perf.SharedLibrary('./build/mlib.so', mlib_src)
 
 perf.Program('./build/rt2cpu', rt2_src, CPPPATH='./mlib/', LIBS=['SDL', 'gomp', 'mlib'], LIBPATH='./build')
-env.Program('./build/correct_tests_mlib', tests_src, CPPPATH='./mlib/', LIBS=['gomp', 'mlib'], LIBPATH='./build')
+perf.Program('./build/correct_tests_mlib', tests_src, CPPPATH='./mlib/', LIBS=['gomp', 'mlib'], LIBPATH='./build')
 perf.Program('./build/performance_tests_mlib', perf_src, CPPPATH='./mlib/', LIBS=['gomp', 'mlib'], LIBPATH='./build')
 
 
