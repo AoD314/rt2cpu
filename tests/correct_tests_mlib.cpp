@@ -185,7 +185,31 @@ bool test_mlib_fixed_vector_normalize()
 	return b[0] == 0.0f && b[1] == 0.6f && b[2] == 0.8f && b[3] == 0.0f;
 }
 
+bool test_mlib_fixed_vector_calc_distance()
+{
+	vec4 a ( 0.0f,  3.0f, 4.0f, 0.0f);
+	vec4 b ( 1.0f, -2.0f, 1.0f, 1.0f);
+	float d = calc_distance( a , b );
+	return d == 6.0f;
+}
 
+bool test_mlib_fixed_vector_cross()
+{
+	vec4 a ( 2.0f,  0.0f,  4.0f, 2.0f);
+	vec4 b ( 1.0f, -2.0f, -1.0f, 1.0f);
+	vec4 c = cross ( a, b );
+	return c[0] == 8.0f && c[1] == 6.0f && c[2] == -4.0f && c[3] == 0.0f;
+}
+
+
+
+bool test_mlib_min_and_max()
+{
+	int a = 1;
+	int b = 2;
+	int c = 3;
+	return min(a,b) == 1 && max(b,c) == 3;
+}
 
 
 /*
@@ -236,6 +260,10 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_fixed_vector_to_color_rgb,             "mlib_fixed_vector_to_color_rgb")
 	TEST (test_mlib_fixed_vector_vec_normalize,            "mlib_fixed_vector_vec_normalize")
 	TEST (test_mlib_fixed_vector_normalize,                "mlib_fixed_vector_normalize")
+	TEST (test_mlib_fixed_vector_calc_distance,            "mlib_fixed_vector_calc_distance")
+	TEST (test_mlib_fixed_vector_cross,                    "mlib_fixed_vector_cross")
+
+	TEST (test_mlib_min_and_max,        "mlib_min_and_max")
 
 	timer.Stop();
 	
