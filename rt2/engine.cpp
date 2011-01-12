@@ -113,7 +113,7 @@ namespace engine
                         direct = (sc.GetLights ( i )->Position ( ) - point_cross);
                         direct.normalize();
 
-                        distance = CalcDistance ( sc.GetLights ( i )->Position ( ), point_cross );
+                        distance = calc_distance ( sc.GetLights ( i )->Position ( ), point_cross );
 
                         vec4 vtemp;
                         vtemp = point_cross + (direct * 0.0025f);
@@ -124,7 +124,7 @@ namespace engine
 
                         obj = sc.Crossing ( shadowray, point_shadow );
 
-                        distance -= CalcDistance ( point_shadow, point_cross );
+                        distance -= calc_distance ( point_shadow, point_cross );
 
                         if ( obj != 0 && distance > 0.0f ) shadow = 0.0f;
 
@@ -156,7 +156,7 @@ namespace engine
                                 //*/
                         }
 
-                        temp_dot = dot ( R.Direction ( ), Normalize( Reflect ( direct, normal ) ) );
+                        temp_dot = dot ( R.Direction ( ), normalize( Reflect ( direct, normal ) ) );
 
                         if ( temp_dot > 0.0f )
                         {
@@ -242,7 +242,7 @@ namespace engine
                                                         color.clamp(0.0f , 1.0f);
                                                         color = color / static_cast<float>(NN);
 
-                                                        vbuf[ii] += ToColor ( color );
+                                                        vbuf[ii] += to_color ( color );
                                                 }
                                         }
 
@@ -274,7 +274,7 @@ namespace engine
                                         color.clamp( 0.0f, 1.0f);
                                         color = color / static_cast<float>(NN);
 
-                                        vbuf[(j - (p - 1) * height / parts) * width + i] += ToColor(color);
+                                        vbuf[(j - (p - 1) * height / parts) * width + i] += to_color(color);
 					//std::cout << "\ncolor: "<< ToColor(color) << "\n";
                                 }
                         }

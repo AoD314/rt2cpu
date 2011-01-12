@@ -156,6 +156,20 @@ bool test_mlib_fixed_vector_calc_reflect()
 	return r[0] == -44.0f && r[1] == -53.0f && r[2] == 3.0f && r[3] == 61.0f;
 }
 
+bool test_mlib_fixed_vector_to_color_b()
+{
+	vec4 Ia ( 0.0f, 0.0f, 1.0f, 1.0f);
+	size_t color = to_color(Ia);
+	return color == 255;
+}
+
+bool test_mlib_fixed_vector_to_color_rgb()
+{
+	vec4 Ia ( 0.25f, 0.5f, 1.0f, 0.0f);
+	size_t color = to_color(Ia);
+	return color == 4161535;
+}
+
 
 
 /*
@@ -202,6 +216,8 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_fixed_vector_dot,                      "mlib_fixed_vector_dot")
 	TEST (test_mlib_fixed_vector_complex_dot,              "mlib_fixed_vector_complex_dot")
 	TEST (test_mlib_fixed_vector_calc_reflect,             "mlib_fixed_vector_calc_reflect")
+	TEST (test_mlib_fixed_vector_to_color_b,               "mlib_fixed_vector_to_color_b")
+	TEST (test_mlib_fixed_vector_to_color_rgb,             "mlib_fixed_vector_to_color_rgb")
 
 	timer.Stop();
 	

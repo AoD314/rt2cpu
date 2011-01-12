@@ -12,7 +12,7 @@ namespace primitives
 	Primitives::Primitives(vec4& _p, vec4& _d)
 	{
 		position = _p;
-		orientation = Normalize(_d);
+		orientation = normalize(_d);
 	}
 
 	Material* Primitives::Materials()

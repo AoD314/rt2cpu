@@ -5,7 +5,7 @@ namespace primitives
 {
         Plane::Plane ( vec4& _p, vec4& _d )
         {
-                orientation = Normalize(_d - _p);
+                orientation = normalize(_d - _p);
 
                 position = _p;
 
@@ -33,7 +33,7 @@ namespace primitives
 
         void Plane::MoveN ( vec4& v )
         {
-                orientation = Normalize(v - position);
+                orientation = normalize(v - position);
 
                 D = -dot ( position, orientation );
         }

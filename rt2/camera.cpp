@@ -9,11 +9,11 @@ namespace camera
         Camera::Camera ( vec4& pos, vec4& dir, vec4& updir, size_t w, size_t h, float aview )
         {
                 position = pos;
-                direction = Normalize(dir - pos);
+                direction = normalize(dir - pos);
 
-                updirection = Normalize(updir - pos);
+                updirection = normalize(updir - pos);
 
-                leftdirection = Normalize (Cross ( direction, updirection ));
+                leftdirection = normalize ( cross ( direction, updirection ));
 
                 width = w;
                 height = h;

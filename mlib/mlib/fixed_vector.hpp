@@ -188,7 +188,7 @@ namespace mlib
         /// - - - - - - Normalize - - - - - - - ///
         ///////////////////////////////////////////
 
-        inline vec4 Normalize(const vec4 & a)
+        inline vec4 normalize(const vec4 & a)
         {
             vec4 v(a);
             v.normalize();
@@ -196,9 +196,9 @@ namespace mlib
         }
 
         template <typename Left, typename Op, typename Right>
-        inline vec4 Normalize(const X<Left, Op, Right> & a)
+        inline vec4 normalize(const X<Left, Op, Right> & a)
         {
-            return Normalize( vec4(a) );
+            return normalize( vec4(a) );
         }
 
         ///////////////////////////////////////////
@@ -219,35 +219,35 @@ namespace mlib
         /// - - - - - - CalcDistance - - - - - -///
         ///////////////////////////////////////////
 
-        inline float  CalcDistance(const vec4 & a, const vec4 & b)
+        inline float  calc_distance(const vec4 & a, const vec4 & b)
         {
             __m128 r = _mm_sub_ps(a.data, b.data);
             return sqrt(dot(r, r));
         }
 
         template <typename Left, typename Op, typename Right>
-        inline float  CalcDistance(const X<Left, Op, Right> & a, const X<Left, Op, Right> & b)
+        inline float  calc_distance(const X<Left, Op, Right> & a, const X<Left, Op, Right> & b)
         {
-                return CalcDistance(vec4(a), vec4(b));
+                return calc_distance(vec4(a), vec4(b));
         }
 
         template <typename Left, typename Op, typename Right>
-        inline float CalcDistance(const X<Left, Op, Right> & a, const vec4 & b)
+        inline float calc_distance(const X<Left, Op, Right> & a, const vec4 & b)
         {
-                return CalcDistance(vec4(a), b);
+                return calc_distance(vec4(a), b);
         }
 
         template <typename Left, typename Op, typename Right>
-        inline float  CalcDistance(const vec4 & a, const X<Left, Op, Right> & b)
+        inline float  calc_distance(const vec4 & a, const X<Left, Op, Right> & b)
         {
-                return CalcDistance(a, vec4(b));
+                return calc_distance(a, vec4(b));
         }
 
         ///////////////////////////////////////////
         /// - - - - - - - Cross - - - - - - - - ///
         ///////////////////////////////////////////
 
-        inline vec4 Cross(const vec4 & v1, const vec4 & v2)
+        inline vec4 cross(const vec4 & v1, const vec4 & v2)
         {
                 __m128 a, b, c;
 
@@ -265,21 +265,21 @@ namespace mlib
         }
 
         template <typename Left, typename Op, typename Right>
-        inline vec4 Cross(const X<Left, Op, Right> & v1, const X<Left, Op, Right> & v2)
+        inline vec4 cross(const X<Left, Op, Right> & v1, const X<Left, Op, Right> & v2)
         {
-            return Cross(vec4(v1), vec4(v2));
+            return cross(vec4(v1), vec4(v2));
         }
 
         template <typename Left, typename Op, typename Right>
-        inline vec4 Cross(const X<Left, Op, Right> & v1, const vec4 & v2)
+        inline vec4 cross(const X<Left, Op, Right> & v1, const vec4 & v2)
         {
-                return Cross(vec4(v1), v2);
+                return cross(vec4(v1), v2);
         }
 
         template <typename Left, typename Op, typename Right>
-        inline vec4 Cross(const vec4 & v1, const X<Left, Op, Right> & v2)
+        inline vec4 cross(const vec4 & v1, const X<Left, Op, Right> & v2)
         {
-                return Cross(v1, vec4(v2));
+                return cross(v1, vec4(v2));
         }
 
 
@@ -288,9 +288,9 @@ namespace mlib
         ///////////////////////////////////////////
         ///////////////////////////////////////////
 
-        inline std::size_t ToColor(vec4& color)
+        inline size_t to_color(vec4& color)
         {
-                std::size_t r;
+		size_t r;
 
                 __m128 a, b;
 
@@ -303,9 +303,9 @@ namespace mlib
                 float q[4];
                 _mm_storeu_ps(q, b);
 
-                r =		((std::size_t) q[0]*(1 << 16)) +
-                                ((std::size_t) q[1]*(1 << 8)) +
-                                ((std::size_t) q[2]);
+                r =	((size_t) q[0]*(1 << 16)) +
+                        ((size_t) q[1]*(1 << 8)) +
+                        ((size_t) q[2]);
 
                 return r;
         }
@@ -563,3 +563,4 @@ namespace mlib
 }
 
 #endif
+

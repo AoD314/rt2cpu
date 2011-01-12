@@ -61,8 +61,8 @@ namespace primitives
                 vec4 E1 = V1 - V0;
                 vec4 E2 = V2 - V0;
                 vec4 T = r.Position ( ) - V0;
-                vec4 Q = Cross ( T, E1 );
-                vec4 P = Cross ( r.Direction ( ), E2 );
+                vec4 Q = cross ( T, E1 );
+                vec4 P = cross ( r.Direction ( ), E2 );
 
                 float temp = 1 / ( dot ( P, E1 ) );
 
@@ -87,3 +87,4 @@ namespace primitives
         }
 
 }
+

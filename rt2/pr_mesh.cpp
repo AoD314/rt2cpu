@@ -63,7 +63,7 @@ namespace primitives
                         vec4 v1 = points->Get(i*3 + 1);
                         vec4 v2 = points->Get(i*3 + 2);
 
-                        float d = CalcDistance (v0, tp) + CalcDistance (v1, tp) + CalcDistance (v2, tp);
+                        float d = calc_distance (v0, tp) + calc_distance (v1, tp) + calc_distance (v2, tp);
                         if (d < D)
                         {
                                 ipos = i;
@@ -75,7 +75,8 @@ namespace primitives
                 v1 = points->Get (ipos * 3 + 1);
                 v2 = points->Get (ipos * 3 + 2);
 
-                return Cross ( v1 - v0, v1 - v2 );
+                return cross ( v1 - v0, v1 - v2 );
         }
 
 }
+

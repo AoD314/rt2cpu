@@ -9,7 +9,7 @@ namespace ray
 	Ray::Ray ( vec4& p, vec4& d )
 	{
 		pos = p;
-		direction = Normalize(d);
+		direction = normalize(d);
 	}
 
 	vec4& Ray::Position ( )

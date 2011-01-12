@@ -13,7 +13,7 @@ namespace primitives
 
         inline vec4 Sphere::CalcNormal ( vec4& tp )
         {
-                return Normalize(tp - position);
+                return normalize(tp - position);
         }
 
         bool Sphere::isCrossing ( Ray& r )
@@ -22,11 +22,11 @@ namespace primitives
 
                 float dist;
 
-                dist = CalcDistance ( r.Position ( ), position );
+                dist = calc_distance ( r.Position ( ), position );
 
                 float t = sqrt ( 1 - r2 / (dist * dist) );
 
-                float sk = dot ( Normalize ( r.Position ( ) - position), r.Direction ( ) );
+                float sk = dot ( normalize ( r.Position ( ) - position), r.Direction ( ) );
 
                 if ( sk < t ) f = true;
 
@@ -70,3 +70,4 @@ namespace primitives
         }
 
 }
+
