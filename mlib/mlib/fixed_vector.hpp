@@ -161,16 +161,8 @@ namespace mlib
         {
             _align_ float res;
             _align_ __m128 m3;
-            #ifdef use_sse4
-                    m3 = _mm_dp_ps(a.data, b.data, 0x55);
-                    _mm_store_ss(&res, m3);
-            #else
-                    m3 = _mm_mul_ps(a.data, b.data);
-                    _align_ __m128 m4;
-                    m3 = _mm_hadd_ps(m3, m3);
-                    m4 = _mm_hadd_ps(m3, m3);
-                    _mm_store_ss(&res, m4);
-            #endif
+            m3 = _mm_dp_ps(a.data, b.data, 0x55);
+            _mm_store_ss(&res, m3);
             return res;
         }
 
