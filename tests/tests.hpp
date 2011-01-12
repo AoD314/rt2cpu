@@ -3,19 +3,24 @@
 #include <string>
 #include <iomanip>
 
-void print_result ( bool res, std::string nametest )
+void print_result ( bool res, std::string nametest , size_t & total_tests, size_t & total_good_tests )
 {
-    nametest = nametest + " ";
-    std::cout.setf ( std::ios::left );
-    std::cout << std::setw ( 65 ) << std::setfill ( '.' ) << nametest;
+	total_tests++;
 
-    if ( res == true )
-        std::cout << "\033[0;32m" << " pass";
-    else
-        std::cout << "\033[0;31m" << " fail";
+	nametest = nametest + " ";
+	std::cout.setf ( std::ios::left );
+	std::cout << std::setw ( 65 ) << std::setfill ( '.' ) << nametest;
 
-    std::cout << "\033[0m";
-    std::cout << std::endl << std::endl;
+	if ( res == true )
+	{
+		std::cout << "\033[0;32m" << " pass";
+		total_good_tests++;
+	}
+	else
+		std::cout << "\033[0;31m" << " fail";
+
+	std::cout << "\033[0m";
+	std::cout << std::endl;
 }
 
 /*

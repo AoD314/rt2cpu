@@ -1,6 +1,6 @@
 
-#ifndef __DOUBLE_HPP__
-#define __DOUBLE_HPP__
+#ifndef __FLOAT_HPP__
+#define __FLOAT_HPP__
 
 #include <string>
 

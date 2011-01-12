@@ -39,7 +39,7 @@ namespace mlib
 			inline void Start()
 			{
 				register unsigned int a asm ("eax");
-				register unsigned int d asm ("edxx");
+				register unsigned int d asm ("edx");
 				register unsigned int c asm ("ecx");
 				asm volatile ("rdtscp");
 				time_edx = d;
