@@ -114,14 +114,14 @@ namespace mlib
             inline float operator[] (std::size_t i) const
             {
                 _align_ float d[4];
-                _mm_store1_ps(&d[0], data);
+                _mm_store_ps(&d[0], data);
                 return d[i];
             }
 
             inline void operator() (std::size_t i, float val)
             {
                 _align_ float d[4];
-                _mm_store1_ps(&d[0], data);
+                _mm_store_ps(&d[0], data);
                 d[i] = val;
                 data = _mm_load1_ps(&d[0]);
             }
@@ -140,7 +140,7 @@ namespace mlib
             {
                 __m128 m = _mm_dp_ps(data, data, 0xFF);
                 _align_ float d[4];
-                _mm_store1_ps(&d[0], m);
+                _mm_store_ps(&d[0], m);
                 d[0] = 1.0 / sqrt(d[0]);
                 data = _mm_mul_ps(data, _mm_set1_ps(d[0]));
             }
@@ -216,9 +216,9 @@ namespace mlib
         inline std::ostream & operator << ( std::ostream& out, const vec4 & x )
         {
             float v[4];
-            _mm_store1_ps(v, x.data);
+            _mm_store_ps(v, x.data);
 
-            for (std::size_t i = 0; i < 4; ++i)
+            for (size_t i = 0; i < 4; i++)
                     out << v[i] << " ";
             return out;
         }

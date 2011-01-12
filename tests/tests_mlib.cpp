@@ -43,21 +43,46 @@ bool test_mlib_long()
 
 bool test_mlib_fixed_vector_add()
 {
-	vec4 a (1.0f, 2.0f, 3.0f, 4.0f);
-	vec4 b (4.0f, 3.0f, 2.0f, 1.0f);
+	vec4 a (1.0f, 0.0f, 3.0f, 0.0f);
+	vec4 b (4.0f, 0.0f, 2.0f, 1.0f);
 	vec4 c = a + b;
-
-	return  c[0] == 5.0f && c[1] == 5.0f && c[2] == 5.0f && c[3] == 5.0f;
+	return  c[0] == 5.0f && c[1] == 0.0f && c[2] == 5.0f && c[3] == 1.0f;
 }
 
 bool test_mlib_fixed_vector_sub()
 {
-	vec4 a (3.0f, 3.0f, 3.0f, 3.0f);
+	vec4 a (3.0f, 1.0f, 3.0f, 1.0f);
 	vec4 b (a);
 	vec4 c = a - b;
-
 	return  c[0] == 0.0f && c[1] == 0.0f && c[2] == 0.0f && c[3] == 0.0f;
 }
+
+bool test_mlib_fixed_vector_double_add()
+{
+	vec4 a (1.0f, 1.0f, 1.0f, 0.0f);
+	vec4 b (2.0f, 2.0f, 2.0f, 0.0f);
+	vec4 c (3.0f, 3.0f, 3.0f, 0.0f);
+	vec4 d = a + b + c;
+	return d[0] == 6.0f && d[1] == 6.0f && d[2] == 6.0f && d[3] == 0.0f;
+}
+
+bool test_mlib_fixed_vector_complex_add()
+{
+	vec4 a (1.0f, 1.0f, 1.0f, 1.0f);
+	vec4 b (2.0f, 2.0f, 2.0f, 2.0f);
+	vec4 c (2.0f, 1.0f, 2.0f, 1.0f);
+	vec4 d (1.0f, 3.0f, -3.0f, -5.0f);
+	vec4 e;
+	e = (a + b) + (c + d);
+	return e[0] == 6.0f && e[1] == 7.0f && e[2] == 2.0f && e[3] == -1.0f;
+}
+
+/*
+bool test_mlib_fixed_vector_()
+{
+	return true;
+}
+*/
 
 int main(int argc, char ** argv)
 {
@@ -83,8 +108,10 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_long,    "mlib_long")
 	TEST (test_mlib_int,     "mlib_int")
 
-	TEST (test_mlib_fixed_vector_add,     "mlib_fixed_vector_add")
-	TEST (test_mlib_fixed_vector_sub,     "mlib_fixed_vector_sub")
+	TEST (test_mlib_fixed_vector_add,            "mlib_fixed_vector_add")
+	TEST (test_mlib_fixed_vector_double_add,     "mlib_fixed_vector_double_add")
+	TEST (test_mlib_fixed_vector_complex_add,    "mlib_fixed_vector_complex_add")
+	TEST (test_mlib_fixed_vector_sub,            "mlib_fixed_vector_sub")
 
 	timer.Stop();
 	
