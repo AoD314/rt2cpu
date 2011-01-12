@@ -4,18 +4,18 @@
 namespace primitives
 {
 
-        BoundingVolume buildBoxForObjs(Primitives ** p, std::size_t size)
+        BoundingVolume buildBoxForObjs(Primitives ** p, size_t size)
         {
                 vec4 gmin, gmax;
                 for (std::size_t i = 0 ; i < size; i++)
                 {
-                        vec4 min, max;
+                        vec4 min_v, max_v;
                         Triangle * tr = static_cast<Triangle *>(p[i]);
-                        min = tr->GetMin();
-                        max = tr->GetMax();
+                        min_v = tr->GetMin();
+                        max_v = tr->GetMax();
 
-                        gmin = Min(min, gmin);
-                        gmax = Max(max, gmax);
+			gmin = min(min_v, gmin);
+                        gmax = max(max_v, gmax);
                 }
 
                 return BoundingVolume(gmin, gmax);
@@ -30,7 +30,7 @@ namespace primitives
                 return BoundingVolume(min, max);
         }
 
-        NodeBVH * buildBVH(std::vector<Primitives *> v, BoundingVolume b, std::size_t depth)
+        NodeBVH * buildBVH(std::vector<Primitives *> v, BoundingVolume b, size_t depth)
         {
                 depth--;
 

@@ -170,6 +170,22 @@ bool test_mlib_fixed_vector_to_color_rgb()
 	return color == 4161535;
 }
 
+bool test_mlib_fixed_vector_vec_normalize()
+{
+	vec4 a ( 0.0f, 3.0f, 4.0f, 0.0f);
+	a.normalize();
+	return a[0] == 0.0f && a[1] == 0.6f && a[2] == 0.8f && a[3] == 0.0f;
+}
+
+bool test_mlib_fixed_vector_normalize()
+{
+	vec4 a ( 0.0f, 3.0f, 4.0f, 0.0f);
+	vec4 b;
+	b = normalize(a);
+	return b[0] == 0.0f && b[1] == 0.6f && b[2] == 0.8f && b[3] == 0.0f;
+}
+
+
 
 
 /*
@@ -218,6 +234,8 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_fixed_vector_calc_reflect,             "mlib_fixed_vector_calc_reflect")
 	TEST (test_mlib_fixed_vector_to_color_b,               "mlib_fixed_vector_to_color_b")
 	TEST (test_mlib_fixed_vector_to_color_rgb,             "mlib_fixed_vector_to_color_rgb")
+	TEST (test_mlib_fixed_vector_vec_normalize,            "mlib_fixed_vector_vec_normalize")
+	TEST (test_mlib_fixed_vector_normalize,                "mlib_fixed_vector_normalize")
 
 	timer.Stop();
 	

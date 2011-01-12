@@ -51,7 +51,7 @@ namespace primitives
 
                         if ( t1 >= 0 )
                                 if ( t2 >= 0 )
-                                        tr = Min ( t1, t2 );
+                                        tr = min ( t1, t2 );
                                 else
                                         tr = t1;
                         else

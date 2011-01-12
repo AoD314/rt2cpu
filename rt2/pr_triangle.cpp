@@ -13,15 +13,15 @@ namespace primitives
 
         vec4 Triangle::GetMin()
         {
-                vec4 min = Min (V0, V1);
-                min = Min (min, V2);
-                return min;
+                vec4 min_v = min(V0, V1);
+                min_v = min (min_v, V2);
+                return min_v;
         }
 
         vec4 Triangle::GetMax()
         {
-                vec4 min = Max (V0, V1);
-                min = Max (min, V2);
+                vec4 min = max (V0, V1);
+                min = max (min, V2);
                 return min;
         }
 

@@ -271,282 +271,278 @@ namespace mlib
 		return cross(v1, vec4(v2));
 	}
 
-        ///////////////////////////////////////////
-        /// - - - - - - - ToColor - - - - - - - ///
-        ///////////////////////////////////////////
-        ///////////////////////////////////////////
+	///////////////////////////////////////////
+	/// - - - - - - - ToColor - - - - - - - ///
+	///////////////////////////////////////////
 
-        inline size_t to_color(vec4& color)
-        {
+	inline size_t to_color(vec4& color)
+	{
 		size_t r;
+		__m128 a, b;
 
-                __m128 a, b;
+		b = color.data;
+		a = _mm_set1_ps(255.0f);
 
-                b = color.data;
-                a = _mm_set1_ps(255.0f);
+		b = _mm_mul_ps(b, a);
+		b = _mm_min_ps(b, a);
 
-                b = _mm_mul_ps(b, a);
-                b = _mm_min_ps(b, a);
+		_align_ float q[4];
+		_mm_storeu_ps(q, b);
 
-                float q[4];
-                _mm_storeu_ps(q, b);
+		r =	((size_t) q[0]*(1 << 16)) +
+			((size_t) q[1]*(1 << 8)) +
+			((size_t) q[2]);
 
-                r =	((size_t) q[0]*(1 << 16)) +
-                        ((size_t) q[1]*(1 << 8)) +
-                        ((size_t) q[2]);
+		return r;
+	}
 
-                return r;
-        }
+	///////////////////////////////////////////
+	/// - - - - - struct operations - - - - ///
+	///////////////////////////////////////////
 
-        ///////////////////////////////////////////
-        /// - - - - - struct operations - - - - ///
-        ///////////////////////////////////////////
+	struct plus
+	{
+		static inline __m128 apply(const __m128 a, const __m128 b)
+		{
+			return _mm_add_ps(a, b);
+		}
+	};
 
-        struct plus
-        {
-            static inline __m128 apply(const __m128 a, const __m128 b)
-            {
-                return _mm_add_ps(a, b);
-            }
-        };
+	struct minus
+	{
+		static inline __m128 apply(const __m128 &a, const __m128 & b)
+		{
+			return _mm_sub_ps(a, b);
+		}
+	};
 
-        struct minus
-        {
-            static inline __m128 apply(const __m128 &a, const __m128 & b)
-            {
-                return _mm_sub_ps(a, b);
-            }
-        };
+	struct mul
+	{
+		static inline __m128 apply(const __m128 & a, const __m128 & b)
+		{
+			return _mm_mul_ps(a, b);
+		}
+	};
 
-        struct mul
-        {
-            static inline __m128 apply(const __m128 & a, const __m128 & b)
-            {
-                return _mm_mul_ps(a, b);
-            }
-        };
+	struct div
+	{
+		static inline __m128 apply(const __m128 & a, const __m128 & b)
+		{
+			return _mm_div_ps(a, b);
+		}
+	};
 
-        struct div
-        {
-            static inline __m128 apply(const __m128 & a, const __m128 & b)
-            {
-                return _mm_div_ps(a, b);
-            }
-        };
+	///////////////////////////////////////////
+	/// - - - - - - -  struct X - - - - - - ///
+	///////////////////////////////////////////
 
-        ///////////////////////////////////////////
-        /// - - - - - - -  struct X - - - - - - ///
-        ///////////////////////////////////////////
+	template <typename Left, typename Op, typename Right>
+	struct X
+	{
+		X(Left t1, Right t2) : lNode_(t1), rNode_(t2) { }
 
-        template <typename Left, typename Op, typename Right>
-        struct X
-        {
-                X(Left t1, Right t2) : lNode_(t1), rNode_(t2) { }
+		__m128 operator() () const
+		{
+			return Op::apply(lNode_(), rNode_());
+		}
 
-                __m128 operator() () const
-                {
-                        return Op::apply(lNode_(), rNode_());
-                }
+		private:
+			const Right rNode_;
+			const Left lNode_;
+	};
 
-            private:
-                const Right rNode_;
-                const Left lNode_;
-        };
+	template <typename Left, typename Op>
+	struct X<Left, Op, float>
+	{
 
-        template <typename Left, typename Op>
-        struct X<Left, Op, float>
-        {
+		X(Left t1, float t2) : lNode_(t1), rNode_(t2) { }
 
-                X(Left t1, float t2) : lNode_(t1), rNode_(t2) { }
+		__m128 operator() () const
+		{
+			return Op::apply(lNode_(), _mm_set1_ps(rNode_));
+		}
 
-                __m128 operator() () const
-                {
-                        return Op::apply(lNode_(), _mm_set1_ps(rNode_));
-                }
+		private:
+			const float rNode_;
+			const Left  lNode_;
+	};
 
-        private:
-                const float rNode_;
-                const Left  lNode_;
-        };
+	template <typename Left, typename Op>
+	struct X<Left, Op, __m128>
+	{
+		X(Left t1, __m128 t2) : lNode_(t1), rNode_(t2) { }
 
-        template <typename Left, typename Op>
-        struct X<Left, Op, __m128>
-        {
-                X(Left t1, __m128 t2) : lNode_(t1), rNode_(t2) { }
+		__m128 operator() () const
+		{
+			return Op::apply(lNode_(), rNode_);
+		}
 
-                __m128 operator() () const
-                {
-                        return Op::apply(lNode_(), rNode_);
-                }
+		private:
+			const __m128 rNode_;
+			const Left   lNode_;
+	};
 
-        private:
-                const __m128 rNode_;
-                const Left   lNode_;
-        };
+	template <typename Op, typename Right>
+	struct X<float, Op, Right>
+	{
+		X(float t1, Right t2) : lNode_(t1), rNode_(t2) { }
 
+		__m128 operator() () const
+		{
+			return Op::apply(_mm_set1_ps(lNode_), rNode_());
+		}
 
-        template <typename Op, typename Right>
-        struct X<float, Op, Right>
-        {
-                X(float t1, Right t2) : lNode_(t1), rNode_(t2) { }
+		private:
+			const Right rNode_;
+			const float lNode_;
+	};
 
-                __m128 operator() () const
-                {
-                        return Op::apply(_mm_set1_ps(lNode_), rNode_());
-                }
+	template <typename Op, typename Right>
+	struct X<__m128, Op, Right>
+	{
+		X(__m128 t1, Right t2) : lNode_(t1), rNode_(t2) { }
 
-        private:
-                const Right rNode_;
-                const float lNode_;
-        };
+		__m128 operator() () const
+		{
+			return Op::apply(lNode_, rNode_());
+		}
 
-        template <typename Op, typename Right>
-        struct X<__m128, Op, Right>
-        {
-                X(__m128 t1, Right t2) : lNode_(t1), rNode_(t2) { }
+		private:
+			const Right  rNode_;
+			const __m128 lNode_;
+	};
 
-                __m128 operator() () const
-                {
-                        return Op::apply(lNode_, rNode_());
-                }
+	template <typename Op>
+	struct X<__m128, Op, __m128>
+	{
+		X(__m128 t1, __m128 t2) : lNode_(t1), rNode_(t2) { }
 
-        private:
-                const Right  rNode_;
-                const __m128 lNode_;
-        };
+		__m128 operator() () const
+		{
+			return Op::apply(lNode_, rNode_);
+		}
 
+		private:
+			const __m128 rNode_;
+			const __m128 lNode_;
+	};
 
-        template <typename Op>
-        struct X<__m128, Op, __m128>
-        {
-                X(__m128 t1, __m128 t2) : lNode_(t1), rNode_(t2) { }
+	template <typename Op>
+	struct X<float, Op, __m128>
+	{
+		X(float t1, __m128 t2) : lNode_(t1), rNode_(t2) { }
 
-                __m128 operator() () const
-                {
-                        return Op::apply(lNode_, rNode_);
-                }
+		__m128 operator() () const
+		{
+			return Op::apply(_mm_set1_ps(lNode_), rNode_);
+		}
 
-            private:
-                const __m128 rNode_;
-                const __m128 lNode_;
-        };
+		private:
+			const __m128 rNode_;
+			const float lNode_;
+	};
 
-        template <typename Op>
-        struct X<float, Op, __m128>
-        {
-                X(float t1, __m128 t2) : lNode_(t1), rNode_(t2) { }
+	template <typename Op>
+	struct X<float, Op, float>
+	{
+		X(float t1, float t2) : lNode_(t1), rNode_(t2) { }
 
-                __m128 operator() () const
-                {
-                        return Op::apply(_mm_set1_ps(lNode_), rNode_);
-                }
+		__m128 operator() () const
+		{
+			return Op::apply(_mm_set1_ps(lNode_), _mm_set1_ps(rNode_));
+		}
 
-            private:
-                const __m128 rNode_;
-                const float lNode_;
-        };
+		private:
+			const float rNode_;
+			const float lNode_;
+	};
 
-        template <typename Op>
-        struct X<float, Op, float>
-        {
-                X(float t1, float t2) : lNode_(t1), rNode_(t2) { }
+	template <typename Op>
+	struct X<__m128, Op, float>
+	{
+		X(__m128 t1, float t2) : lNode_(t1), rNode_(t2) { }
 
-                __m128 operator() () const
-                {
-                        return Op::apply(_mm_set1_ps(lNode_), _mm_set1_ps(rNode_));
-                }
+		__m128 operator() () const
+		{
+			return Op::apply(lNode_, _mm_set1_ps(rNode_));
+		}
 
-            private:
-                const float rNode_;
-                const float lNode_;
-        };
+		private:
+			const float  rNode_;
+			const __m128 lNode_;
+	};
 
-        template <typename Op>
-        struct X<__m128, Op, float>
-        {
-                X(__m128 t1, float t2) : lNode_(t1), rNode_(t2) { }
-
-                __m128 operator() () const
-                {
-                        return Op::apply(lNode_, _mm_set1_ps(rNode_));
-                }
-
-            private:
-                const float  rNode_;
-                const __m128 lNode_;
-        };
-
-        ///////////////////////////////////////////
-        /// - - - - - - define OP_BASE  - - - - ///
-        ///////////////////////////////////////////
+	///////////////////////////////////////////
+	/// - - - - - - define OP_BASE  - - - - ///
+	///////////////////////////////////////////
 
 
-        #define OP_BASE(_OP_,_OP_Z)                                                                                 \
+	#define OP_BASE(_OP_,_OP_Z)                                                                                 \
                                                                                                                     \
-        template<typename Left, typename Right>                                                                     \
-        inline X<Left, _OP_, Right> operator _OP_Z (const Left& a, const Right& b)                                  \
-        {                                                                                                           \
-                return X<Left, _OP_, Right>(a, b);                                                                  \
-        }                                                                                                           \
+	template<typename Left, typename Right>                                                                     \
+	inline X<Left, _OP_, Right> operator _OP_Z (const Left& a, const Right& b)                                  \
+	{                                                                                                           \
+		return X<Left, _OP_, Right>(a, b);                                                                  \
+	}                                                                                                           \
                                                                                                                     \
-        template<typename Left>                                                                                     \
-        inline X<Left, _OP_, float> operator _OP_Z (const Left& a, const float& b)                                  \
-        {                                                                                                           \
-                return X<Left, _OP_, float>(a, b);                                                                  \
-        }                                                                                                           \
+	template<typename Left>                                                                                     \
+	inline X<Left, _OP_, float> operator _OP_Z (const Left& a, const float& b)                                  \
+	{                                                                                                           \
+		return X<Left, _OP_, float>(a, b);                                                                  \
+	}                                                                                                           \
                                                                                                                     \
-        template<typename Left>                                                                                     \
-        inline X<Left, _OP_, __m128>  operator _OP_Z (const Left& a, const vec4& b)		                    \
-        {                                                                                                           \
-                return X<Left, _OP_, __m128>(a, b.data);                                                            \
-        }                                                                                                           \
+	template<typename Left>                                                                                     \
+	inline X<Left, _OP_, __m128>  operator _OP_Z (const Left& a, const vec4& b)		                    \
+	{                                                                                                           \
+		return X<Left, _OP_, __m128>(a, b.data);                                                            \
+	}                                                                                                           \
                                                                                                                     \
-        template<typename Right>                                                                                    \
-        inline X<__m128, _OP_, Right> operator _OP_Z (const vec4& a, const Right& b)                                \
-        {                                                                                                           \
-                return X<__m128, _OP_, Right>(a.data, b);                                                           \
-        }                                                                                                           \
+	template<typename Right>                                                                                    \
+	inline X<__m128, _OP_, Right> operator _OP_Z (const vec4& a, const Right& b)                                \
+	{                                                                                                           \
+		return X<__m128, _OP_, Right>(a.data, b);                                                           \
+	}                                                                                                           \
                                                                                                                     \
-        inline X<__m128, _OP_, float> operator _OP_Z (const vec4& a, const float& b)                                \
-        {                                                                                                           \
-                return X<__m128, _OP_, float>(a.data, b);                                                           \
-        }                                                                                                           \
+	inline X<__m128, _OP_, float> operator _OP_Z (const vec4& a, const float& b)                                \
+	{                                                                                                           \
+		return X<__m128, _OP_, float>(a.data, b);                                                           \
+	}                                                                                                           \
                                                                                                                     \
-        inline X<float, _OP_, __m128> operator _OP_Z (const float& a, const vec4& b)                                \
-        {                                                                                                           \
-                return X<float, _OP_, __m128>(a, b.data);						            \
-        }                                                                                                           \
+	inline X<float, _OP_, __m128> operator _OP_Z (const float& a, const vec4& b)                                \
+	{                                                                                                           \
+		return X<float, _OP_, __m128>(a, b.data);						            \
+	}                                                                                                           \
                                                                                                                     \
-        template<typename Right>                                                                                    \
-        inline X<float, _OP_, Right> operator _OP_Z (const float& a, const Right& b)                                \
-        {                                                                                                           \
-                return X<float, _OP_, Right>(a, b);                                                                 \
-        }                                                                                                           \
+	template<typename Right>                                                                                    \
+	inline X<float, _OP_, Right> operator _OP_Z (const float& a, const Right& b)                                \
+	{                                                                                                           \
+		return X<float, _OP_, Right>(a, b);                                                                 \
+	}                                                                                                           \
                                                                                                                     \
-        inline X<__m128, _OP_, __m128> operator _OP_Z (const vec4& a, const vec4& b)                                \
-        {                                                                                                           \
-                return X<__m128, _OP_, __m128>(a.data, b.data);                                                     \
-        }                                                                                                           \
+	inline X<__m128, _OP_, __m128> operator _OP_Z (const vec4& a, const vec4& b)                                \
+	{                                                                                                           \
+		return X<__m128, _OP_, __m128>(a.data, b.data);                                                     \
+	}                                                                                                           \
                                                                                                                     \
-        template                                                                                                    \
-                        <                                                                                           \
-                            typename Left1, typename Op1, typename Right1,                                          \
-                            typename Left2, typename Op2, typename Right2                                           \
-                        >                                                                                           \
-        inline  X< X<Left1, Op1, Right1>, _OP_, X<Left2, Op2, Right2> >                                             \
-        operator _OP_Z  (const  X<Left1, Op1, Right1>& a, const  X<Left2, Op2, Right2>& b)                          \
-        {                                                                                                           \
-                return X< X<Left1, Op1, Right1>, _OP_, X<Left2, Op2, Right2> >(a, b);                               \
-        }
+	template                                                                                                    \
+			<                                                                                           \
+				typename Left1, typename Op1, typename Right1,                                      \
+				typename Left2, typename Op2, typename Right2                                       \
+			>                                                                                           \
+	inline  X< X<Left1, Op1, Right1>, _OP_, X<Left2, Op2, Right2> >                                             \
+	operator _OP_Z  (const  X<Left1, Op1, Right1>& a, const  X<Left2, Op2, Right2>& b)                          \
+	{                                                                                                           \
+		return X< X<Left1, Op1, Right1>, _OP_, X<Left2, Op2, Right2> >(a, b);                               \
+	}
 
 
-        OP_BASE(plus, +)
+	OP_BASE(plus, +)
 
-        OP_BASE(minus, -)
+	OP_BASE(minus, -)
 
-        OP_BASE(mul, *)
+	OP_BASE(mul, *)
 
-        OP_BASE(div, /)
+	OP_BASE(div, /)
 
 }
 

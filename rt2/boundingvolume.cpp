@@ -20,18 +20,18 @@ namespace primitives
         {
                 vec4 bv_size = point_max - point_min;
 
-                float max = Abs(bv_size[0]);
+                float max = abs(bv_size[0]);
                 int os = 0;
 
-                if ( Abs(bv_size[1]) > max)
+                if ( abs(bv_size[1]) > max)
                 {
-                        max = Abs(bv_size[1]);
+                        max = abs(bv_size[1]);
                         os = 1;
                 }
 
-                if ( Abs(bv_size[2]) > max)
+                if ( abs(bv_size[2]) > max)
                 {
-                        max =  Abs(bv_size[2]);
+                        max =  abs(bv_size[2]);
                         os = 2;
                 }
 
@@ -79,30 +79,30 @@ namespace primitives
                 t1 = (pos[0] - ext[0]) / r.Direction()[0];
                 t2 = (pos[0] + ext[0]) / r.Direction()[0];
 
-                float tnear = Min(t1, t2);
-                float tfar  = Max(t1, t2);
+                float tnear = min(t1, t2);
+                float tfar  = max(t1, t2);
 
-                near = Min(near, tnear);
-                far  = Max(far, tfar);
+                near = min(near, tnear);
+                far  = max(far, tfar);
 
 
                 t1 = (pos[1] - ext[1]) / r.Direction()[1];
                 t2 = (pos[1] + ext[1]) / r.Direction()[1];
 
-                tnear = Min(t1, t2);
-                tfar  = Max(t1, t2);
+                tnear = min(t1, t2);
+                tfar  = max(t1, t2);
 
-                near = Min(near, tnear);
-                far  = Max(far, tfar);
+                near = min(near, tnear);
+                far  = max(far, tfar);
 
                 t1 = (pos[2] - ext[2]) / r.Direction ()[2];
                 t2 = (pos[2] + ext[2]) / r.Direction ()[2];
 
-                tnear = Min(t1, t2);
-                tfar  = Max(t1, t2);
+                tnear = min(t1, t2);
+                tfar  = max(t1, t2);
 
-                near = Min(near, tnear);
-                far  = Max(far, tfar);
+                near = min(near, tnear);
+                far  = max(far, tfar);
 
                 if (far <= near) return false;
 
