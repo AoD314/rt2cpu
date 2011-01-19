@@ -66,9 +66,9 @@ std::vector<TYPE> ConsoleParameters::get_vec(std::string param, TYPE def_value, 
 				try\
 				{\
 					int j = 0;\
-					while ( j < argc)\
+					while ( i + 1 + j < argc)\
 					{\
-						vector_value.push_back(from_str<TYPE>(argv[i+1+j]));\
+						vector_value.push_back(from_str<TYPE>(argv[i + 1 + j]));\
 						j++;\
 					}\
 				}\
