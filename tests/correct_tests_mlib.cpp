@@ -11,6 +11,7 @@
 #include <mlib/integer.hpp>
 #include <mlib/fixed_vector.hpp>
 #include <mlib/minmax.hpp>
+#include <mlib/objfile.hpp>
 using namespace mlib;
 
 bool print_debug_info;
@@ -216,6 +217,12 @@ bool test_mlib_min_and_max_vec()
 		mx[0] == 4.0f && mx[1] == 3.0f && mx[2] == 3.0f && mx[3] == 4.0f;
 }
 
+bool test_mlib_objfile()
+{
+	Objfile file("my_stul.obj");
+	return file.GetCountTriangle() == 10881;
+}
+
 
 /*
 bool test_mlib_fixed_vector_()
@@ -270,6 +277,8 @@ int main(int argc, char ** argv)
 
 	TEST (test_mlib_min_and_max,                  "mlib_min_and_max")
 	TEST (test_mlib_min_and_max_vec,              "mlib_min_and_max_vec")
+
+	TEST (test_mlib_objfile,                      "mlib_objfile")
 
 	timer.Stop();
 	

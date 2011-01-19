@@ -7,7 +7,12 @@ namespace mlib
 	{
 	}
 
-	bool Objfile::read (std::string filename)
+	Objfile::Objfile (const std::string & filename)
+	{
+		read( filename );
+	}
+
+	bool Objfile::read (const std::string & filename)
 	{
 		std::ifstream infile;
 		infile.open(filename.c_str ());

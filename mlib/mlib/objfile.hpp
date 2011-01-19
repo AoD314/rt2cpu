@@ -21,8 +21,9 @@ namespace mlib
 
 		public:
 			Objfile ();
+			Objfile (const std::string & filename);
 
-			bool read (std::string filename);
+			bool read (const std::string & filename);
 
 			vec4 GetPointInTriangle   (size_t num_triangle, size_t num_vertex);
 			vec4 GetNormalForTriangle (size_t num_triangle);
