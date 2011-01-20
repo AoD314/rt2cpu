@@ -90,12 +90,21 @@ namespace mlib
 			data = val.data;
 		}
 
-		inline bool operator >= (const vec4& val)
+		inline bool operator != (const vec4& val)
 		{
-			_align_ __m128 cmp = _mm_cmpge_ps(data, val.data);
+			_align_ __m128 cmp = _mm_cmpeq_ps(data, val.data);
 			_align_ float d[4];
 			_mm_store_ps(&d[0], cmp);
-			return !(d[0] == d[1] && d[1] == d[2] && d[2] == d[3] && d[3] == d[4] && d[4] == 0x0);
+			return d[0] == 0x0 || d[1] == 0x0 || d[2] == 0x0 || d[3] == 0x0;
+		}
+
+
+		inline bool operator == (const vec4& val)
+		{
+			_align_ __m128 cmp = _mm_cmpneq_ps(data, val.data);
+			_align_ float d[4];
+			_mm_store_ps(&d[0], cmp);
+			return d[0] == 0x0 && d[1] == 0x0 && d[2] == 0x0 && d[3] == 0x0;
 		}
 
 		template<typename Left, typename Op, typename Right>
