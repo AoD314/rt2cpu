@@ -10,9 +10,13 @@ namespace rt2
 	class Ray
 	{
 		private:
+			mlib::vec4 p, d;
 
 		public:
 			Ray(mlib::vec4 pos, mlib::vec4 dir);
+
+			mlib::vec4 pos();
+			mlib::vec4 dir();
 	};
 
 }

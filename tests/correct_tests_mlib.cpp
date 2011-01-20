@@ -224,12 +224,21 @@ bool test_mlib_objfile()
 }
 
 
-/*
-bool test_mlib_fixed_vector_()
+bool test_mlib_fixed_vector_eq()
 {
-	return [0] == .0f && [1] == .0f && [2] == .0f && [3] == .0f;
+	vec4 a (1.0f, 2.0f, 3.0f, 4.0f);
+	vec4 b (1.0f, 2.0f, 3.0f, 4.0f);
+	return a == b;
 }
-*/
+
+bool test_mlib_fixed_vector_neq()
+{
+	vec4 a (1.0f, 2.0f, 3.0f, 4.0f);
+	vec4 b (2.0f, 2.0f, 3.0f, 4.0f);
+	return a != b;
+}
+
+
 
 int main(int argc, char ** argv)
 {
@@ -274,6 +283,8 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_fixed_vector_normalize,                "mlib_fixed_vector_normalize")
 	TEST (test_mlib_fixed_vector_calc_distance,            "mlib_fixed_vector_calc_distance")
 	TEST (test_mlib_fixed_vector_cross,                    "mlib_fixed_vector_cross")
+	TEST (test_mlib_fixed_vector_eq,                       "mlib_fixed_vector_eq")
+	TEST (test_mlib_fixed_vector_neq,                      "mlib_fixed_vector_neq")
 
 	TEST (test_mlib_min_and_max,                  "mlib_min_and_max")
 	TEST (test_mlib_min_and_max_vec,              "mlib_min_and_max_vec")
