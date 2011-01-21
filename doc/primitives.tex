@@ -47,7 +47,23 @@ $$
 при условии, что $(D, P) \neq 0$
 
 \subsubsection{\index{Сфера}Сфера}
-Для сферы необходимо проделать те же выкладки. Уравнение сферы записывается следующем образом:
+Для сферы необходимо проделать те же выкладки.
+Уравнение луча:
+\begin{equation}
+\left\{
+\begin{array}{ccccc}
+x & = & x_0 & + & t \cdot x_d \\
+y & = & y_0 & + & t \cdot y_d \\
+z & = & z_0 & + & t \cdot z_d \\
+\end{array}
+\right.
+\label{equation_ray}
+\end{equation}
+или
+$$
+\vec{R}(t) = \vec{O} + t \cdot \vec{D}
+$$
+Уравнение сферы записывается следующем образом:
 \begin{equation}
 (x-x_c)^2 + (y-y_c)^2 + (z-z_c)^2 = r^2
 \label{equation_sphere}
@@ -96,6 +112,14 @@ $$
 t_{1,2} = \frac{-B \pm \sqrt{B^2 - 4 \cdot A \cdot C}}{2 \cdot A}
 $$
 
+$$
+t_{1} = \frac{ - 2 \cdot (\vec{D}, \vec{D} - \vec{S}) + \sqrt{(2 \cdot (\vec{D}, \vec{D} - \vec{S}))^2 - 4 \cdot (\vec{D}, \vec{D}) \cdot (\vec{O} - \vec{S}, \vec{O} - \vec{S} )}}{2 \cdot (\vec{D}, \vec{D})}
+$$
+
+$$
+t_{2} = \frac{ - 2 \cdot (\vec{D}, \vec{D} - \vec{S}) - \sqrt{(2 \cdot (\vec{D}, \vec{D} - \vec{S}))^2 - 4 \cdot (\vec{D}, \vec{D}) \cdot (\vec{O} - \vec{S}, \vec{O} - \vec{S} )}}{2 \cdot (\vec{D}, \vec{D})}
+$$
+
 \subsubsection{\index{Треугольник}Треугольник}
 Алгоритм пересечения луча и треугольника основан на барицентрических координатах.
 \par
@@ -112,7 +136,7 @@ $$
 Точка $T(u,v)$, принадлежащая треугольнику, может быть записана в виде:
 \begin{equation}
 \label{triangle_bar}
-T(u,v) = (1-u-v)V_0 + uV_1 + uV_2
+T(u,v) = (1-u-v)V_0 + uV_1 + vV_2
 \end{equation}
 
 \noindent где $(u,v)$ -- это бариецентрические координаты такие, что $u \geq 0$, $v \geq 0$ и $u + v \leq 1$
@@ -120,10 +144,23 @@ T(u,v) = (1-u-v)V_0 + uV_1 + uV_2
 Вычисление пересечения между лучем(\ref{equation_ray}) и треугольником(\ref{triangle_bar}), это решение следующего уравнения:
 
 $$
-O + tD = (1-u-v)V_0 + uV_1 + uV_2
+O + tD = (1-u-v)V_0 + uV_1 + vV_2
 $$
 
-\noindent это можно переписать так:
+\noindent после нескольких очевидных преобразований:
+
+$$
+O + tD = V_0 - uV_0 - vV_0 + uV_1 + vV_2
+$$
+$$
+O - V_0 = - tD + uV_1 - uV_0 + vV_2 - vV_0
+$$
+
+$$
+- tD + u(V_1 - V_0) + v(V_2 - V_0) = O - V_0
+$$
+
+\noindent получаем:
 
 \begin{equation}
 \label{ray_cross_tr}
@@ -140,7 +177,7 @@ $$
 \left[  
 \begin{array}{c} t \\ u \\ v \\ \end{array}
 \right] = 
-\frac{1}{| -D , E_2, E_1|} 
+\frac{1}{| -D , E_1, E_2|} 
 \left[  
 	\begin{array}{lcccl}
 	|& T , & E_1, &E_2 & | \\

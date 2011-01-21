@@ -17,7 +17,7 @@ namespace rt2
 		public:
 			Triangle(mlib::vec4 a, mlib::vec4 b, mlib::vec4 c);
 
-			bool is_cross(Ray & r);
+			float crossing(Ray & r, mlib::vec4 & point);
 	
 	};
 

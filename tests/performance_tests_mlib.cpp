@@ -2,6 +2,9 @@
 #include "tests.hpp"
 #define TEST(method, label) print_result ( method(), label, total_tests, total_good_tests );
 
+#include <triangle.hpp>
+#include <ray.hpp>
+
 #include <mlib/console_parameters.hpp>
 #include <mlib/timer.hpp>
 
@@ -13,6 +16,7 @@
 #include <mlib/fixed_vector.hpp>
 #include <mlib/minmax.hpp>
 using namespace mlib;
+using namespace rt2;
 
 bool print_debug_info;
 Timer timer;
@@ -28,28 +32,18 @@ bool performance_test_ray_cross_triangle_ok()
 
 	for (size_t i = 0; i < N; i++)
 	{
-		float rand = static_cast<float>(Rand::Next(1,100));
-		vec4 v0  (  0.0f, -4.0f, -3.0f, rand);
-		vec4 v1  (  0.0f,  4.0f,  0.0f, rand);
-		vec4 v2  (  0.0f, -4.0f,  3.0f, rand);
-		vec4 pos (  4.0f,  0.0f,  0.0f, rand);
-		vec4 dir ( -1.0f,  0.0f,  0.0f, rand);
+		float rand = static_cast<float>(Rand::Next(1,10));
+		vec4 a ( 3.0f, -1.0f, 0.0f, rand);
+		vec4 b ( 0.0f,  2.0f, 0.0f, rand);
+		vec4 c (-3.0f, -1.0f, 0.0f, rand);
 
-		vec4 e1 = v1 - v0;
-		vec4 e2 = v2 - v0;
-		vec4 t = pos - v0;
-		vec4 q = cross ( t, e1 );
-		vec4 p = cross ( dir, e2 );
+		vec4 p ( 0.0f, 0.0f,  3.0f, rand);
+		vec4 d ( 0.0f, 0.0f, -1.0f, rand);
 
-		vec4 tmp (dot(q,e2), dot(p,t), dot(q, dir), 0.0f);
+		rt2::Ray r(p, d);
+		rt2::Triangle t(a, b, c);
 
-		vec4 tuv = tmp * 1.0f / dot (p, e1);
-
-		if (tuv[0]>=0 && tuv[1]>=0 && tuv[2]>=0 && (tuv[1] + tuv[2] <= 1.0f))
-		{
-			count_tr++;
-			point = pos + tuv[0] * dir;
-		}
+		count_tr += ( t.crossing(r, point) >= 0.0f )? 1 : 0;
 	}
 
 	timer.Stop();

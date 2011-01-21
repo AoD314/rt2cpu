@@ -9,8 +9,8 @@ namespace rt2
 		v1 = b;
 		v2 = c;
 	}
-
-	bool Triangle::is_cross(Ray & r)
+	
+	float Triangle::crossing(Ray & r, mlib::vec4 & point)
 	{
 		mlib::vec4 pos = r.pos();
 		mlib::vec4 dir = r.dir();
@@ -25,12 +25,13 @@ namespace rt2
 		mlib::vec4 tmp (dot(q,e2), dot(p,t), dot(q, dir), 0.0f);
 		mlib::vec4 tuv = tmp * 1.0f / dot (p, e1);
 
-		if (tuv[0]>=0 && tuv[1]>=0 && tuv[2]>=0 && (tuv[1] + tuv[2] <= 1.0f))
+		if (tuv[0]>=0.0f && tuv[1]>=0.0f && tuv[2]>=0.0f && (tuv[1] + tuv[2] <= 1.0f))
 		{
-			return true;
+			point = pos + tuv[0] * dir;
+			return tuv[0];
 		}
 
-		return false;
+		return -1.0f;
 	}
 }
 
