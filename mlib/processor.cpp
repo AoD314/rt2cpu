@@ -40,19 +40,23 @@ namespace mlib
 			}
 			frequency = static_cast<unsigned long long>(dwTimerLo/500)*(1000);
 		#else
-			register volatile unsigned int a asm ("eax");
-			register volatile unsigned int d asm ("edx");
-			register volatile unsigned int c asm ("ecx");
-			asm volatile ("rdtscp");
-			register volatile unsigned int time_edx = d;
-			register volatile unsigned int time_eax = a;
-			register volatile unsigned int context = c;
-
+			register volatile unsigned int time_edx, time_edx1;
+			register volatile unsigned int time_eax, time_eax1;
+			asm volatile (  "cpuid\n\t"
+					"rdtsc\n\t"
+					"mov %%edx, %0\n\t"
+					"mov %%eax, %1\n\t" : "=r"(time_edx), "=r"(time_eax) ::
+					"%rax", "%rbx", "%rcx", "%rdx");
 			sleep(1);
 
-			c = context;
-			asm volatile("rdtscp");
-			frequency = ((unsigned long long)(d) << 32 | (unsigned long long)(a)) - ((unsigned long long)(time_edx) << 32 | (unsigned long long)(time_eax));
+			asm volatile (  "rdtscp\n\t"
+					"mov %%edx, %0\n\t"
+					"mov %%eax, %1\n\t"
+					"cpuid\n\t" : "=r"(time_edx1), "=r"(time_eax1) ::
+					"%rax", "%rbx", "%rcx", "%rdx");
+				
+			frequency =     ((unsigned long long)(time_edx1) << 32 | (unsigned long long)(time_eax1)) - 
+					((unsigned long long)(time_edx)  << 32 | (unsigned long long)(time_eax));
 		#endif
 
 		return frequency;
