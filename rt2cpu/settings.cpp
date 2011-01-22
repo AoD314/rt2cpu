@@ -15,14 +15,14 @@ Settings::Settings (int argc, char ** argv)
     height   = params.get("--height  | -h", 512);
 
     count_frame = params.get<size_t>("--frame    | -f",  8);
-    depth_bvh   = params.get<size_t>("--depthBVH | -dt", 6);
+    depth_bvh   = params.get<size_t>("--bvhobj   | -bo", 64);
 
     benchmark_mode = params.has("--benchmark | -b");
     active_event   = params.has("--event     | -e");
     file_write     = params.has("--saveimg   | -s");
     quiet_mode     = params.has("--quiet     | -q");
 
-    path_to_objfile = params.get<std::string>("--obj | -o", "./my_cube.obj");
+    path_to_objfile = params.get<std::string>("--obj | -o", "./my_stul.obj");
 
     is_exit = false;
 
@@ -39,18 +39,18 @@ Settings::Settings (int argc, char ** argv)
 void Settings::print_params()
 {
     std::cout << "Console Parameters:";
-    std::cout << "\nResolution        : " << width << "x" << height;
-    std::cout << "\nCount threads     : " << threads;
-    std::cout << "\nDepth ray tracing : " << depth;
-    std::cout << "\nDepth BVH tree    : " << depth_bvh;
-    std::cout << "\nCount lights      : " << lights;
-    std::cout << "\nCount frames      : " << count_frame;
+    std::cout << "\nResolution                     : " << width << "x" << height;
+    std::cout << "\nCount threads                  : " << threads;
+    std::cout << "\nDepth ray tracing              : " << depth;
+    std::cout << "\nMax count objects in BVH tree  : " << max_count_objects_in_bvh;
+    std::cout << "\nCount lights                   : " << lights;
+    std::cout << "\nCount frames                   : " << count_frame;
 
-    std::cout << "\nPath to objfile : " << path_to_objfile;
-    std::cout << "\nbenchmark : " << ((benchmark_mode == true) ? "true" : "false");
-    std::cout << "\nquiet     : " << ((quiet_mode == true)     ? "true" : "false");
-    std::cout << "\nsaveimg   : " << ((file_write == true)     ? "true" : "false");
-    std::cout << "\nevent     : " << ((active_event == true)   ? "true" : "false");
+    std::cout << "\nPath to objfile                : " << path_to_objfile;
+    std::cout << "\nbenchmark                      : " << ((benchmark_mode == true) ? "true" : "false");
+    std::cout << "\nquiet                          : " << ((quiet_mode == true)     ? "true" : "false");
+    std::cout << "\nsaveimg                        : " << ((file_write == true)     ? "true" : "false");
+    std::cout << "\nevent                          : " << ((active_event == true)   ? "true" : "false");
 
     std::cout << std::endl;
 }
@@ -65,9 +65,9 @@ void Settings::print_help()
     std::cout << "\n\t--frame    <int>(-f)  - Count frame before exit";
     std::cout << "\n\t--threads  <int>(-t)  - Count threads in OpenMP or TBB";
     std::cout << "\n\t--depth    <int>(-d)  - Depth of ray tracing";
-    std::cout << "\n\t--depthBVH <int>(-dt) - Depth of BVH tree";
+    std::cout << "\n\t--bvhobj   <int>(-bo) - Max count objects in BVH tree";
     std::cout << "\n\t--lights   <int>(-l)  - Count lights";
-    std::cout << "\n\t--obj   <string>(-o)  - Path to obj file (object for render)";
+    std::cout << "\n\t--obj      <str>(-o)  - Path to obj file (object for render)";
     std::cout << "\n\t--print     (-p)      - Print parameters";
     std::cout << "\n\t--benchmark (-b)      - Benchmark";
     std::cout << "\n\t--quiet     (-q)      - No output";
@@ -75,3 +75,4 @@ void Settings::print_help()
     std::cout << "\n\t--event     (-e)      - Event";
     std::cout << std::endl;
 }
+

@@ -14,6 +14,7 @@ class Settings
         int threads;
         int width;
         int height;
+	int max_count_objects_in_bvh;
 
         std::string path_to_objfile;
 
@@ -22,7 +23,6 @@ class Settings
         bool file_write;
         bool quiet_mode;
         size_t count_frame;
-        size_t depth_bvh;
 
         bool is_exit;
 
@@ -32,3 +32,4 @@ class Settings
 };
 
 #endif
+
