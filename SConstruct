@@ -4,8 +4,9 @@ import os
 num_cpu = int(os.environ.get('NUM_CPU', 12))
 SetOption('num_jobs', num_cpu)
 
-env  = Environment(CC = 'g++', CCFLAGS = '-msse4.2 -fopenmp -g -ggdb')
-perf = Environment(CC = 'g++', CCFLAGS = '-msse4.2 -fopenmp -O3')
+env    = Environment(CC = 'g++', CCFLAGS = '-msse4.2 -fopenmp -g -ggdb')
+perf   = Environment(CC = 'g++', CCFLAGS = '-msse4.2 -fopenmp -O3')
+perf_d = Environment(CC = 'g++', CCFLAGS = '-msse4.2 -fopenmp -O3 -g -ggdb')
 
 mlib_src   = Glob('mlib/*.cpp')
 rt2_src    = Glob('rt2/*.cpp')
@@ -17,9 +18,10 @@ perf_src = ['tests/performance_tests_mlib.cpp']
 cmp_src  = ['tests/cmp_tests.cpp']
 
 e = perf
+l = perf
 
-e.SharedLibrary('./build/mlib.so', mlib_src)
-e.SharedLibrary('./build/rt2.so', rt2_src, CPPPATH='./mlib/')
+l.SharedLibrary('./build/mlib.so', mlib_src)
+l.SharedLibrary('./build/rt2.so', rt2_src, CPPPATH='./mlib/')
 
 e.Program('./build/rt2cpu', rt2cpu_src, CPPPATH=['./mlib/', './rt2/'], LIBS=['SDL', 'gomp', 'mlib', 'rt2'], LIBPATH='./build')
 

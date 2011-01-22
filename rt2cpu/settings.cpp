@@ -14,8 +14,8 @@ Settings::Settings (int argc, char ** argv)
     width    = params.get("--width   | -w", 512);
     height   = params.get("--height  | -h", 512);
 
-    count_frame = params.get<size_t>("--frame    | -f",  8);
-    depth_bvh   = params.get<size_t>("--bvhobj   | -bo", 64);
+    count_frame              = params.get<size_t>("--frame  | -f",  8);
+    max_count_objects_in_bvh = params.get<size_t>("--bvhobj | -bo", 64);
 
     benchmark_mode = params.has("--benchmark | -b");
     active_event   = params.has("--event     | -e");
