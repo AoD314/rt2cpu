@@ -1,5 +1,5 @@
 \documentclass[12pt, a4paper]{article}
-\usepackage[cp1251]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[T2A]{fontenc}
 \usepackage[russian]{babel} 
 \usepackage{graphicx}
@@ -8,10 +8,10 @@
 \usepackage{multicol}
 \usepackage{hyperref}
 \usepackage{setspace}
-\usepackage[usenames,dvipsnames]{color} % для source-highlight
+\usepackage[usenames,dvipsnames]{color} % РґР»СЏ source-highlight
 \usepackage{indentfirst}
 
-% меняем размеры страницы
+% РјРµРЅСЏРµРј СЂР°Р·РјРµСЂС‹ СЃС‚СЂР°РЅРёС†С‹
 \usepackage{geometry}
 \geometry{left=2.5cm}
 \geometry{right=2.0cm}
@@ -19,12 +19,12 @@
 \geometry{bottom=2.5cm}
 
 
-% изменение межстрочного интервала
+% РёР·РјРµРЅРµРЅРёРµ РјРµР¶СЃС‚СЂРѕС‡РЅРѕРіРѕ РёРЅС‚РµСЂРІР°Р»Р°
 \def\heightline{1.2}
-\linespread{\heightline} % 1.3 - это полуторный
+\linespread{\heightline} % 1.3 - СЌС‚Рѕ РїРѕР»СѓС‚РѕСЂРЅС‹Р№
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% добавляем точки в Оглавление
+%%% РґРѕР±Р°РІР»СЏРµРј С‚РѕС‡РєРё РІ РћРіР»Р°РІР»РµРЅРёРµ
 
 \renewcommand{\thesection}{\arabic{section}.} 
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}.} 
@@ -32,13 +32,13 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% определим новые команды
+% РѕРїСЂРµРґРµР»РёРј РЅРѕРІС‹Рµ РєРѕРјР°РЅРґС‹
 \def\VEC#1#2#3{\left( \begin{array}{c} #1 \\ #2 \\ #3 \end{array} \right) }
 \def\VECXYZ#1{\left( \begin{array}{c} x_#1 \\ y_#1 \\ z_#1 \end{array} \right) }
 
 \newcounter{sourcecode}
 \setcounter{sourcecode}{1}
-\newcommand*{\cppsource}[2]{\par{\tt \noindent \ Листинг \arabic{sourcecode}. {\rm \small #2}}%
+\newcommand*{\cppsource}[2]{\par{\tt \noindent \ Р›РёСЃС‚РёРЅРі \arabic{sourcecode}. {\rm \small #2}}%
 \addtocounter{sourcecode}{1}\input{#1}}
 
 \makeindex
@@ -47,73 +47,70 @@
 
 \begin{titlepage}
 \begin{center}
-{ \large
-Федеральное агентство по образованию Российской Федерации \\ 
+{\large Р¤РµРґРµСЂР°Р»СЊРЅРѕРµ Р°РіРµРЅС‚СЃС‚РІРѕ РїРѕ РѕР±СЂР°Р·РѕРІР°РЅРёСЋ Р РѕСЃСЃРёР№СЃРєРѕР№ Р¤РµРґРµСЂР°С†РёРё\\
 \vspace{0.25em}
-Государственное образовательное учреждение \\
-высшего профессионального образования \\
-Нижегородский государственный университет им. Н.И. Лобачевского \\
+Р“РѕСЃСѓРґР°СЂСЃС‚РІРµРЅРЅРѕРµ РѕР±СЂР°Р·РѕРІР°С‚РµР»СЊРЅРѕРµ СѓС‡СЂРµР¶РґРµРЅРёРµ\\РІС‹СЃС€РµРіРѕ РїСЂРѕС„РµСЃСЃРёРѕРЅР°Р»СЊРЅРѕРіРѕ РѕР±СЂР°Р·РѕРІР°РЅРёСЏ\\РќРёР¶РµРіРѕСЂРѕРґСЃРєРёР№ РіРѕСЃСѓРґР°СЂСЃС‚РІРµРЅРЅС‹Р№ СѓРЅРёРІРµСЂСЃРёС‚РµС‚ РёРј. Рќ.Р. Р›РѕР±Р°С‡РµРІСЃРєРѕРіРѕ\\
 \vspace{0.25em}
-Факультет вычислительной математики и кибернетики \\
+Р¤Р°РєСѓР»СЊС‚РµС‚ РІС‹С‡РёСЃР»РёС‚РµР»СЊРЅРѕР№ РјР°С‚РµРјР°С‚РёРєРё Рё РєРёР±РµСЂРЅРµС‚РёРєРё\\
 \vspace{0.25em}
-Кафедра математического обеспечения ЭВМ \\
+РљР°С„РµРґСЂР° РјР°С‚РµРјР°С‚РёС‡РµСЃРєРѕРіРѕ РѕР±РµСЃРїРµС‡РµРЅРёСЏ Р­Р’Рњ\\
 \vspace{3em}
-Дипломная работа \\
+Р”РёРїР»РѕРјРЅР°СЏ СЂР°Р±РѕС‚Р°\\
 }
 \vspace{1em}
 {\bf \huge
-	\textsf{ Трассировка лучей в реальном времени на x64~архитектуре \\ } 
+	\textsf{ РўСЂР°СЃСЃРёСЂРѕРІРєР° Р»СѓС‡РµР№ РІ СЂРµР°Р»СЊРЅРѕРј РІСЂРµРјРµРЅРё РЅР° x64~Р°СЂС…РёС‚РµРєС‚СѓСЂРµ \\ } 
 }
 \end{center}
 \vspace{0.5cm}
 \begin{multicols}{2}
 \large 
 \noindent 
-Работа допущена к защите \\
-Заведующий кафедрой МО ЭВМ \\
-д.ф.--м.н., проф. \\
+Р Р°Р±РѕС‚Р° РґРѕРїСѓС‰РµРЅР° Рє Р·Р°С‰РёС‚Рµ \\
+Р—Р°РІРµРґСѓСЋС‰РёР№ РєР°С„РµРґСЂРѕР№ РњРћ Р­Р’Рњ \\
+Рґ.С„.--Рј.РЅ., РїСЂРѕС„. \\
 
 \vspace*{1em}
 { \noindent
-\hspace*{1.5cm}\hbox to 0cm{\raisebox{-1em}{\small Подпись}}\hspace{-1.5cm}{\hrulefill\ Стронгин Р. Г. }
+\hspace*{1.5cm}\hbox to 0cm{\raisebox{-1em}{\small РџРѕРґРїРёСЃСЊ}}\hspace{-1.5cm}{\hrulefill\ РЎС‚СЂРѕРЅРіРёРЅ Р . Р“. }
 }
 
 \vspace*{1.0em}
 { \noindent
-\hbox to 0cm{\raisebox{0.25em}{<<\ \ \ \ \ \  >>}}{\hrulefill\ 2011 г. }
+\hbox to 0cm{\raisebox{0.25em}{<<\ \ \ \ \ \  >>}}{\hrulefill\ 2011 Рі. }
 }
 \vbox to 5 cm{\ }
-Исполнитель: \\
-студент 2 курса магистратуры \\
-факультета ВМК группы 86М1 \\
+РСЃРїРѕР»РЅРёС‚РµР»СЊ: \\
+СЃС‚СѓРґРµРЅС‚ 2 РєСѓСЂСЃР° РјР°РіРёСЃС‚СЂР°С‚СѓСЂС‹ \\
+С„Р°РєСѓР»СЊС‚РµС‚Р° Р’РњРљ РіСЂСѓРїРїС‹ 86Рњ1 \\
 
 \vspace*{1em}
 { \noindent
-\hspace*{1.5cm}\hbox to 0cm{\raisebox{-1em}{\small Подпись}}\hspace{-1.5cm}{\hrulefill\ Морозов А. С. }
+\hspace*{1.5cm}\hbox to 0cm{\raisebox{-1em}{\small РџРѕРґРїРёСЃСЊ}}\hspace{-1.5cm}{\hrulefill\ РњРѕСЂРѕР·РѕРІ Рђ. РЎ. }
 }
 
 \vspace*{1.0em}
 { \noindent
-\hbox to 0cm{\raisebox{0.25em}{<<\ \ \ \ \ \  >>}}{\hrulefill\ 2011 г. }
+\hbox to 0cm{\raisebox{0.25em}{<<\ \ \ \ \ \  >>}}{\hrulefill\ 2011 Рі. }
 }
 \\
-Научный руководитель: д. т. н., \\
-профессор кафедры МО ЭВМ \\
+РќР°СѓС‡РЅС‹Р№ СЂСѓРєРѕРІРѕРґРёС‚РµР»СЊ: Рґ. С‚. РЅ., \\
+РїСЂРѕС„РµСЃСЃРѕСЂ РєР°С„РµРґСЂС‹ РњРћ Р­Р’Рњ \\
 
 \vspace*{1em}
 { \noindent
-\hspace*{1.5cm}\hbox to 0cm{\raisebox{-1em}{\small Подпись}}\hspace{-1.5cm}{\hrulefill\ Турлапов В. Е. }
+\hspace*{1.5cm}\hbox to 0cm{\raisebox{-1em}{\small РџРѕРґРїРёСЃСЊ}}\hspace{-1.5cm}{\hrulefill\ РўСѓСЂР»Р°РїРѕРІ Р’. Р•. }
 }
 
 \vspace*{1.0em}
-{ \noindent\newcommand{\z}{\textbf{Задача. }}
-\hbox to 0cm{\raisebox{0.25em}{<<\ \ \ \ \ \  >>}}{\hrulefill\ 2011 г. }
+{ \noindent\newcommand{\z}{\textbf{Р—Р°РґР°С‡Р°. }}
+\hbox to 0cm{\raisebox{0.25em}{<<\ \ \ \ \ \  >>}}{\hrulefill\ 2011 Рі. }
 }
 \end{multicols}
 
 \vfill 
 \begin{center} 
-{\rm \large Нижний Новгород \\ 2011 г.} 
+{\rm \large РќРёР¶РЅРёР№ РќРѕРІРіРѕСЂРѕРґ \\ 2011 Рі.} 
 \end {center} 
 \end{titlepage} 
 
@@ -136,22 +133,22 @@
 
 \newpage
 \begin{thebibliography}{99}
-	\bibitem{morozov_kazan} Морозов А. С. Трассировка лучей в реальном времени на многоядерном процессоре. Высокопроизводительные параллельные вычисления на кластерных системах (HPC-2008). Материалы Восьмой Международной конференции-семинара. Казань, ноябрь 17-19, 2008. Труды конференции — Казань: Изд. КГТУ, 2008. - С. 241.
-	\bibitem{morozov_microsoft} Морозов А. С. Высокопроизводительная реализация трассировки лучей с использованием Microsoft MPI. Технологии Microsoft в теории и практике программирования. Материалы конференции /Под ред. Проф. В.П. Гергеля. - Нижний Новгород: Изд-во Нижегородского госуниверситета, 2009. - 527 с.
-	\bibitem{morozov_pavt} Морозов А. С. Сравнительный анализ алгоритма трассировки лучей на системах с общей и разделяемой памятью. Параллельные вычислительные технологии (ПаВТ’2009): Труды международной научной конференции (Нижний Новгород, 30 марта - 3 апреля 2009 г.). - Челябинск: Изд. ЮурГУ, 2009. - 839 с
-	\bibitem{latex} Львовский С.М. Набор и верстка в системе \LaTeX. – 4-е изд., стереотипн. – М.: МЦНМО, 2006
-	\bibitem{alloftex} Кнут, Дональд, Э. Все про \TeX. : Пер. с англ. --- М. : Издательский дом ''Вильямс'', 2003. --- 560 с. : ил. --- Парал. Тит. англ.
-	\bibitem{inteloptimize} Гербер Р., Бик А., Смит К., Тиан К. Оптимизация ПО. Сборник рецептов. --- СПб.: Питер, 2010. --- 352 с.: ил. --- (Серия ''Библиотека программиста'').
-	\bibitem{templatecpp} Вандевурд, Дэвид, Джосаттис, Николаи М. Шаблоны C++: справочник разработчика. : Пер. с англ. --- М. : Издательский дом ''Вильямс'', 2008. --- 544 с. : ил. --- парал. тит. англ.
-	\bibitem{straustrupcpp} Б. Страуструп Язык программирования C++. Специальное издание / Пер. с англ. --- М.: ООО ''Бином-Пресс'', 2006. --- 1104 с.: ил.
-	\bibitem{sivakov} Сиваков И. Как компьютер рассчитывает изображения. Технология программного рендеринга, 11.03.2004. \\ (\href{http://www.fcenter.ru/online.shtml?articles/hardware/videos/8749}{http://www.fcenter.ru/online.shtml?articles/hardware/videos/8749})
-	\bibitem{biovulf} Дмитрий Мороз. "Беовульф": Создание фильма, 11.12.2007.\\ (\href{http://www.3dnews.ru/editorial/beowulf}{http://www.3dnews.ru/editorial/beowulf})
-	\bibitem{intelintrinsic} Intel® C++ Intrinsics Reference \\ (\href{http://www.intel.com/products/processor/manuals/}{http://www.intel.com/products/processor/manuals/})
+	\bibitem{morozov_kazan} РњРѕСЂРѕР·РѕРІ Рђ. РЎ. РўСЂР°СЃСЃРёСЂРѕРІРєР° Р»СѓС‡РµР№ РІ СЂРµР°Р»СЊРЅРѕРј РІСЂРµРјРµРЅРё РЅР° РјРЅРѕРіРѕСЏРґРµСЂРЅРѕРј РїСЂРѕС†РµСЃСЃРѕСЂРµ. Р’С‹СЃРѕРєРѕРїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅС‹Рµ РїР°СЂР°Р»Р»РµР»СЊРЅС‹Рµ РІС‹С‡РёСЃР»РµРЅРёСЏ РЅР° РєР»Р°СЃС‚РµСЂРЅС‹С… СЃРёСЃС‚РµРјР°С… (HPC-2008). РњР°С‚РµСЂРёР°Р»С‹ Р’РѕСЃСЊРјРѕР№ РњРµР¶РґСѓРЅР°СЂРѕРґРЅРѕР№ РєРѕРЅС„РµСЂРµРЅС†РёРё-СЃРµРјРёРЅР°СЂР°. РљР°Р·Р°РЅСЊ, РЅРѕСЏР±СЂСЊ 17-19, 2008. РўСЂСѓРґС‹ РєРѕРЅС„РµСЂРµРЅС†РёРё вЂ” РљР°Р·Р°РЅСЊ: РР·Рґ. РљР“РўРЈ, 2008. - РЎ. 241.
+	\bibitem{morozov_microsoft} РњРѕСЂРѕР·РѕРІ Рђ. РЎ. Р’С‹СЃРѕРєРѕРїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅР°СЏ СЂРµР°Р»РёР·Р°С†РёСЏ С‚СЂР°СЃСЃРёСЂРѕРІРєРё Р»СѓС‡РµР№ СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј Microsoft MPI. РўРµС…РЅРѕР»РѕРіРёРё Microsoft РІ С‚РµРѕСЂРёРё Рё РїСЂР°РєС‚РёРєРµ РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёСЏ. РњР°С‚РµСЂРёР°Р»С‹ РєРѕРЅС„РµСЂРµРЅС†РёРё /РџРѕРґ СЂРµРґ. РџСЂРѕС„. Р’.Рџ. Р“РµСЂРіРµР»СЏ. - РќРёР¶РЅРёР№ РќРѕРІРіРѕСЂРѕРґ: РР·Рґ-РІРѕ РќРёР¶РµРіРѕСЂРѕРґСЃРєРѕРіРѕ РіРѕСЃСѓРЅРёРІРµСЂСЃРёС‚РµС‚Р°, 2009. - 527 СЃ.
+	\bibitem{morozov_pavt} РњРѕСЂРѕР·РѕРІ Рђ. РЎ. РЎСЂР°РІРЅРёС‚РµР»СЊРЅС‹Р№ Р°РЅР°Р»РёР· Р°Р»РіРѕСЂРёС‚РјР° С‚СЂР°СЃСЃРёСЂРѕРІРєРё Р»СѓС‡РµР№ РЅР° СЃРёСЃС‚РµРјР°С… СЃ РѕР±С‰РµР№ Рё СЂР°Р·РґРµР»СЏРµРјРѕР№ РїР°РјСЏС‚СЊСЋ. РџР°СЂР°Р»Р»РµР»СЊРЅС‹Рµ РІС‹С‡РёСЃР»РёС‚РµР»СЊРЅС‹Рµ С‚РµС…РЅРѕР»РѕРіРёРё (РџР°Р’РўвЂ™2009): РўСЂСѓРґС‹ РјРµР¶РґСѓРЅР°СЂРѕРґРЅРѕР№ РЅР°СѓС‡РЅРѕР№ РєРѕРЅС„РµСЂРµРЅС†РёРё (РќРёР¶РЅРёР№ РќРѕРІРіРѕСЂРѕРґ, 30 РјР°СЂС‚Р° - 3 Р°РїСЂРµР»СЏ 2009 Рі.). - Р§РµР»СЏР±РёРЅСЃРє: РР·Рґ. Р®СѓСЂР“РЈ, 2009. - 839 СЃ
+	\bibitem{latex} Р›СЊРІРѕРІСЃРєРёР№ РЎ.Рњ. РќР°Р±РѕСЂ Рё РІРµСЂСЃС‚РєР° РІ СЃРёСЃС‚РµРјРµ \LaTeX. вЂ“ 4-Рµ РёР·Рґ., СЃС‚РµСЂРµРѕС‚РёРїРЅ. вЂ“ Рњ.: РњР¦РќРњРћ, 2006
+	\bibitem{alloftex} РљРЅСѓС‚, Р”РѕРЅР°Р»СЊРґ, Р­. Р’СЃРµ РїСЂРѕ \TeX. : РџРµСЂ. СЃ Р°РЅРіР». --- Рњ. : РР·РґР°С‚РµР»СЊСЃРєРёР№ РґРѕРј ''Р’РёР»СЊСЏРјСЃ'', 2003. --- 560 СЃ. : РёР». --- РџР°СЂР°Р». РўРёС‚. Р°РЅРіР».
+	\bibitem{inteloptimize} Р“РµСЂР±РµСЂ Р ., Р‘РёРє Рђ., РЎРјРёС‚ Рљ., РўРёР°РЅ Рљ. РћРїС‚РёРјРёР·Р°С†РёСЏ РџРћ. РЎР±РѕСЂРЅРёРє СЂРµС†РµРїС‚РѕРІ. --- РЎРџР±.: РџРёС‚РµСЂ, 2010. --- 352 СЃ.: РёР». --- (РЎРµСЂРёСЏ ''Р‘РёР±Р»РёРѕС‚РµРєР° РїСЂРѕРіСЂР°РјРјРёСЃС‚Р°'').
+	\bibitem{templatecpp} Р’Р°РЅРґРµРІСѓСЂРґ, Р”СЌРІРёРґ, Р”Р¶РѕСЃР°С‚С‚РёСЃ, РќРёРєРѕР»Р°Рё Рњ. РЁР°Р±Р»РѕРЅС‹ C++: СЃРїСЂР°РІРѕС‡РЅРёРє СЂР°Р·СЂР°Р±РѕС‚С‡РёРєР°. : РџРµСЂ. СЃ Р°РЅРіР». --- Рњ. : РР·РґР°С‚РµР»СЊСЃРєРёР№ РґРѕРј ''Р’РёР»СЊСЏРјСЃ'', 2008. --- 544 СЃ. : РёР». --- РїР°СЂР°Р». С‚РёС‚. Р°РЅРіР».
+	\bibitem{straustrupcpp} Р‘. РЎС‚СЂР°СѓСЃС‚СЂСѓРї РЇР·С‹Рє РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёСЏ C++. РЎРїРµС†РёР°Р»СЊРЅРѕРµ РёР·РґР°РЅРёРµ / РџРµСЂ. СЃ Р°РЅРіР». --- Рњ.: РћРћРћ ''Р‘РёРЅРѕРј-РџСЂРµСЃСЃ'', 2006. --- 1104 СЃ.: РёР».
+	\bibitem{sivakov} РЎРёРІР°РєРѕРІ Р. РљР°Рє РєРѕРјРїСЊСЋС‚РµСЂ СЂР°СЃСЃС‡РёС‚С‹РІР°РµС‚ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ. РўРµС…РЅРѕР»РѕРіРёСЏ РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ СЂРµРЅРґРµСЂРёРЅРіР°, 11.03.2004. \\ (\href{http://www.fcenter.ru/online.shtml?articles/hardware/videos/8749}{http://www.fcenter.ru/online.shtml?articles/hardware/videos/8749})
+	\bibitem{biovulf} Р”РјРёС‚СЂРёР№ РњРѕСЂРѕР·. "Р‘РµРѕРІСѓР»СЊС„": РЎРѕР·РґР°РЅРёРµ С„РёР»СЊРјР°, 11.12.2007.\\ (\href{http://www.3dnews.ru/editorial/beowulf}{http://www.3dnews.ru/editorial/beowulf})
+	\bibitem{intelintrinsic} IntelВ® C++ Intrinsics Reference \\ (\href{http://www.intel.com/products/processor/manuals/}{http://www.intel.com/products/processor/manuals/})
 	\bibitem{intelmanual} Intel 64 and IA-32.Architectures Software Developer's Manual \\ (\href{http://www.intel.com/products/processor/manuals/}{http://www.intel.com/products/processor/manuals/})
-	\bibitem{tbbtutor} Intel® Threading Building Blocks. Tutorial \\ (\href{http://www.threadingbuildingblocks.org/}{http://www.threadingbuildingblocks.org/})
-	\bibitem{tbbmanual} Intel® Threading Building Blocks. Reference Manual \\ (\href{http://www.threadingbuildingblocks.org/}{http://www.threadingbuildingblocks.org/})
+	\bibitem{tbbtutor} IntelВ® Threading Building Blocks. Tutorial \\ (\href{http://www.threadingbuildingblocks.org/}{http://www.threadingbuildingblocks.org/})
+	\bibitem{tbbmanual} IntelВ® Threading Building Blocks. Reference Manual \\ (\href{http://www.threadingbuildingblocks.org/}{http://www.threadingbuildingblocks.org/})
 	\bibitem{cppexpressiontemplate} C++ Expression Templates An Introduction to the Principles of Expression Templates, 2003 \\ (\href{http://www.angelikalanger.com/Articles/Cuj/ExpressionTemplates/ExpressionTemplates.htm}{http://www.angelikalanger.com/.../ExpressionTemplates.htm})
-	\bibitem{intelcore980x} Шесть ядер для десктопа: Intel Core i7-980X Extreme Edition, 07.04.2010 \\ (\href{http://www.fcenter.ru/online.shtml?articles/hardware/processors/28480}{http://www.fcenter.ru/online.shtml?articles/hardware/processors/28480})
+	\bibitem{intelcore980x} РЁРµСЃС‚СЊ СЏРґРµСЂ РґР»СЏ РґРµСЃРєС‚РѕРїР°: Intel Core i7-980X Extreme Edition, 07.04.2010 \\ (\href{http://www.fcenter.ru/online.shtml?articles/hardware/processors/28480}{http://www.fcenter.ru/online.shtml?articles/hardware/processors/28480})
 	\bibitem{rdtscp} How to Benchmark Code Execution Times on Intel IA-32 and IA-64 Instruction Set Architectures. September 2010
 \end{thebibliography}
 
