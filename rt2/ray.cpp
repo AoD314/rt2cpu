@@ -8,15 +8,27 @@ namespace rt2
 		p = pos;
 		d = dir;
 	}
-	
-	mlib::vec4 Ray::pos()
+
+	Ray::Ray(const Ray & r)
+	{
+		p = r.pos();
+		d = r.dir();
+	}
+
+	void Ray::operator = (const Ray & r)
+	{
+		p = r.pos();
+		d = r.dir();
+	}
+
+	mlib::vec4 Ray::pos() const
 	{
 		return p;
 	}
 
-	mlib::vec4 Ray::dir()
+	mlib::vec4 Ray::dir() const
 	{
-		return d; 
+		return d;
 	}
 }
 

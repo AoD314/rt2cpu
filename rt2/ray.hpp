@@ -14,9 +14,12 @@ namespace rt2
 
 		public:
 			Ray(mlib::vec4 pos, mlib::vec4 dir);
+			Ray(const Ray & r);
 
-			mlib::vec4 pos();
-			mlib::vec4 dir();
+			void operator = (const Ray & r);
+
+			mlib::vec4 pos() const;
+			mlib::vec4 dir() const;
 	};
 
 }
