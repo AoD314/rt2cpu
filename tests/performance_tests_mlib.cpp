@@ -30,7 +30,7 @@ bool performance_test_ray_cross_triangle_ok()
 	size_t count_tr = 0;
 
 	vec4 point;
-	
+
 	Timer timer(FR, mode);
 
 	for (size_t i = 0; i < N; i++)
@@ -44,7 +44,7 @@ bool performance_test_ray_cross_triangle_ok()
 		vec4 d ( 0.0f, 0.0f, -1.0f, rand);
 
 		rt2::Ray r(p, d);
-		rt2::Triangle t(a, b, c);
+		rt2::Triangle t(a, b, c, a);
 
 		timer.Start();
 
@@ -57,7 +57,7 @@ bool performance_test_ray_cross_triangle_ok()
 
 	std::cout << "cross : " << count_tr << " / " << N << "\n";
 
-	std::cout << "time ray cross triangle(" << N << ") : " << t << " tick.\n"; 
+	std::cout << "time ray cross triangle(" << N << ") : " << t << " tick.\n";
 
 	return t <= 314 * N;
 }
@@ -79,7 +79,7 @@ bool performance_test_vector_add()
 		timer.Stop();
 	}
 
-	
+
 	unsigned long long t = timer.GetTotalTimeInTick();
 
 	std::cout << "vec : " << c << "\n";
@@ -123,7 +123,7 @@ bool performance_test_vector_big_add()
 	unsigned long long t = timer.GetTotalTimeInTick();
 
 	std::cout << "vec : " << h << "\n";
-	
+
 	std::cout << "time vector add(" << N << ") : " << t << " tick.\n";
 
 	return t <= 16 * N;
@@ -176,7 +176,7 @@ int main(int argc, char ** argv)
 	{
 		mode = mode_avg;
 	}
-	
+
 	if (params.has(" -h | --help | --usage "))
 	{
 		std::cout << "-p, --print    -- print debug info\n";
@@ -200,7 +200,7 @@ int main(int argc, char ** argv)
 	timer.Stop();
 
 	std::cout.setf( std::ios::right );
-	std::cout       << "\n" << std::setfill('0') << std::setw(3) << total_good_tests << " / " << std::setw(3) << total_tests << " passed. " 
+	std::cout       << "\n" << std::setfill('0') << std::setw(3) << total_good_tests << " / " << std::setw(3) << total_tests << " passed. "
 			<< "       " << std::setw(3) << total_tests - total_good_tests <<  " errors.\n\n";
 	std::cout << "Time: " << std::fixed << std::setprecision(8) << timer.GetTotalTimeInSeconds() << " sec. \n\n";
 

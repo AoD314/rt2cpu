@@ -1,29 +1,45 @@
 
 #include "triangle.hpp"
 
+using namespace mlib;
+
 namespace rt2
 {
-	Triangle::Triangle(mlib::vec4 a, mlib::vec4 b, mlib::vec4 c)
+	Triangle::Triangle(vec4 a, vec4 b, vec4 c, vec4 n)
 	{
 		v0 = a;
 		v1 = b;
 		v2 = c;
+		normal = n;
 	}
-	
-	float Triangle::crossing(Ray & r, mlib::vec4 & point)
+
+	Triangle::Triangle(const Triangle & t)
 	{
-		mlib::vec4 pos = r.pos();
-		mlib::vec4 dir = r.dir();
+		v0 = t.v0;
+		v1 = t.v1;
+		v2 = t.v2;
+		normal = t.normal;
+	}
 
-		mlib::vec4 e1 = v1 - v0;
-		mlib::vec4 e2 = v2 - v0;
-		mlib::vec4 t = pos - v0;
+	vec4 Triangle::get_normal()
+	{
+		return normal;
+	}
 
-		mlib::vec4 q = cross ( t, e1 );
-		mlib::vec4 p = cross ( dir, e2 );
+	float Triangle::crossing(Ray & r, vec4 & point)
+	{
+		vec4 pos = r.pos();
+		vec4 dir = r.dir();
 
-		mlib::vec4 tmp (dot(q,e2), dot(p,t), dot(q, dir), 0.0f);
-		mlib::vec4 tuv = tmp * 1.0f / dot (p, e1);
+		vec4 e1 = v1 - v0;
+		vec4 e2 = v2 - v0;
+		vec4 t = pos - v0;
+
+		vec4 q = cross ( t, e1 );
+		vec4 p = cross ( dir, e2 );
+
+		vec4 tmp (dot(q,e2), dot(p,t), dot(q, dir), 0.0f);
+		vec4 tuv = tmp * 1.0f / dot (p, e1);
 
 		if (tuv[0]>=0.0f && tuv[1]>=0.0f && tuv[2]>=0.0f && (tuv[1] + tuv[2] <= 1.0f))
 		{

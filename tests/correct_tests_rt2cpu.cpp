@@ -92,7 +92,7 @@ bool test_rt2_triangle_cross()
 
 	vec4 point;
 	Ray r(p,d);
-	Triangle t(a, b, c);
+	Triangle t(a, b, c, a);
 
 	return (t.crossing(r, point) >= 0.0f);
 }
