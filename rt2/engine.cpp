@@ -11,7 +11,12 @@ namespace rt2
 
 	void Engine::rendering()
 	{
+		timer.Start();
 
+		//rendering
+
+		timer.Stop();
+		fps = static_cast<float>(timer.OperationPerSecond());
 		num_frame++;
 	}
 
@@ -39,5 +44,11 @@ namespace rt2
 	{
 		aa = a;
 	}
+
+	float Engine::get_fps()
+	{
+		return fps;
+	}
+
 
 }

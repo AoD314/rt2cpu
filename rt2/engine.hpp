@@ -4,6 +4,8 @@
 
 #include "scene.cpp"
 
+#include <mlib/timer.hpp>
+
 namespace rt2
 {
 	class Engine
@@ -14,7 +16,8 @@ namespace rt2
 			int threads;
 			int aa;
 			unsigned long long num_frame;
-
+			float fps;
+			mlib::Timer timer;
 
 		public:
 			Engine(Scene& s, unsigned int * vbuffer);
@@ -22,6 +25,7 @@ namespace rt2
 
 			unsigned long long get_num_frame();
 
+			float get_fps();
 			int get_threads();
 			int get_antialiasing();
 
