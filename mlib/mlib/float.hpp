@@ -11,6 +11,7 @@ namespace mlib
 		public:
 			static float Parce(std::string val);
 			static std::string ToString(float val);
+			static std::string ToString(float val, int precision);
 			static float MaxValue();
 			static float MinValue();
 			static int SizeOfByte();

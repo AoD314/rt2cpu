@@ -1,6 +1,7 @@
 
 #include <sstream>
 #include <limits>
+#include <iomanip>
 
 #include "mlib/float.hpp"
 
@@ -35,6 +36,13 @@ namespace mlib
 	{
 		std::ostringstream s;
 		s << val;
+		return s.str();
+	}
+
+	std::string Float::ToString(float val, int precision)
+	{
+		std::ostringstream s;
+		s << std::fixed << std::setprecision(precision) << val;
 		return s.str();
 	}
 

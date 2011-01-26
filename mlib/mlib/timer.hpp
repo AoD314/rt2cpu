@@ -54,15 +54,6 @@ namespace mlib
 
 			inline void Start()
 			{
-				/*
-				volatile register unsigned int a asm ("eax");
-				volatile register unsigned int d asm ("edx");
-				volatile register unsigned int c asm ("ecx");
-				asm volatile ("rdtscp");
-				time_edx = d;
-				time_eax = a;
-				context = c;
-				*/
 				asm volatile (  "cpuid\n\t"
 						"rdtsc\n\t"
 						"mov %%edx, %0\n\t"
@@ -77,15 +68,8 @@ namespace mlib
 						"mov %%eax, %1\n\t"
 						"cpuid\n\t" : "=r"(time_edx1), "=r"(time_eax1) ::
 						"%rax", "%rbx", "%rcx", "%rdx");
-				
-				/*volatile register unsigned int a asm ("eax");
-				volatile register unsigned int d asm ("edx");
-				volatile register unsigned int c asm ("ecx");
-				c = context;
-				asm volatile("rdtscp");
-				*/
 
-				time_last =     ((unsigned long long)(time_edx1) << 32 | (unsigned long long)(time_eax1)) - 
+				time_last =     ((unsigned long long)(time_edx1) << 32 | (unsigned long long)(time_eax1)) -
 						((unsigned long long)(time_edx)  << 32 | (unsigned long long)(time_eax));
 				CalcSec();
 			}
