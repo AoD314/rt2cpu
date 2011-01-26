@@ -13,12 +13,15 @@ namespace rt2
 	{
 		private:
 			mlib::vec4 v0, v1, v2, normal;
+			mlib::vec4 e1, e2;
 
 		public:
 			Triangle(mlib::vec4 a, mlib::vec4 b, mlib::vec4 c, mlib::vec4 n);
 			Triangle(const Triangle & t);
 
-			float crossing(Ray & r, mlib::vec4 & point);
+			float get_crossing_point(Ray & r, mlib::vec4 & point);
+			bool is_cross(Ray & r);
+
 			mlib::vec4 get_normal();
 
 	};

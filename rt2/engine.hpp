@@ -12,7 +12,7 @@ namespace rt2
 	{
 		private:
 			unsigned int * vbuf;
-
+			Scene scene;
 			int threads;
 			int aa;
 			unsigned long long num_frame;
@@ -20,7 +20,7 @@ namespace rt2
 			mlib::Timer timer;
 
 		public:
-			Engine(Scene& s, unsigned int * vbuffer);
+			Engine(Scene s, unsigned int * vbuffer);
 			void rendering();
 
 			unsigned long long get_num_frame();

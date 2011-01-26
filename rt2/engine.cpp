@@ -3,10 +3,10 @@
 
 namespace rt2
 {
-	Engine::Engine(Scene& s, unsigned int * vbuffer)
+	Engine::Engine(Scene s, unsigned int * vbuffer)
 	{
+		scene = s;
 		num_frame = 0;
-
 	}
 
 	void Engine::rendering()

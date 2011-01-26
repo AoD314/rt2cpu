@@ -20,6 +20,7 @@ SDL_Surface *screen;
 #include <mlib/timer.hpp>
 #include <mlib/float.hpp>
 #include <mlib/long.hpp>
+#include <mlib/exception.hpp>
 using namespace mlib;
 using namespace rt2;
 using namespace std;
@@ -61,6 +62,7 @@ int main ( int argc, char ** argv )
         std::cout.flush();
 
 	Scene scene;
+	scene.load_from_file(settings.path_to_objfile);
 	Engine engine(scene, InitSDL(settings));
 
 	timer.Start();
@@ -81,10 +83,11 @@ int main ( int argc, char ** argv )
 
         std::cout << "\n\nTotal time: " << timer << "\n";
     }
-    catch (...)
+    catch (Exception & exception)
     {
-
+	    std::cout << "EXCEPTION: " << exception.what() << "n";
     }
+    catch(...){}
     return 0;
 }
 

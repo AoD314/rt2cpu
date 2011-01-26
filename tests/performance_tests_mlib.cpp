@@ -48,7 +48,7 @@ bool performance_test_ray_cross_triangle_ok()
 
 		timer.Start();
 
-		count_tr += ( t.crossing(r, point) >= 0.0f )? 1 : 0;
+		count_tr += ( t.is_cross(r) )? 1 : 0;
 
 		timer.Stop();
 	}

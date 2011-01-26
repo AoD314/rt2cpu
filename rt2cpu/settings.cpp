@@ -9,12 +9,12 @@ Settings::Settings (int argc, char ** argv)
     ConsoleParameters params(argc, argv);
 
     lights   = params.get("--lights  | -l", 1);
-    depth    = params.get("--depth   | -d", 4);
+    depth    = params.get("--depth   | -d", 8);
     threads  = params.get("--threads | -t", 1);
-    width    = params.get("--width   | -w", 512);
-    height   = params.get("--height  | -h", 512);
+    width    = params.get("--width   | -w", 800);
+    height   = params.get("--height  | -h", 800);
 
-    count_frame              = params.get<size_t>("--frame  | -f",  8);
+    count_frame              = params.get<size_t>("--frame  | -f",  5);
     max_count_objects_in_bvh = params.get<size_t>("--bvhobj | -bo", 64);
 
     benchmark_mode = params.has("--benchmark | -b");

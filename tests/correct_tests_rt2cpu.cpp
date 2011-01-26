@@ -94,7 +94,7 @@ bool test_rt2_triangle_cross()
 	Ray r(p,d);
 	Triangle t(a, b, c, a);
 
-	return (t.crossing(r, point) >= 0.0f);
+	return (t.is_cross(r));
 }
 
 int main(int argc, char ** argv)
