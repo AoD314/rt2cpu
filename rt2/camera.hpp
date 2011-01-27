@@ -20,6 +20,9 @@ namespace rt2
 
 			Ray get_ray(unsigned int i, unsigned int j, unsigned int part = 1, unsigned int allpart = 1);
 
+			unsigned int get_width();
+			unsigned int get_height();
+
 	};
 
 }

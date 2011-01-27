@@ -27,4 +27,21 @@ namespace rt2
 		cout.flush();
 	}
 
+	Camera Scene::get_cam()
+	{
+		return Camera(mlib::vec4::zero(), mlib::vec4::zero(), mlib::vec4::zero(), 64, 64, 45.0f);
+	}
+
+	unsigned int Scene::count_objects()
+	{
+		return triangle_list.size();
+	}
+
+	bool Scene::crossing(Ray & r)
+	{
+		for (unsigned int i = 0; i < triangle_list.size(); i++)
+			triangle_list[i].is_cross(r);
+		return true;
+	}
+
 }

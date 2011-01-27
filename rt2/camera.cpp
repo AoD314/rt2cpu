@@ -17,6 +17,16 @@ namespace rt2
 		tan_aview = tan (angleofview);
 	}
 
+	unsigned int Camera::get_width()
+	{
+		return width;
+	}
+
+	unsigned int Camera::get_height()
+	{
+		return height;
+	}
+
 	Ray Camera::get_ray(unsigned int i, unsigned int j, unsigned int part, unsigned int allpart)
 	{
 		float xx = 2.0f * (static_cast<float>(i) / static_cast<float>(width) ) - 1.0f;

@@ -6,6 +6,8 @@
 #include <vector>
 
 #include "triangle.hpp"
+#include "camera.hpp"
+#include "ray.hpp"
 
 namespace rt2
 {
@@ -16,6 +18,10 @@ namespace rt2
 
 		public:
 			void load_from_file(const std::string & namefile);
+			Camera get_cam();
+			unsigned int count_objects();
+
+			bool crossing(Ray & r);
 	};
 
 }

@@ -75,7 +75,7 @@ int main ( int argc, char ** argv )
 			{
 				SDL_SaveBMP ( screen, string(Long::ToString(engine.get_num_frame(), 8) + ".bmp").c_str() );
 			}
-			std::cout << "\n[" << engine.get_num_frame() << "] = " << Float::ToString(engine.get_fps(), 3);
+			std::cout << "\nframe [" << Long::ToString(engine.get_num_frame(), 5) << "] = " << Float::ToString(engine.get_fps(), 3) << " fps"; std::cout.flush();
 			SDL_UpdateRect ( screen, 0, 0, settings.width, settings.height);
 		}
 
