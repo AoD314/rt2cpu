@@ -13,6 +13,15 @@ namespace rt2
 		num_frame = 0;
 	}
 
+	vec4 Engine::ray_tracing(Ray ray)
+	{
+		Triangle * t = scene.crossing(ray);
+		if ( t == NULL)
+			return vec4(0.0f);
+		else
+			return vec4(1.0f, 1.0f, 1.0f, 0.0f);
+	}
+
 	void Engine::rendering()
 	{
 		timer.Start();
@@ -21,19 +30,16 @@ namespace rt2
 		unsigned int h = scene.get_cam().get_height();
 
 		unsigned int i, j;
-		vec4 color(1.0f, 0.0f, 0.0f, 0.0f);;
-		Ray ray(vec4::zero(), vec4::zero());
+		vec4 color;
+		Camera cam = scene.get_cam();
 
-		#pragma omp parallel for private(i, j, color) schedule(static, 2)
+		#pragma omp parallel for private(i, j, color) schedule(static, 1)
 		for (j = 0; j < h; j++)
 			for (i = 0; i < w; i++)
 			{
-				scene.crossing(ray);
-
+				color = ray_tracing(cam.get_ray(i,j));
 				vbuf[j*w +i] = to_color(color);
 			}
-
-
 
 		timer.Stop();
 		fps = static_cast<float>(timer.OperationPerSecond());
@@ -63,6 +69,11 @@ namespace rt2
 	void Engine::set_antialiasing(int a)
 	{
 		aa = a;
+	}
+
+	void Engine::set_depth(int d)
+	{
+		depth = d;
 	}
 
 	float Engine::get_fps()

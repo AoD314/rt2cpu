@@ -16,6 +16,7 @@ namespace rt2
 			mlib::vec4 e1, e2;
 
 		public:
+			Triangle();
 			Triangle(mlib::vec4 a, mlib::vec4 b, mlib::vec4 c, mlib::vec4 n);
 			Triangle(const Triangle & t);
 
@@ -23,7 +24,6 @@ namespace rt2
 			bool is_cross(Ray & r);
 
 			mlib::vec4 get_normal();
-
 	};
 
 

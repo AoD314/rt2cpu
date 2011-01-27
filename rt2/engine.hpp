@@ -13,11 +13,16 @@ namespace rt2
 		private:
 			unsigned int * vbuf;
 			Scene scene;
+
 			int threads;
 			int aa;
+			int depth;
+
 			unsigned long long num_frame;
 			float fps;
 			mlib::Timer timer;
+
+			mlib::vec4 ray_tracing(Ray ray);
 
 		public:
 			Engine(Scene s, unsigned int * vbuffer);
@@ -29,7 +34,9 @@ namespace rt2
 			int get_threads();
 			int get_antialiasing();
 
+
 			void set_threads(int t);
+			void set_depth(int d);
 			void set_antialiasing(int a);
 
 	};

@@ -11,7 +11,7 @@ namespace rt2
 {
 	Scene::Scene()
 	{
-		cam = Camera (vec4( 5.0f, 0.0f, 0.0f, 0.0f), vec4(-1.0f, 0.0f, 0.0f, 0.0f),vec4( 0.0f, 1.0f, 0.0f, 0.0f), 512, 512, 45.0f);
+		cam = Camera ( vec4( 5.0f, 0.0f, 0.0f, 0.0f), vec4(-1.0f, 0.0f, 0.0f, 0.0f), vec4( 0.0f, 1.0f, 0.0f, 0.0f), 256, 256, 60.0f);
 	}
 
 	Scene::Scene(Camera c)
@@ -53,11 +53,12 @@ namespace rt2
 		return triangle_list.size();
 	}
 
-	bool Scene::crossing(Ray & r)
+	Triangle * Scene::crossing(Ray & r)
 	{
 		for (unsigned int i = 0; i < triangle_list.size(); i++)
-			triangle_list[i].is_cross(r);
-		return true;
+			if (triangle_list[i].is_cross(r))
+				return &triangle_list[i];
+		return NULL;
 	}
 
 }

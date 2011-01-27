@@ -26,7 +26,7 @@ namespace rt2
 			Camera get_cam();
 			unsigned int count_objects();
 
-			bool crossing(Ray & r);
+			Triangle * crossing(Ray & r);
 	};
 
 }

@@ -11,8 +11,8 @@ Settings::Settings (int argc, char ** argv)
     lights   = params.get("--lights  | -l", 1);
     depth    = params.get("--depth   | -d", 8);
     threads  = params.get("--threads | -t", 1);
-    width    = params.get("--width   | -w", 800);
-    height   = params.get("--height  | -h", 800);
+    width    = params.get("--width   | -w", 1024);
+    height   = params.get("--height  | -h", 1024);
 
     count_frame              = params.get<size_t>("--frame  | -f",  5);
     max_count_objects_in_bvh = params.get<size_t>("--bvhobj | -bo", 8);
@@ -22,7 +22,8 @@ Settings::Settings (int argc, char ** argv)
     file_write     = params.has("--saveimg   | -s");
     quiet_mode     = params.has("--quiet     | -q");
 
-    path_to_objfile = params.get<std::string>("--obj | -o", "./my_stul.obj");
+    path_to_objfile = params.get<std::string>("--obj | -o", "../data/my_cube.obj");
+    //path_to_objfile = params.get<std::string>("--obj | -o", ".my_stul.obj");
 
     is_exit = false;
 
