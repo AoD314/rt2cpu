@@ -50,5 +50,4 @@ namespace rt2
 		return fps;
 	}
 
-
 }

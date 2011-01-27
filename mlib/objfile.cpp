@@ -1,5 +1,6 @@
 
 #include "mlib/objfile.hpp"
+#include <iostream>
 
 namespace mlib
 {
@@ -48,6 +49,10 @@ namespace mlib
 					fn.push_back (t);
 				}
 			}
+		}
+		else
+		{
+			std::cout << "\nError: file " << filename << " not found !!!\n";
 		}
 		infile.close();
 		return true;

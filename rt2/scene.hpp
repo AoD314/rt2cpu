@@ -15,7 +15,7 @@ namespace rt2
 			std::vector<Triangle> triangle_list;
 
 		public:
-			void load_from_file(std::string namefile);
+			void load_from_file(const std::string & namefile);
 	};
 
 }

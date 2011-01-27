@@ -2,7 +2,7 @@
 #ifndef __ENGINE_HPP__
 #define __ENGINE_HPP__
 
-#include "scene.cpp"
+#include "scene.hpp"
 
 #include <mlib/timer.hpp>
 

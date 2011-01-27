@@ -1,4 +1,6 @@
 
+#include <iostream>
+
 #include "scene.hpp"
 
 #include <mlib/objfile.hpp>
@@ -7,7 +9,7 @@ using namespace std;
 
 namespace rt2
 {
-	void Scene::load_from_file(std::string namefile)
+	void Scene::load_from_file(const std::string & namefile)
 	{
 		Objfile obj(namefile);
 
@@ -21,6 +23,8 @@ namespace rt2
 				obj.GetNormalForTriangle(i)
 			));
 		}
+		cout << "\ntotal triangles is " << obj.GetCountTriangle();
+		cout.flush();
 	}
 
 }

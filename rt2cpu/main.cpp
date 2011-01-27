@@ -51,43 +51,43 @@ unsigned int * InitSDL(const Settings & settings)
 
 int main ( int argc, char ** argv )
 {
-    try
-    {
-        Settings settings(argc, argv);
-        if (settings.is_exit) return 0;
-        settings.print_params();
-
-	Timer timer;
-        std::cout << "\nCPU Frequency: " << timer.GetFrequency() << std::endl;
-        std::cout.flush();
-
-	Scene scene;
-	scene.load_from_file(settings.path_to_objfile);
-	Engine engine(scene, InitSDL(settings));
-
-	timer.Start();
-
-	for (size_t i = 0; i < settings.count_frame; i++)
+	try
 	{
-		engine.rendering();
+		Settings settings(argc, argv);
+		if (settings.is_exit) return 0;
+		settings.print_params();
 
-		if ( settings.file_write == true )
+		Timer timer;
+		std::cout << "\nCPU Frequency: " << timer.GetFrequency() << std::endl;
+		std::cout.flush();
+
+		Scene scene;
+		scene.load_from_file(settings.path_to_objfile);
+		Engine engine(scene, InitSDL(settings));
+
+		timer.Start();
+
+		for (size_t i = 0; i < settings.count_frame; i++)
 		{
-			SDL_SaveBMP ( screen, string(Long::ToString(engine.get_num_frame(), 8) + ".bmp").c_str() );
+			engine.rendering();
+
+			if ( settings.file_write == true )
+			{
+				SDL_SaveBMP ( screen, string(Long::ToString(engine.get_num_frame(), 8) + ".bmp").c_str() );
+			}
+			std::cout << "\n[" << engine.get_num_frame() << "] = " << Float::ToString(engine.get_fps(), 3);
+			SDL_UpdateRect ( screen, 0, 0, settings.width, settings.height);
 		}
-		std::cout << "\n[" << engine.get_num_frame() << "] = " << Float::ToString(engine.get_fps(), 3);
-		SDL_UpdateRect ( screen, 0, 0, settings.width, settings.height);
+
+		timer.Stop ();
+
+		std::cout << "\n\nTotal time: " << timer << "\n";
 	}
-
-        timer.Stop ();
-
-        std::cout << "\n\nTotal time: " << timer << "\n";
-    }
-    catch (Exception & exception)
-    {
-	    std::cout << "EXCEPTION: " << exception.what() << "n";
-    }
-    catch(...){}
-    return 0;
+	catch (Exception & exception)
+	{
+		std::cout << "EXCEPTION: " << exception.what() << "n";
+	}
+	catch(...){}
+	return 0;
 }
 
