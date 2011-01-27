@@ -9,6 +9,22 @@ using namespace std;
 
 namespace rt2
 {
+	Scene::Scene()
+	{
+		cam = Camera (vec4( 5.0f, 0.0f, 0.0f, 0.0f), vec4(-1.0f, 0.0f, 0.0f, 0.0f),vec4( 0.0f, 1.0f, 0.0f, 0.0f), 512, 512, 45.0f);
+	}
+
+	Scene::Scene(Camera c)
+	{
+		cam = c;
+	}
+
+	Scene::Scene(const Scene & s)
+	{
+		cam = s.cam;
+		triangle_list = s.triangle_list;
+	}
+
 	void Scene::load_from_file(const std::string & namefile)
 	{
 		Objfile obj(namefile);
@@ -29,7 +45,7 @@ namespace rt2
 
 	Camera Scene::get_cam()
 	{
-		return Camera(mlib::vec4::zero(), mlib::vec4::zero(), mlib::vec4::zero(), 64, 64, 45.0f);
+		return cam;
 	}
 
 	unsigned int Scene::count_objects()

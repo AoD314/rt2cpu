@@ -5,6 +5,18 @@ using namespace mlib;
 
 namespace rt2
 {
+	Camera::Camera()
+	{
+		pos    = vec4(5.0f, 0.0f, 0.0f, 0.0f);
+		dir    = vec4(-1.0f, 0.0f, 0.0f, 0.0f);
+		dir_up = vec4(0.0f, 1.0f, 0.0f, 0.0f);
+		dir_lf = normalize ( cross ( dir, dir_up ));
+		width  = 512;
+		height = 512;
+		aspect = static_cast<float>(width) / static_cast<float>(height);
+		tan_aview = tan (45.0f);
+	}
+
 	Camera::Camera(vec4 p, vec4 d, vec4 du, unsigned int w, unsigned int h, float angleofview)
 	{
 		pos = p;
@@ -15,6 +27,18 @@ namespace rt2
 		height = h;
 		aspect = static_cast<float>(width) / static_cast<float>(height);
 		tan_aview = tan (angleofview);
+	}
+
+	Camera::Camera(const Camera & cam)
+	{
+		pos       = cam.pos;
+		dir       = cam.dir;
+		dir_up    = cam.dir_up;
+		dir_lf    = cam.dir_lf;
+		width     = cam.width;
+		height    = cam.height;
+		aspect    = cam.aspect;
+		tan_aview = cam.tan_aview;
 	}
 
 	unsigned int Camera::get_width()

@@ -15,8 +15,13 @@ namespace rt2
 	{
 		private:
 			std::vector<Triangle> triangle_list;
+			Camera cam;
 
 		public:
+			Scene();
+			Scene(Camera c);
+			Scene(const Scene & s);
+
 			void load_from_file(const std::string & namefile);
 			Camera get_cam();
 			unsigned int count_objects();

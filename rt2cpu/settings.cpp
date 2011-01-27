@@ -15,7 +15,7 @@ Settings::Settings (int argc, char ** argv)
     height   = params.get("--height  | -h", 800);
 
     count_frame              = params.get<size_t>("--frame  | -f",  5);
-    max_count_objects_in_bvh = params.get<size_t>("--bvhobj | -bo", 64);
+    max_count_objects_in_bvh = params.get<size_t>("--bvhobj | -bo", 8);
 
     benchmark_mode = params.has("--benchmark | -b");
     active_event   = params.has("--event     | -e");
@@ -28,12 +28,12 @@ Settings::Settings (int argc, char ** argv)
 
     if (params.has(" --help | --usage "))
     {
-        is_exit = true;
-        print_help();
+	is_exit = true;
+	print_help();
     }
     else
-        if (params.has("--print | -p"))
-            print_params();
+	if (params.has("--print | -p"))
+	    print_params();
 }
 
 void Settings::print_params()

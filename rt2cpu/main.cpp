@@ -61,8 +61,16 @@ int main ( int argc, char ** argv )
 		std::cout << "\nCPU Frequency: " << timer.GetFrequency() << std::endl;
 		std::cout.flush();
 
-		Scene scene;
+		Camera camera(	vec4( 5.0f, 0.0f, 0.0f, 0.0f),
+				vec4(-1.0f, 0.0f, 0.0f, 0.0f),
+				vec4( 0.0f, 1.0f, 0.0f, 0.0f),
+				settings.width, settings.height, 45.0f
+			     );
+
+		Scene scene(camera);
+
 		scene.load_from_file(settings.path_to_objfile);
+
 		Engine engine(scene, InitSDL(settings));
 
 		timer.Start();
