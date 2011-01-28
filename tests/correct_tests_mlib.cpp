@@ -139,6 +139,23 @@ bool test_mlib_fixed_vector_dot()
 	return d == 16.0f;
 }
 
+bool test_mlib_fixed_vector_dot_with_vec_sub()
+{
+	class A
+	{
+		private: vec4 p;
+		public: vec4 pp(){return p;}
+		A(vec4 v){ p = v;}
+	} a(vec4 (1.0f));
+
+	vec4 pos = a.pp();
+	vec4 rdir (2.0f);
+
+	float B = 2.0f * dot(rdir - pos, rdir - pos);
+	std::cout << "B="<< B;
+	return B == 8.0f;
+}
+
 bool test_mlib_fixed_vector_complex_dot()
 {
 	vec4 a ( 2.0f,  2.0f, 5.0f, -3.0f);
@@ -275,6 +292,7 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_fixed_vector_complex_mul_num,          "mlib_fixed_vector_complex_mul_num")
 	TEST (test_mlib_fixed_vector_complex_operation,        "mlib_fixed_vector_complex_operation")
 	TEST (test_mlib_fixed_vector_dot,                      "mlib_fixed_vector_dot")
+	TEST (test_mlib_fixed_vector_dot_with_vec_sub,         "mlib_fixed_vector_dot_with_vec_sub")
 	TEST (test_mlib_fixed_vector_complex_dot,              "mlib_fixed_vector_complex_dot")
 	TEST (test_mlib_fixed_vector_calc_reflect,             "mlib_fixed_vector_calc_reflect")
 	TEST (test_mlib_fixed_vector_to_color_b,               "mlib_fixed_vector_to_color_b")
@@ -292,9 +310,9 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_objfile,                      "mlib_objfile")
 
 	timer.Stop();
-	
+
 	std::cout.setf( std::ios::right );
-	std::cout       << "\n" << std::setfill('0') << std::setw(3) << total_good_tests << " / " << std::setw(3) << total_tests << " passed. " 
+	std::cout       << "\n" << std::setfill('0') << std::setw(3) << total_good_tests << " / " << std::setw(3) << total_tests << " passed. "
 			<< "       " << std::setw(3) << total_tests - total_good_tests <<  " errors.\n\n";
 	std::cout << "Time: " << std::fixed << std::setprecision(8) << timer.GetTimeInSeconds() << " sec. \n\n";
 
