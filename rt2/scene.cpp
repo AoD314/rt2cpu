@@ -41,6 +41,8 @@ namespace rt2
 		}
 		cout << "\ntotal triangles is " << obj.GetCountTriangle();
 		cout.flush();
+
+		sphere = new Sphere(vec4(0.0f), 2.0f);
 	}
 
 	Camera Scene::get_cam()
@@ -53,11 +55,10 @@ namespace rt2
 		return triangle_list.size();
 	}
 
-	Triangle * Scene::crossing(Ray & r)
+	Sphere * Scene::crossing(Ray & r)
 	{
-		for (unsigned int i = 0; i < triangle_list.size(); i++)
-			if (triangle_list[i].is_cross(r))
-				return &triangle_list[i];
+		if (sphere->is_cross(r))
+			return sphere;
 		return NULL;
 	}
 

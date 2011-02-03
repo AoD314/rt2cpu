@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "triangle.hpp"
+#include "sphere.hpp"
 #include "camera.hpp"
 #include "ray.hpp"
 
@@ -14,7 +15,10 @@ namespace rt2
 	class Scene
 	{
 		private:
+
 			std::vector<Triangle> triangle_list;
+			Sphere * sphere;
+
 			Camera cam;
 
 		public:
@@ -26,7 +30,7 @@ namespace rt2
 			Camera get_cam();
 			unsigned int count_objects();
 
-			Triangle * crossing(Ray & r);
+			Sphere * crossing(Ray & r);
 	};
 
 }

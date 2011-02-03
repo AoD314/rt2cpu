@@ -64,14 +64,14 @@ namespace mlib
 
 	bool Processor::is_set_N_bit_in_EDX(int bit)
 	{
-		int func = 1, _eax, _edx, _ecx;
-		asm volatile ("cpuid" : "=eax" (_eax), "=edx" (_edx), "=ecx" (_ecx) : "eax" (func));
+                register volatile unsigned int func = 1, _eax, _edx, _ecx;
+                asm volatile ("cpuid\n" : "=eax" (_eax), "=edx" (_edx), "=ecx" (_ecx) : "eax" (func));
 		return ((_edx & (1 << bit)) >> bit);
 	}
 
 	bool Processor::is_set_N_bit_in_ECX(int bit)
 	{
-		int func = 1, _eax, _edx, _ecx;
+                register volatile unsigned int func = 1, _eax, _edx, _ecx;
 		asm volatile ("cpuid" : "=eax" (_eax), "=edx" (_edx), "=ecx" (_ecx) : "eax" (func));
 		return ((_ecx & (1 << bit)) >> bit);
 	}

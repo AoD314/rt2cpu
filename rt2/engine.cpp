@@ -15,7 +15,7 @@ namespace rt2
 
 	vec4 Engine::ray_tracing(Ray ray)
 	{
-		Triangle * t = scene.crossing(ray);
+		Sphere * t = scene.crossing(ray);
 		if ( t == NULL)
 			return vec4(0.0f);
 		else
