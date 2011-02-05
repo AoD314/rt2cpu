@@ -4,6 +4,8 @@ import os
 num_cpu = int(os.environ.get('NUM_CPU', 12))
 SetOption('num_jobs', num_cpu)
 
+wall = '-Wunreachable-code -Wall -Wextra -pedantic -Weffc++ -Wconversion -Wsign-conversion -Woverloaded-virtual -Wctor-dtor-privacy -Wold-style-cast -Wnon-virtual-dtor'
+
 env    = Environment(CC = 'g++', CCFLAGS = '-msse4.2 -fopenmp -g -ggdb')
 perf   = Environment(CC = 'g++', CCFLAGS = '-msse4.2 -fopenmp -O3')
 perf_d = Environment(CC = 'g++', CCFLAGS = '-msse4.2 -fopenmp -O3 -g -ggdb')

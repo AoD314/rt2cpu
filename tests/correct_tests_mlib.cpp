@@ -151,9 +151,7 @@ bool test_mlib_fixed_vector_dot_with_vec_sub()
 	vec4 pos = a.pp();
 	vec4 rdir (2.0f);
 
-	float B = 2.0f * dot(rdir - pos, rdir - pos);
-	std::cout << "B="<< B;
-	return B == 8.0f;
+        return 2.0f * dot(rdir - pos, rdir - pos) == 8.0f;
 }
 
 bool test_mlib_fixed_vector_complex_dot()
@@ -255,7 +253,50 @@ bool test_mlib_fixed_vector_neq()
 	return a != b;
 }
 
+bool test_mlib_processor_sse()
+{
+    return Processor::supportSSE();
+}
 
+bool test_mlib_processor_sse2()
+{
+    return Processor::supportSSE2();
+}
+
+bool test_mlib_processor_sse3()
+{
+    return Processor::supportSSE3();
+}
+
+bool test_mlib_processor_sse4_1()
+{
+    return Processor::supportSSE4_1();
+}
+
+bool test_mlib_processor_sse4_2()
+{
+    return Processor::supportSSE4_2();
+}
+
+bool test_mlib_processor_ssse3()
+{
+    return Processor::supportSSSE3();
+}
+
+bool test_mlib_processor_avx()
+{
+    return Processor::supportAVX() == false;
+}
+
+bool test_mlib_processor_popcnt()
+{
+    return Processor::supportPOPCNT();
+}
+
+bool test_mlib_processor_rdtscp()
+{
+    return Processor::supportRDTSCP();
+}
 
 int main(int argc, char ** argv)
 {
@@ -275,6 +316,16 @@ int main(int argc, char ** argv)
 
 	Timer timer;
 	timer.Start();
+
+        TEST (test_mlib_processor_sse,       "mlib_processor_sse")
+        TEST (test_mlib_processor_avx,       "mlib_processor_avx")
+        TEST (test_mlib_processor_sse2,      "mlib_processor_sse2")
+        TEST (test_mlib_processor_sse3,      "mlib_processor_sse3")
+        TEST (test_mlib_processor_ssse3,     "mlib_processor_ssse3")
+        TEST (test_mlib_processor_sse4_1,    "mlib_processor_sse4.1")
+        TEST (test_mlib_processor_sse4_2,    "mlib_processor_sse4.2")
+        TEST (test_mlib_processor_popcnt,    "mlib_processor_popcnt")
+        TEST (test_mlib_processor_rdtscp,    "mlib_processor_rdtscp")
 
 	TEST (test_mlib_float,   "mlib_float")
 	TEST (test_mlib_double,  "mlib_double")
