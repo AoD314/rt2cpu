@@ -3,7 +3,7 @@
 import os
 
 print "cpp -> tex"
-os.system('./src/convert-cpp-to-tex.py')
+os.system('cd ./src/; python ./convert-cpp-to-tex.py')
 
 
 
