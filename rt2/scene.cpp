@@ -42,7 +42,7 @@ namespace rt2
 		cout << "\ntotal triangles is " << obj.GetCountTriangle();
 		cout.flush();
 
-		sphere = new Sphere(vec4(0.0f), 2.0f);
+                sphere = new Sphere(vec4(0.0f, 0.0f, 0.0f, 0.0f), 2.0f);
 	}
 
 	Camera Scene::get_cam()

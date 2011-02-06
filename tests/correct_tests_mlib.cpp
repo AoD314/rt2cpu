@@ -238,7 +238,6 @@ bool test_mlib_objfile()
 	return file.GetCountTriangle() == 10881;
 }
 
-
 bool test_mlib_fixed_vector_eq()
 {
 	vec4 a (1.0f, 2.0f, 3.0f, 4.0f);

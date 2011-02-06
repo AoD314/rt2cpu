@@ -6,7 +6,7 @@ SetOption('num_jobs', num_cpu)
 
 wall = '-Wunreachable-code -Wall -Wextra -pedantic -Weffc++ -Wconversion -Wsign-conversion -Woverloaded-virtual -Wctor-dtor-privacy -Wold-style-cast -Wnon-virtual-dtor'
 
-env    = Environment(CC = 'g++', CCFLAGS = '-msse4.2 -fopenmp -g -ggdb')
+env    = Environment(CC = 'g++', CCFLAGS = '-msse4.2 -fopenmp -g -ggdb -O0')
 perf   = Environment(CC = 'g++', CCFLAGS = '-msse4.2 -fopenmp -O3')
 perf_d = Environment(CC = 'g++', CCFLAGS = '-msse4.2 -fopenmp -O3 -g -ggdb')
 
@@ -19,8 +19,8 @@ tests_src_rt2cpu = ['tests/correct_tests_rt2cpu.cpp']
 perf_src = ['tests/performance_tests_mlib.cpp']
 cmp_src  = ['tests/cmp_tests.cpp']
 
-e = env
-l = env
+e = perf
+l = perf
 
 l.SharedLibrary('./build/mlib.so', mlib_src)
 l.SharedLibrary('./build/rt2.so', rt2_src, CPPPATH='./mlib/')
@@ -32,4 +32,6 @@ e.Program('./build/correct_tests_rt2',   tests_src_rt2cpu, CPPPATH=['./mlib/', '
 
 e.Program('./build/performance_tests_mlib', perf_src, CPPPATH=['./mlib/','./rt2/'], LIBS=['gomp', 'mlib', 'rt2'], LIBPATH='./build')
 e.Program('./build/cmp_tests', cmp_src, CPPPATH='./mlib/', LIBS=['gomp', 'mlib'], LIBPATH='./build')
+
+e.Program('doc/apps/cmp_virtual_method',  ['doc/apps/cmp_virtual_method.cpp'],  CPPPATH='./mlib/', LIBS=['gomp', 'mlib'], LIBPATH='./build')
 

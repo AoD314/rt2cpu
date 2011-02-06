@@ -17,9 +17,10 @@ namespace rt2
 
 		public:
 			Sphere(mlib::vec4 position, float radius);
+                        Sphere(const Sphere & s);
 
-			float get_crossing_point(Ray & r, mlib::vec4 & point);
-			bool is_cross(Ray & r);
+                        float get_crossing_point(const Ray & r, mlib::vec4 & point);
+                        bool is_cross(const Ray & r);
 
 			mlib::vec4 get_normal(const mlib::vec4 & point);
 

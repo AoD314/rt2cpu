@@ -12,7 +12,13 @@ namespace rt2
 		rad = radius;
 	}
 
-	float Sphere::get_crossing_point(Ray & r, vec4 & point)
+        Sphere::Sphere(const Sphere & s)
+        {
+            pos = s.pos;
+            rad = s.rad;
+        }
+
+        float Sphere::get_crossing_point(const Ray & r, vec4 & point)
 	{
 		vec4 rpos = r.pos();
 		vec4 rdir = r.dir();
@@ -35,13 +41,16 @@ namespace rt2
 		return t;
 	}
 
-	bool Sphere::is_cross(Ray & r)
+        bool Sphere::is_cross(const Ray & r)
 	{
-		vec4 rpos = r.pos();
-		vec4 rdir = r.dir();
-		float A = dot(rdir, rdir);
-		float B = 2.0f * dot(rdir, rdir - pos);
-		float C = dot(rpos - pos, rpos - pos);
+                vec4 rd(r.dir());
+                vec4 rp(r.pos());
+                vec4 rdp = rd - pos;
+                vec4 rpp = rp - pos;
+
+                float A = dot(rd, rd);
+                float B = 2.0f * dot(rd, rdp);
+                float C = dot(rpp, rpp);
 		float t1 = (- B + sqrt(B*B - 4 * A * C)) / (2.0f * A);
 		float t2 = (- B - sqrt(B*B - 4 * A * C)) / (2.0f * A);
 		return t1 + t2 > 0;
