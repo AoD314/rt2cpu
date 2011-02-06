@@ -5,6 +5,8 @@
 #include <mlib/fixed_vector.hpp>
 using namespace mlib;
 
+#include <math.h>
+
 namespace rt2
 {
 	Engine::Engine(Scene s, unsigned int * vbuffer)
@@ -24,11 +26,17 @@ namespace rt2
                 {
                         point = ray.pos() + t * ray.dir();
                         vec4 normal = obj->get_normal(point);
-                        vec4 light = vec4(5.0f, 0.0f, 0.0f, 0.0f) - point;
-                        light.normalize();
+                        vec4 light = normalize(vec4(5.0f, 5.0f, 5.0f, 0.0f) - point);
                         float d = dot(normal, light);
                         if (d <= 0.0f) d = 0.0f;
-                        return vec4(1.0f) * d;
+                        vec4 r = ray.dir() - 2.0f * normal * dot(normal, ray.dir());
+                        float tt = dot(r, normalize(ray.pos() - point));
+                        vec4 spec;
+                        if (tt >=0 )
+                        {
+                                spec= vec4(0.9f) * powf(tt, 32.0f);
+                        }
+                        return vec4(0.8f) * d + vec4(0.05f, 0.05f, 0.05f, 0.0f) + spec;
                 }
                 else
                         return vec4(0.0f);
