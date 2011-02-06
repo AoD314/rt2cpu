@@ -1,5 +1,6 @@
 
 #include "engine.hpp"
+#include <omp.h>
 
 #include <mlib/fixed_vector.hpp>
 using namespace mlib;
@@ -32,6 +33,8 @@ namespace rt2
 		unsigned int i, j;
 		vec4 color;
 		Camera cam = scene.get_cam();
+
+                omp_set_num_threads(threads);
 
 		#pragma omp parallel for private(i, j, color) schedule(static, 1)
 		for (j = 0; j < h; j++)

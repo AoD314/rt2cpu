@@ -3,6 +3,7 @@
 #define TEST(method, label) print_result ( method(), label, total_tests, total_good_tests );
 
 #include "triangle.hpp"
+#include "sphere.hpp"
 #include "ray.hpp"
 #include "bbox.hpp"
 #include "camera.hpp"
@@ -90,11 +91,22 @@ bool test_rt2_triangle_cross()
 	vec4 p ( 0.0f, 0.0f,  3.0f, 0.0f);
 	vec4 d ( 0.0f, 0.0f, -1.0f, 0.0f);
 
-	vec4 point;
-	Ray r(p,d);
+        Ray ray(p,d);
 	Triangle t(a, b, c, a);
 
-	return (t.is_cross(r));
+        return (t.is_cross(ray));
+}
+
+bool test_rt2_sphere_cross()
+{
+        vec4 p ( 3.0f,  0.0f, 0.0f, 0.0f);
+        vec4 d ( -1.0f, 0.0f, 0.0f, 0.0f);
+
+        Ray ray(p,d);
+
+        Sphere s(vec4(), 1.0f);
+
+        return s.is_cross(ray);
 }
 
 int main(int argc, char ** argv)
@@ -117,6 +129,7 @@ int main(int argc, char ** argv)
 	timer.Start();
 
 	TEST (test_rt2_triangle_cross,                       "test_rt2_triangle_cross")
+        TEST (test_rt2_sphere_cross,                         "test_rt2_sphere_cross")
 	TEST (test_rt2_bbox_cross,                           "test_rt2_bbox_cross")
 	TEST (test_rt2_ray_ok,                               "test_rt2_ray_ok")
 	TEST (test_rt2_ray_nok,                              "test_rt2_ray_nok")

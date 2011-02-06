@@ -23,6 +23,7 @@ namespace rt2
 	{
 		cam = s.cam;
 		triangle_list = s.triangle_list;
+                sphere_list = s.sphere_list;
 	}
 
 	void Scene::load_from_file(const std::string & namefile)
@@ -42,7 +43,8 @@ namespace rt2
 		cout << "\ntotal triangles is " << obj.GetCountTriangle();
 		cout.flush();
 
-                sphere = new Sphere(vec4(0.0f, 0.0f, 0.0f, 0.0f), 2.0f);
+                sphere_list.push_back(Sphere(vec4(0.0f, 0.0f, 0.0f, 0.0f), 2.0f));
+                sphere_list.push_back(Sphere(vec4(0.0f, 0.0f, 0.0f, 0.0f), 8.0f));
 	}
 
 	Camera Scene::get_cam()
@@ -57,8 +59,10 @@ namespace rt2
 
 	Sphere * Scene::crossing(Ray & r)
 	{
-		if (sphere->is_cross(r))
-			return sphere;
+                for (size_t i = 0; i < sphere_list.size(); i++)
+                        if (sphere_list[i].is_cross(r))
+                                return &sphere_list[i];
+
 		return NULL;
 	}
 

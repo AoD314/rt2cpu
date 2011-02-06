@@ -19,8 +19,8 @@ tests_src_rt2cpu = ['tests/correct_tests_rt2cpu.cpp']
 perf_src = ['tests/performance_tests_mlib.cpp']
 cmp_src  = ['tests/cmp_tests.cpp']
 
-e = perf
-l = perf
+e = env
+l = env
 
 l.SharedLibrary('./build/mlib.so', mlib_src)
 l.SharedLibrary('./build/rt2.so', rt2_src, CPPPATH='./mlib/')

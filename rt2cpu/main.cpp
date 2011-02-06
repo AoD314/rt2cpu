@@ -72,6 +72,7 @@ int main ( int argc, char ** argv )
 		scene.load_from_file(settings.path_to_objfile);
 
 		Engine engine(scene, InitSDL(settings));
+                engine.set_threads(settings.threads);
 
 		timer.Start();
 

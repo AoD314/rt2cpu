@@ -17,7 +17,7 @@ namespace rt2
 		private:
 
 			std::vector<Triangle> triangle_list;
-			Sphere * sphere;
+                        std::vector<Sphere>   sphere_list;
 
 			Camera cam;
 
