@@ -26,25 +26,32 @@ namespace rt2
 
         float Sphere::get_crossing_point(const Ray & r, vec4 & point)
 	{
-		vec4 rpos = r.pos();
-		vec4 rdir = r.dir();
-		float A = dot(rdir, rdir);
-		float B = 2.0f * dot(rdir, rdir - pos);
-		float C = dot(rpos - pos, rpos - pos);
-		float t1 = (- B + sqrt(B*B - 4 * A * C)) / (2.0f * A);
-		float t2 = (- B - sqrt(B*B - 4 * A * C)) / (2.0f * A);
-		float t = -1;
-		if (t1 > 0.0f)
-			if (t2 > 0.0f)
-				t = min(t1,t2);
-			else
-				t = t1;
-		if (t2 > 0.0f && t1 < 0.0f)
-			t = t2;
+                vec4 rd(r.dir());
+                vec4 rp(r.pos());
+                float A = dot(rd, rd);
+                float B = 2.0f * dot(rd, rp - pos);
+                float D = B * B - 4.0f * A * (dot(rp - pos, rp - pos) - rad * rad);
+                if (D >= 0.0f)
+                {
+                        float t1 = (- B + sqrt(D)) / (2.0f * A);
+                        float t2 = (- B - sqrt(D)) / (2.0f * A);
 
-		point = r.pos() * t + r.dir();
+                        float t = -1;
+                        if (t1 > 0.0f)
+                                if (t2 > 0.0f)
+                                        t = min(t1,t2);
+                                else
+                                        t = t1;
+                        if (t2 > 0.0f && t1 < 0.0f)
+                                t = t2;
 
-		return t;
+                        if (t >= 0.0f)
+                        {
+                                point = r.pos() * t + r.dir();
+                                return t;
+                        }
+                }
+                return -1;
 	}
 
         bool Sphere::is_cross(const Ray & r)
@@ -52,11 +59,16 @@ namespace rt2
                 vec4 rd(r.dir());
                 vec4 rp(r.pos());
                 float A = dot(rd, rd);
-                float B = 2.0f * dot(rd, rd - pos);
-                float C = dot(rp - pos, rp - pos);
-		float t1 = (- B + sqrt(B*B - 4 * A * C)) / (2.0f * A);
-		float t2 = (- B - sqrt(B*B - 4 * A * C)) / (2.0f * A);
-		return t1 + t2 > 0;
+                float B = 2.0f * dot(rd, rp - pos);
+                float D = B * B - 4.0f * A * (dot(rp - pos, rp - pos) - rad * rad);
+                if (D >= 0.0f)
+                {
+                        float t1 = (- B + sqrt(D)) / (2.0f * A);
+                        float t2 = (- B - sqrt(D)) / (2.0f * A);
+                        return t1 + t2 > 0;
+                }
+                else
+                        return false;
 	}
 
 	vec4 Sphere::get_normal(const mlib::vec4 & point)

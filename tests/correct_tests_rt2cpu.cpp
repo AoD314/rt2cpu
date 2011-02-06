@@ -97,7 +97,7 @@ bool test_rt2_triangle_cross()
         return (t.is_cross(ray));
 }
 
-bool test_rt2_sphere_cross()
+bool test_rt2_sphere_cross_in_center()
 {
         vec4 p ( 3.0f,  0.0f, 0.0f, 0.0f);
         vec4 d ( -1.0f, 0.0f, 0.0f, 0.0f);
@@ -105,6 +105,18 @@ bool test_rt2_sphere_cross()
         Ray ray(p,d);
 
         Sphere s(vec4(), 1.0f);
+
+        return s.is_cross(ray);
+}
+
+bool test_rt2_sphere_cross_not_center()
+{
+        vec4 p ( 5.0f,  0.5f, 0.5f, 0.0f);
+        vec4 d ( -1.0f, 0.0f, 0.0f, 0.0f);
+
+        Ray ray(p,d);
+
+        Sphere s(vec4(), 2.0f);
 
         return s.is_cross(ray);
 }
@@ -129,7 +141,8 @@ int main(int argc, char ** argv)
 	timer.Start();
 
 	TEST (test_rt2_triangle_cross,                       "test_rt2_triangle_cross")
-        TEST (test_rt2_sphere_cross,                         "test_rt2_sphere_cross")
+        TEST (test_rt2_sphere_cross_in_center,               "test_rt2_sphere_cross_in_center")
+        TEST (test_rt2_sphere_cross_not_center,              "test_rt2_sphere_cross_not_center")
 	TEST (test_rt2_bbox_cross,                           "test_rt2_bbox_cross")
 	TEST (test_rt2_ray_ok,                               "test_rt2_ray_ok")
 	TEST (test_rt2_ray_nok,                              "test_rt2_ray_nok")
