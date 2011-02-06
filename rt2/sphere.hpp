@@ -21,8 +21,7 @@ namespace rt2
 
                         void operator = (const Sphere & s);
 
-                        float get_crossing_point(const Ray & r, mlib::vec4 & point);
-                        bool is_cross(const Ray & r);
+                        float crossing(const Ray & r);
 
 			mlib::vec4 get_normal(const mlib::vec4 & point);
 

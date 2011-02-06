@@ -94,7 +94,7 @@ bool test_rt2_triangle_cross()
         Ray ray(p,d);
 	Triangle t(a, b, c, a);
 
-        return (t.is_cross(ray));
+        return (t.crossing(ray) >= 0.0f);
 }
 
 bool test_rt2_sphere_cross_in_center()
@@ -106,7 +106,7 @@ bool test_rt2_sphere_cross_in_center()
 
         Sphere s(vec4(), 1.0f);
 
-        return s.is_cross(ray);
+        return s.crossing(ray) >= 0.0f;
 }
 
 bool test_rt2_sphere_cross_not_center()
@@ -118,7 +118,7 @@ bool test_rt2_sphere_cross_not_center()
 
         Sphere s(vec4(), 2.0f);
 
-        return s.is_cross(ray);
+        return s.crossing(ray) >= 0.0f;
 }
 
 int main(int argc, char ** argv)

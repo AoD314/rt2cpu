@@ -16,12 +16,22 @@ namespace rt2
 
 	vec4 Engine::ray_tracing(Ray ray)
 	{
-		Sphere * t = scene.crossing(ray);
+                vec4 point;
+                float t;
+                Sphere * obj = scene.crossing(ray, t);
 
-		if ( t == NULL)
-			return vec4(0.0f);
-		else
-			return vec4(1.0f, 1.0f, 1.0f, 0.0f);
+                if (obj != NULL)
+                {
+                        point = ray.pos() + t * ray.dir();
+                        vec4 normal = obj->get_normal(point);
+                        vec4 light = vec4(5.0f, 0.0f, 0.0f, 0.0f) - point;
+                        light.normalize();
+                        float d = dot(normal, light);
+                        if (d <= 0.0f) d = 0.0f;
+                        return vec4(1.0f) * d;
+                }
+                else
+                        return vec4(0.0f);
 	}
 
 	void Engine::rendering()

@@ -20,8 +20,7 @@ namespace rt2
 			Triangle(mlib::vec4 a, mlib::vec4 b, mlib::vec4 c, mlib::vec4 n);
 			Triangle(const Triangle & t);
 
-			float get_crossing_point(Ray & r, mlib::vec4 & point);
-			bool is_cross(Ray & r);
+                        float crossing(const Ray & r);
 
 			mlib::vec4 get_normal();
 	};

@@ -4,6 +4,7 @@
 #include "scene.hpp"
 
 #include <mlib/objfile.hpp>
+#include <mlib/float.hpp>
 using namespace mlib;
 using namespace std;
 
@@ -43,7 +44,11 @@ namespace rt2
 		cout << "\ntotal triangles is " << obj.GetCountTriangle();
 		cout.flush();
 
-                sphere_list.push_back(Sphere(vec4(0.0f, 0.0f, 0.0f, 0.0f), 0.5f));
+                sphere_list.push_back(Sphere(vec4(0.0f,  0.50f,  0.50f, 0.0f), 0.10f));
+                sphere_list.push_back(Sphere(vec4(0.0f, -0.50f,  0.50f, 0.0f), 0.10f));
+                sphere_list.push_back(Sphere(vec4(0.0f,  0.00f,  0.0f,  0.0f), 0.35f));
+                sphere_list.push_back(Sphere(vec4(0.0f,  0.50f, -0.50f, 0.0f), 0.10f));
+                sphere_list.push_back(Sphere(vec4(0.0f, -0.50f, -0.50f, 0.0f), 0.10f));
 	}
 
 	Camera Scene::get_cam()
@@ -56,13 +61,23 @@ namespace rt2
 		return triangle_list.size();
 	}
 
-	Sphere * Scene::crossing(Ray & r)
+        Sphere * Scene::crossing(Ray & r, float & t)
 	{
+                int index = -1;
+                t = Float::MaxValue();
                 for (size_t i = 0; i < sphere_list.size(); i++)
-                        if (sphere_list[i].is_cross(r))
-                                return &sphere_list[i];
+                {
+                        float lt = sphere_list[i].crossing(r);
+                        if (lt >= 0.0f && lt <= t)
+                        {
+                                t = lt;
+                                index = i;
+                        }
 
-		return NULL;
+                }
+
+                if (index == -1) return NULL;
+                return &sphere_list[index];
 	}
 
 }

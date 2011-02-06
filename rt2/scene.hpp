@@ -30,7 +30,7 @@ namespace rt2
 			Camera get_cam();
 			unsigned int count_objects();
 
-			Sphere * crossing(Ray & r);
+                        Sphere * crossing(Ray & r, float & t);
 	};
 
 }

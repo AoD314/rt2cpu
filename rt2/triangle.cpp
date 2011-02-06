@@ -30,7 +30,7 @@ namespace rt2
 		return normal;
 	}
 
-	float Triangle::get_crossing_point(Ray & r, vec4 & point)
+        float Triangle::crossing(const Ray & r)
 	{
 		vec4 pos = r.pos();
 		vec4 dir = r.dir();
@@ -43,24 +43,14 @@ namespace rt2
 		vec4 tmp (dot(q,e2), dot(p,t), dot(q, dir), 0.0f);
 		vec4 tuv = tmp * 1.0f / dot (p, e1);
 
-		point = pos + tuv[0] * dir;
-		return tuv[0];
-	}
-
-	bool Triangle::is_cross(Ray & r)
-	{
-		vec4 pos = r.pos();
-		vec4 dir = r.dir();
-
-		vec4 t = pos - v0;
-
-		vec4 q = cross ( t, e1 );
-		vec4 p = cross ( dir, e2 );
-
-		vec4 tmp (dot(q,e2), dot(p,t), dot(q, dir), 0.0f);
-		vec4 tuv = tmp * 1.0f / dot (p, e1);
-
-		return tuv[0]>=0.0f && tuv[1]>=0.0f && tuv[2]>=0.0f && (tuv[1] + tuv[2] <= 1.0f);
+                if (tuv[0]>=0.0f && tuv[1]>=0.0f && tuv[2]>=0.0f && (tuv[1] + tuv[2] <= 1.0f))
+                {
+                        return tuv[0];
+                }
+                else
+                {
+                        return -1;
+                }
 	}
 }
 
