@@ -31,6 +31,18 @@ def gettex(str):
 	if (str == '\n'):
 		res = '\\\\\n'
 		return res
+	
+	if (str == '\\'):
+		return '$\\backslash$'
+	
+	if (str == '_'):
+		return '\\_'
+	
+	if (str == '$'):
+		return '\\$'
+
+	if (str == '%'):
+		return '\\%'
 
 	if (str == "..."):
 		return ' \dots '
@@ -43,6 +55,9 @@ def gettex(str):
 
 	if (str in ['\t']):
 		return '\\ \\ \\ \\ '
+	
+	if (str in ['"']):
+		return '\'\''
 
 	return str
 
@@ -96,7 +111,7 @@ for file_n in files:
 		j = j + 1
 
 
-	text = '\\spacing{0.85}{\\noindent \\tt \\footnotesize ' + text + '}\\spacing{\\heightline}'
+	text = '\\spacing{0.85}{\\noindent \\tt \\footnotesize ' + text[:-3] + '}\\spacing{\\heightline}'
 
 	f = open( file_n + '.tex' , 'w')
 	f.write(text)

@@ -1,0 +1,31 @@
+\spacing{0.85}{\noindent \tt \footnotesize \mbox{} 01: \textcolor{blue}{inline}\ \textcolor{blue}{void}\ Start()\\
+\mbox{} 02: \{\\
+\mbox{} 03: \ \ \ \ \textcolor{blue}{asm}\ \textcolor{blue}{volatile}\ \\
+\mbox{} 04: \ \ \ \ (\ \ \\
+\mbox{} 05: \ \ \ \ \ \ \ \ ''cpuid$\backslash$n$\backslash$t''\\
+\mbox{} 06: \ \ \ \ \ \ \ \ ''rdtsc$\backslash$n$\backslash$t''\\
+\mbox{} 07: \ \ \ \ \ \ \ \ ''mov\ \%\%edx,\ \%0$\backslash$n$\backslash$t''\\
+\mbox{} 08: \ \ \ \ \ \ \ \ ''mov\ \%\%eax,\ \%1$\backslash$n$\backslash$t''\ :\ ''$=$r''(time\_edx),\ ''$=$r''(time\_eax)\ ::\\
+\mbox{} 09: \ \ \ \ \ \ \ \ ''\%rax'',\ ''\%rbx'',\ ''\%rcx'',\ ''\%rdx''\\
+\mbox{} 10: \ \ \ \ );\\
+\mbox{} 11: \}\\
+\mbox{} 12: \\
+\mbox{} 13: \textcolor{blue}{inline}\ \textcolor{blue}{void}\ Stop\ ()\\
+\mbox{} 14: \{\\
+\mbox{} 15: \ \ \ \ \textcolor{blue}{asm}\ \textcolor{blue}{volatile}\ \\
+\mbox{} 16: \ \ \ \ (\\
+\mbox{} 17: \ \ \ \ \ \ \ \ ''rdtscp$\backslash$n$\backslash$t''\\
+\mbox{} 18: \ \ \ \ \ \ \ \ ''mov\ \%\%edx,\ \%0$\backslash$n$\backslash$t''\\
+\mbox{} 19: \ \ \ \ \ \ \ \ ''mov\ \%\%eax,\ \%1$\backslash$n$\backslash$t''\\
+\mbox{} 20: \ \ \ \ \ \ \ \ ''cpuid$\backslash$n$\backslash$t''\ :\ ''$=$r''(time\_edx1),\ ''$=$r''(time\_eax1)\ ::\\
+\mbox{} 21: \ \ \ \ \ \ \ \ ''\%rax'',\ ''\%rbx'',\ ''\%rcx'',\ ''\%rdx''\\
+\mbox{} 22: \ \ \ \ );\\
+\mbox{} 23: \ \ \ \ \\
+\mbox{} 24: \ \ \ \ time\_last\ $=$\\
+\mbox{} 25: \ \ \ \ \ \ \ \ ((\textcolor{blue}{unsigned}\ \textcolor{blue}{long}\ \textcolor{blue}{long})(time\_edx1)\ $<$$<$\ 32\ |\ \\
+\mbox{} 26: \ \ \ \ \ \ \ \ (\textcolor{blue}{unsigned}\ \textcolor{blue}{long}\ \textcolor{blue}{long})(time\_eax1))\ -\\
+\mbox{} 27: \ \ \ \ \ \ \ \ ((\textcolor{blue}{unsigned}\ \textcolor{blue}{long}\ \textcolor{blue}{long})(time\_edx)\ \ $<$$<$\ 32\ |\ \\
+\mbox{} 28: \ \ \ \ \ \ \ \ (\textcolor{blue}{unsigned}\ \textcolor{blue}{long}\ \textcolor{blue}{long})(time\_eax));\\
+\mbox{} 29: \\
+\mbox{} 30: \ \ \ \ CalcSec();\\
+\mbox{} 31: \}}\spacing{\heightline}
