@@ -97,6 +97,38 @@ bool test_rt2_triangle_cross()
         return (t.crossing(ray) >= 0.0f);
 }
 
+bool test_rt2_triangle_cross_border()
+{
+        vec4 a ( 0.0f, 0.0f, 0.0f, 0.0f);
+        vec4 b ( 0.0f, 1.0f, 0.0f, 0.0f);
+        vec4 c ( 0.0f, 1.0f, 1.0f, 0.0f);
+        vec4 n ( 1.0f, 0.0f, 0.0f, 0.0f);
+
+        vec4 p ( 3.0f, 0.0f, 0.0f, 0.0f);
+        vec4 d (-1.0f, 0.0f, 0.0f, 0.0f);
+
+        Ray ray(p,d);
+        Triangle t(a, b, c, n);
+
+        return (t.crossing(ray) >= 0.0f);
+}
+
+bool test_rt2_triangle_cross_border_miss()
+{
+        vec4 a ( 0.0f, 0.0f, 0.0f, 0.0f);
+        vec4 b ( 0.0f, 1.0f, 0.0f, 0.0f);
+        vec4 c ( 0.0f, 1.0f, 1.0f, 0.0f);
+        vec4 n ( 1.0f, 0.0f, 0.0f, 0.0f);
+
+        vec4 p ( 3.0f, -0.5f, -0.5f, 0.0f);
+        vec4 d (-1.0f,  0.0f,  0.0f, 0.0f);
+
+        Ray ray(p,d);
+        Triangle t(a, b, c, n);
+
+        return (t.crossing(ray) < 0.0f);
+}
+
 bool test_rt2_sphere_cross_in_center()
 {
         vec4 p ( 3.0f,  0.0f, 0.0f, 0.0f);
@@ -141,6 +173,9 @@ int main(int argc, char ** argv)
 	timer.Start();
 
 	TEST (test_rt2_triangle_cross,                       "test_rt2_triangle_cross")
+        TEST (test_rt2_triangle_cross_border,                "test_rt2_triangle_cross_border")
+        TEST (test_rt2_triangle_cross_border_miss,           "test_rt2_triangle_cross_border_miss")
+
         TEST (test_rt2_sphere_cross_in_center,               "test_rt2_sphere_cross_in_center")
         TEST (test_rt2_sphere_cross_not_center,              "test_rt2_sphere_cross_not_center")
 	TEST (test_rt2_bbox_cross,                           "test_rt2_bbox_cross")
