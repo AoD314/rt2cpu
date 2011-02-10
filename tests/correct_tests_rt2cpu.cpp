@@ -81,7 +81,6 @@ bool test_rt2_bbox_cross()
 	return box.is_cross(r);
 }
 
-
 bool test_rt2_triangle_cross()
 {
 	vec4 a ( 3.0f, -1.0f, 0.0f, 0.0f);
@@ -127,6 +126,22 @@ bool test_rt2_triangle_cross_border_miss()
         Triangle t(a, b, c, n);
 
         return (t.crossing(ray) < 0.0f);
+}
+
+bool test_rt2_triangle_cross_with_not_line_ray()
+{
+        vec4 a (  10.0f, -10.0f, -10.0f, 0.0f);
+        vec4 b (   0.0f,  10.0f,   0.0f, 0.0f);
+        vec4 c ( -10.0f, -10.0f,  10.0f, 0.0f);
+        vec4 n ( 1.0f, 0.0f, 1.0f, 0.0f);
+
+        vec4 p ( 2.0f,  2.0f,  2.0f, 0.0f);
+        vec4 d (-1.0f, -1.0f, -1.0f, 0.0f);
+
+        Ray ray(p, normalize(d));
+        Triangle t(a, b, c, normalize(n));
+
+        return (t.crossing(ray) >= 0.0f);
 }
 
 bool test_rt2_sphere_cross_in_center()
@@ -175,6 +190,7 @@ int main(int argc, char ** argv)
 	TEST (test_rt2_triangle_cross,                       "test_rt2_triangle_cross")
         TEST (test_rt2_triangle_cross_border,                "test_rt2_triangle_cross_border")
         TEST (test_rt2_triangle_cross_border_miss,           "test_rt2_triangle_cross_border_miss")
+        TEST (test_rt2_triangle_cross_with_not_line_ray,     "test_rt2_triangle_cross_with_not_line_ray")
 
         TEST (test_rt2_sphere_cross_in_center,               "test_rt2_sphere_cross_in_center")
         TEST (test_rt2_sphere_cross_not_center,              "test_rt2_sphere_cross_not_center")
