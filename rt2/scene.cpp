@@ -12,7 +12,7 @@ namespace rt2
 {
 	Scene::Scene()
 	{
-		cam = Camera ( vec4( 5.0f, 0.0f, 0.0f, 0.0f), vec4(-1.0f, 0.0f, 0.0f, 0.0f), vec4( 0.0f, 1.0f, 0.0f, 0.0f), 256, 256, 60.0f);
+                cam = Camera ( vec4( 5.0f, 0.0f, 0.0f, 0.0f), vec4(-1.0f, 0.0f, 0.0f, 0.0f), vec4( 0.0f, 1.0f, 0.0f, 0.0f), 256, 256, 60.0f);
 	}
 
 	Scene::Scene(Camera c)
@@ -46,7 +46,7 @@ namespace rt2
 
                 sphere_list.push_back(Sphere(vec4(0.0f,  0.50f,  0.50f, 0.0f), 0.10f));
                 sphere_list.push_back(Sphere(vec4(0.0f, -0.50f,  0.50f, 0.0f), 0.10f));
-                sphere_list.push_back(Sphere(vec4(0.0f,  0.00f,  0.0f,  0.0f), 0.35f));
+                sphere_list.push_back(Sphere(vec4(0.0f,  0.00f,  0.0f,  0.0f), 0.50f));
                 sphere_list.push_back(Sphere(vec4(0.0f,  0.50f, -0.50f, 0.0f), 0.10f));
                 sphere_list.push_back(Sphere(vec4(0.0f, -0.50f, -0.50f, 0.0f), 0.10f));
 	}
@@ -61,23 +61,42 @@ namespace rt2
 		return triangle_list.size();
 	}
 
-        Sphere * Scene::crossing(Ray & r, float & t)
+        Triangle * Scene::crossing_tr(Ray & r, float & t)
 	{
-                int index = -1;
+                size_t index = -1;
                 t = Float::MaxValue();
-                for (size_t i = 0; i < sphere_list.size(); i++)
+                for (size_t i = 0; i < triangle_list.size(); i++)
                 {
-                        float lt = sphere_list[i].crossing(r);
-                        if (lt >= 0.0f && lt <= t)
+                        float lt = triangle_list[i].crossing(r);
+
+                        if (lt >= 0.0f && lt < t)
                         {
                                 t = lt;
                                 index = i;
                         }
+                }
 
+                if (index == -1) return NULL;
+                return &triangle_list[index];
+	}
+
+        Sphere * Scene::crossing_sph(Ray & r, float & t)
+        {
+                size_t index = -1;
+                t = Float::MaxValue();
+                for (size_t i = 0; i < sphere_list.size(); i++)
+                {
+                        float lt = sphere_list[i].crossing(r);
+
+                        if (lt >= 0.0f && lt < t)
+                        {
+                                t = lt;
+                                index = i;
+                        }
                 }
 
                 if (index == -1) return NULL;
                 return &sphere_list[index];
-	}
+        }
 
 }

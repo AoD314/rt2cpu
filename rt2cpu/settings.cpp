@@ -9,10 +9,10 @@ Settings::Settings (int argc, char ** argv)
     ConsoleParameters params(argc, argv);
 
     lights   = params.get("--lights  | -l", 1);
-    depth    = params.get("--depth   | -d", 8);
+    depth    = params.get("--depth   | -d", 2);
     threads  = params.get("--threads | -t", 1);
-    width    = params.get("--width   | -w", 1024);
-    height   = params.get("--height  | -h", 1024);
+    width    = params.get("--width   | -w", 512);
+    height   = params.get("--height  | -h", 512);
 
     count_frame              = params.get<size_t>("--frame  | -f",  5);
     max_count_objects_in_bvh = params.get<size_t>("--bvhobj | -bo", 8);
