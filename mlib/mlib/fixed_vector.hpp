@@ -98,7 +98,6 @@ namespace mlib
 			return d[0] == 0x0 || d[1] == 0x0 || d[2] == 0x0 || d[3] == 0x0;
 		}
 
-
 		inline bool operator == (const vec4& val)
 		{
 			_align_ __m128 cmp = _mm_cmpneq_ps(data, val.data);
@@ -107,17 +106,50 @@ namespace mlib
 			return d[0] == 0x0 && d[1] == 0x0 && d[2] == 0x0 && d[3] == 0x0;
 		}
 
+                template<typename Left, typename Op, typename Right>
+                inline void operator /= (const X<Left, Op, Right>& expression)
+                {
+                        data = _mm_div_ps(data, expression());
+                }
+
+                inline void operator /= (const vec4& val)
+                {
+                        data = _mm_div_ps(data, val.data);
+                }
+
+                template<typename Left, typename Op, typename Right>
+                inline void operator *= (const X<Left, Op, Right>& expression)
+                {
+                        data = _mm_mul_ps(data, expression());
+                }
+
+                inline void operator *= (const vec4& val)
+                {
+                        data = _mm_mul_ps(data, val.data);
+                }
+
+
 		template<typename Left, typename Op, typename Right>
 		inline void operator += (const X<Left, Op, Right>& expression)
 		{
 			data = _mm_add_ps(data, expression());
 		}
 
+                inline void operator += (const vec4& val)
+                {
+                        data = _mm_add_ps(data, val.data);
+                }
+
 		template<typename Left, typename Op, typename Right>
 		inline void operator -= (const X<Left, Op, Right>& expression)
 		{
 			data = _mm_sub_ps(data, expression());
 		}
+
+                inline void operator -= (const vec4& val)
+                {
+                        data = _mm_sub_ps(data, val.data);
+                }
 
 		inline float operator[] (size_t i) const
 		{
@@ -144,7 +176,7 @@ namespace mlib
 			__m128 m = _mm_dp_ps(data, data, 0xFF);
 			_align_ float d[4];
 			_mm_store_ps(&d[0], m);
-			d[0] = 1.0 / sqrt(d[0]);
+                        d[0] = 1.0f / sqrt(d[0]);
 			data = _mm_mul_ps(data, _mm_set1_ps(d[0]));
 		}
 
@@ -288,7 +320,7 @@ namespace mlib
 	/// - - - - - - - ToColor - - - - - - - ///
 	///////////////////////////////////////////
 
-	inline size_t to_color(vec4& color)
+        inline size_t to_color(const vec4& color)
 	{
 		size_t r;
 		__m128 a, b;
@@ -308,6 +340,12 @@ namespace mlib
 
 		return r;
 	}
+
+        template <typename Left, typename Op, typename Right>
+        inline size_t to_color(const X<Left, Op, Right> & expression)
+        {
+                return to_color(vec4(expression));
+        }
 
 	///////////////////////////////////////////
 	/// - - - - - struct operations - - - - ///
