@@ -27,6 +27,8 @@ mlib/randomize.cpp
 mlib/timer.cpp
 rt2/bbox.cpp
 rt2/bbox.hpp
+rt2/bvh.cpp
+rt2/bvh.hpp
 rt2/camera.cpp
 rt2/camera.hpp
 rt2/engine.cpp

@@ -65,7 +65,7 @@ int main ( int argc, char ** argv )
                 Camera camera(	vec4( 4.0f, 0.0f, 0.0f, 0.0f),
 				vec4(-1.0f, 0.0f, 0.0f, 0.0f),
 				vec4( 0.0f, 1.0f, 0.0f, 0.0f),
-                                settings.width, settings.height, 45.0f
+                                settings.width, settings.height, 60.0f
 			     );
 
 		Scene scene(camera);
