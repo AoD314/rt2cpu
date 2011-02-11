@@ -23,6 +23,8 @@ namespace rt2
 		v1 = t.v1;
 		v2 = t.v2;
 		normal = t.normal;
+                e1 = t.e1;
+                e2 = t.e2;
 	}
 
 	vec4 Triangle::get_normal()

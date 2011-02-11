@@ -62,7 +62,7 @@ int main ( int argc, char ** argv )
 		std::cout << "\nCPU Frequency: " << timer.GetFrequency() << std::endl;
 		std::cout.flush();
 
-                Camera camera(	vec4( 2.0f, 0.0f, 0.0f, 0.0f),
+                Camera camera(	vec4( 4.0f, 0.0f, 0.0f, 0.0f),
 				vec4(-1.0f, 0.0f, 0.0f, 0.0f),
 				vec4( 0.0f, 1.0f, 0.0f, 0.0f),
                                 settings.width, settings.height, 45.0f
@@ -74,7 +74,7 @@ int main ( int argc, char ** argv )
 
 		Engine engine(scene, InitSDL(settings));
                 engine.set_threads(settings.threads);
-                engine.set_antialiasing(2);
+                engine.set_antialiasing(settings.antialiasing);
 
 		timer.Start();
 

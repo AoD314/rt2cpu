@@ -12,6 +12,7 @@ class Settings
         int lights;
         int depth;
         int threads;
+        int antialiasing;
         int width;
         int height;
 	int max_count_objects_in_bvh;
