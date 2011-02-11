@@ -35,7 +35,7 @@ bool test_rt2_camera_gen_ray_to_up_right()
 
 	Camera cam(pos, dir, dir_up, 2048, 1024, 60);
 	Ray r = cam.get_ray(0, 0);
-	return (r.dir()[0] == -0.81321532f) && (r.dir()[1] == 0.26026174f) && (r.dir()[2] == 0.52052349f) && (r.dir()[3] == 0.0f);
+        return (r.dir()[0] == -0.25f) && (r.dir()[1] == 0.433012724f) && (r.dir()[2] == 0.866025448f) && (r.dir()[3] == 0.0f);
 }
 
 bool test_rt2_camera_gen_ray_to_up_right_with_aa()
@@ -46,7 +46,7 @@ bool test_rt2_camera_gen_ray_to_up_right_with_aa()
 
 	Camera cam(pos, dir, dir_up, 2048, 1024, 60);
 	Ray r = cam.get_ray(0, 0, 0, 8);
-	return (r.dir()[0] == -0.81321532f) && (r.dir()[1] == 0.26026174f) && (r.dir()[2] == 0.52052349f) && (r.dir()[3] == 0.0f);
+        return (r.dir()[0] == -0.25f) && (r.dir()[1] == 0.433012724f) && (r.dir()[2] == 0.866025448f) && (r.dir()[3] == 0.0f);
 }
 
 bool test_rt2_ray_ok()
@@ -79,6 +79,34 @@ bool test_rt2_bbox_cross()
 	BBox box(mn, mx);
 
 	return box.is_cross(r);
+}
+
+bool test_rt2_bbox_cross_miss()
+{
+        vec4 mn ( 4.0f, 0.0f, 0.0f, 0.0f);
+        vec4 mx ( 0.0f, 4.0f, 4.0f, 0.0f);
+
+        vec4 p ( 6.0f, 2.0f, 2.0f, 0.0f);
+        vec4 d ( 1.0f, 0.0f, 0.0f, 0.0f);
+
+        Ray r(p,d);
+        BBox box(mn, mx);
+
+        return !box.is_cross(r);
+}
+
+bool test_rt2_bbox_cross_miss_parallel()
+{
+        vec4 mn ( 4.0f, 0.0f, 0.0f, 0.0f);
+        vec4 mx ( 0.0f, 4.0f, 4.0f, 0.0f);
+
+        vec4 p ( 6.0f, 2.0f, 2.0f, 0.0f);
+        vec4 d ( 0.0f, 0.0f, 1.0f, 0.0f);
+
+        Ray r(p,d);
+        BBox box(mn, mx);
+
+        return !box.is_cross(r);
 }
 
 bool test_rt2_triangle_cross()
@@ -194,9 +222,14 @@ int main(int argc, char ** argv)
 
         TEST (test_rt2_sphere_cross_in_center,               "test_rt2_sphere_cross_in_center")
         TEST (test_rt2_sphere_cross_not_center,              "test_rt2_sphere_cross_not_center")
+
 	TEST (test_rt2_bbox_cross,                           "test_rt2_bbox_cross")
+        TEST (test_rt2_bbox_cross_miss,                      "test_rt2_bbox_cross_miss")
+        TEST (test_rt2_bbox_cross_miss_parallel,             "test_rt2_bbox_cross_miss_parallel")
+
 	TEST (test_rt2_ray_ok,                               "test_rt2_ray_ok")
 	TEST (test_rt2_ray_nok,                              "test_rt2_ray_nok")
+
 	TEST (test_rt2_camera_gen_ray_to_center,             "test_rt2_camera_gen_ray_to_center")
 	TEST (test_rt2_camera_gen_ray_to_up_right,           "test_rt2_camera_gen_ray_to_up_right")
 	TEST (test_rt2_camera_gen_ray_to_up_right_with_aa,   "test_rt2_camera_gen_ray_to_up_right_with_aa")

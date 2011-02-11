@@ -23,7 +23,7 @@ namespace rt2
 		float mmax = min( min( rmax[0], rmax[1]), rmax[2]);
 		float mmin = max( max( rmin[0], rmin[1]), rmin[2]);
 		
-		return (mmax >= mmin);
+                return (mmax >= mmin && mmax >= 0.0f);
 	}
 
 }
