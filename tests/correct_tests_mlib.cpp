@@ -234,7 +234,7 @@ bool test_mlib_min_and_max_vec()
 
 bool test_mlib_objfile()
 {
-	Objfile file("my_stul.obj");
+        Objfile file("../data/my_stul.obj");
 	return file.GetCountTriangle() == 10881;
 }
 
