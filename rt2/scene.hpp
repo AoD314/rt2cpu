@@ -9,29 +9,26 @@
 #include "sphere.hpp"
 #include "camera.hpp"
 #include "ray.hpp"
+#include "bvh.hpp"
 
 namespace rt2
 {
 	class Scene
 	{
 		private:
-
-			std::vector<Triangle> triangle_list;
-                        std::vector<Sphere>   sphere_list;
-
+                        BVH * bvh;
 			Camera cam;
 
 		public:
 			Scene();
 			Scene(Camera c);
-			Scene(const Scene & s);
 
 			void load_from_file(const std::string & namefile);
 			Camera get_cam();
-			unsigned int count_objects();
 
-                        Triangle * crossing_tr (Ray & r, float & t);
-                        Sphere   * crossing_sph(Ray & r, float & t);
+                        Triangle * crossing (Ray & ray, float & t);
+
+                        ~Scene();
 	};
 
 }

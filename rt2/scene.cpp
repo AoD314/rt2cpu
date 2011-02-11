@@ -13,23 +13,19 @@ namespace rt2
 	Scene::Scene()
 	{
                 cam = Camera ( vec4( 5.0f, 0.0f, 0.0f, 0.0f), vec4(-1.0f, 0.0f, 0.0f, 0.0f), vec4( 0.0f, 1.0f, 0.0f, 0.0f), 256, 256, 60.0f);
+                bvh = NULL;
 	}
 
 	Scene::Scene(Camera c)
 	{
 		cam = c;
-	}
-
-	Scene::Scene(const Scene & s)
-	{
-		cam = s.cam;
-		triangle_list = s.triangle_list;
-                sphere_list = s.sphere_list;
+                bvh = NULL;
 	}
 
 	void Scene::load_from_file(const std::string & namefile)
 	{
 		Objfile obj(namefile);
+                vector<Triangle> triangle_list;
 
 		for (size_t i = 0; i < obj.GetCountTriangle(); i++)
 		{
@@ -44,11 +40,7 @@ namespace rt2
 		cout << "\ntotal triangles is " << obj.GetCountTriangle();
 		cout.flush();
 
-                sphere_list.push_back(Sphere(vec4(0.0f,  0.50f,  0.50f, 0.0f), 0.10f));
-                sphere_list.push_back(Sphere(vec4(0.0f, -0.50f,  0.50f, 0.0f), 0.10f));
-                sphere_list.push_back(Sphere(vec4(0.0f,  0.00f,  0.0f,  0.0f), 0.50f));
-                sphere_list.push_back(Sphere(vec4(0.0f,  0.50f, -0.50f, 0.0f), 0.10f));
-                sphere_list.push_back(Sphere(vec4(0.0f, -0.50f, -0.50f, 0.0f), 0.10f));
+                bvh = new BVH(triangle_list);
 	}
 
 	Camera Scene::get_cam()
@@ -56,47 +48,15 @@ namespace rt2
 		return cam;
 	}
 
-	unsigned int Scene::count_objects()
+        Triangle * Scene::crossing(Ray & ray, float & t)
 	{
-		return triangle_list.size();
+                return bvh->crossing(ray, t);
 	}
 
-        Triangle * Scene::crossing_tr(Ray & r, float & t)
-	{
-                size_t index = -1;
-                t = Float::MaxValue();
-                for (size_t i = 0; i < triangle_list.size(); i++)
-                {
-                        float lt = triangle_list[i].crossing(r);
-
-                        if (lt >= 0.0f && lt < t)
-                        {
-                                t = lt;
-                                index = i;
-                        }
-                }
-
-                if (index == -1) return NULL;
-                return &triangle_list[index];
-	}
-
-        Sphere * Scene::crossing_sph(Ray & r, float & t)
+        Scene::~Scene()
         {
-                size_t index = -1;
-                t = Float::MaxValue();
-                for (size_t i = 0; i < sphere_list.size(); i++)
-                {
-                        float lt = sphere_list[i].crossing(r);
-
-                        if (lt >= 0.0f && lt < t)
-                        {
-                                t = lt;
-                                index = i;
-                        }
-                }
-
-                if (index == -1) return NULL;
-                return &sphere_list[index];
+                if (bvh != NULL)
+                        delete bvh;
         }
 
 }

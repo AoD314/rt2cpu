@@ -20,7 +20,7 @@ namespace rt2
 	{
                 vec4 point;
                 float t;
-                Triangle * obj = scene.crossing_tr(ray, t);
+                Triangle * obj = scene.crossing(ray, t);
 
                 if (obj != NULL)
                 {
@@ -38,26 +38,7 @@ namespace rt2
                         }
                         return vec4(0.8f) * d + vec4(0.05f, 0.05f, 0.05f, 0.0f) + spec;
                 }
-/*
-                Sphere * s = scene.crossing_sph(ray, t);
 
-                if (s != NULL)
-                {
-                        point = ray.pos() + t * ray.dir();
-                        vec4 normal = s->get_normal(point);
-                        vec4 light = normalize(vec4(5.0f, 5.0f, 5.0f, 0.0f) - point);
-                        float d = dot(normal, light);
-                        if (d <= 0.0f) d = 0.0f;
-                        vec4 r = ray.dir() - 2.0f * normal * dot(normal, ray.dir());
-                        float tt = dot(r, normalize(ray.pos() - point));
-                        vec4 spec;
-                        if (tt >=0 )
-                        {
-                                spec = vec4(0.9f) * powf(tt, 32.0f);
-                        }
-                        return vec4(0.8f) * d + vec4(0.05f, 0.05f, 0.05f, 0.0f) + spec;
-                }
-*/
                 return vec4(0.0f);
 	}
 
