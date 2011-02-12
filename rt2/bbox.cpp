@@ -12,7 +12,43 @@ namespace rt2
 		bmax = mx;
 	}
 
-	bool BBox::is_cross(Ray & r)
+        BBox::BBox(std::vector<Triangle> mesh)
+        {
+
+        }
+
+        bool BBox::in(const Triangle & t)
+        {
+                return false;
+        }
+
+        mlib::vec4 BBox::get_split_point(Split_point point)
+        {
+                vec4 p;
+
+                if (point == split_min)
+                {
+
+                }
+                else if (point == split_max)
+                {
+
+                }
+
+                return p;
+        }
+
+        mlib::vec4 BBox::get_max_point()
+        {
+                return bmax;
+        }
+
+        mlib::vec4 BBox::get_min_point()
+        {
+                return bmin;
+        }
+
+        bool BBox::is_cross(const Ray & r)
 	{
 		vec4 tmin = (bmin - r.pos()) / r.dir();
 		vec4 tmax = (bmax - r.pos()) / r.dir();

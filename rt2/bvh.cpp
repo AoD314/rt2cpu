@@ -6,13 +6,42 @@ using namespace mlib;
 
 namespace rt2
 {
-        BVH::BVH(std::vector<Triangle> storage)
+        BVH::BVH(std::vector<Triangle> storage, int max_count_objects_in_bvh)
         {
+                box = new BBox(storage);
+                if (storage.size() < max_count_objects_in_bvh)
+                {
+                        local_storage = storage;
+                        one = NULL;
+                        two = NULL;
+                }
+                else
+                {
+                        BBox boxl(box->get_split_point(split_min), box->get_max_point());
+                        BBox boxr(box->get_min_point(), box->get_split_point(split_max));
 
+                        std::vector<Triangle> stl;
+                        std::vector<Triangle> str;
+
+                        for (size_t i = 0; i < storage.size(); i++)
+                        {
+                                if (boxl.in(storage[i]))
+                                        stl.push_back(storage[i]);
+
+                                if (boxr.in(storage[i]))
+                                        str.push_back(storage[i]);
+                        }
+
+                        one = new BVH(stl, max_count_objects_in_bvh);
+                        two = new BVH(str, max_count_objects_in_bvh);
+                }
         }
+
 
         Triangle * BVH::crossing(const Ray &ray, float &t)
         {
+                if (box->is_cross(ray) == false) return NULL;
+
                 float t_one, t_two = -1;
 
                 Triangle * obj_one;

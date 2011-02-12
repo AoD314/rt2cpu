@@ -18,6 +18,7 @@ namespace rt2
 		private:
                         BVH * bvh;
 			Camera cam;
+                        int max_count_objects_in_bvh;
 
 		public:
 			Scene();
@@ -25,6 +26,8 @@ namespace rt2
 
 			void load_from_file(const std::string & namefile);
 			Camera get_cam();
+
+                        void SetMaxCountObjectsInBVH(int max_count);
 
                         Triangle * crossing (Ray & ray, float & t);
 
