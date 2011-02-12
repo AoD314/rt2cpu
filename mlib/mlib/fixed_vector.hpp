@@ -180,7 +180,7 @@ namespace mlib
 			_align_ float d[4];
 			_mm_store_ps(&d[0], data);
 			d[i] = val;
-			data = _mm_load1_ps(&d[0]);
+                        data = _mm_setr_ps(d[0], d[1], d[2], d[3]);
 		}
 
 		static inline vec4 zero()

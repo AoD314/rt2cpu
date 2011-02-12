@@ -42,6 +42,16 @@ bool test_mlib_long()
 	return str == "-7";
 }
 
+bool test_mlib_fixed_vector_set_value()
+{
+        vec4 v(1.0f, 2.0f, 3.0f, 4.0f);
+        v(0, 4.0f);
+        v(1, 3.0f);
+        v(2, 2.0f);
+        v(3, 1.0f);
+        return (v[0] == 4.0f && v[1] == 3.0f && v[2] == 2.0f && v[3] == 1.0f);
+}
+
 bool test_mlib_fixed_vector_add()
 {
 	vec4 a (1.0f, 0.0f, 3.0f, 0.0f);
@@ -331,6 +341,7 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_long,    "mlib_long")
 	TEST (test_mlib_int,     "mlib_int")
 
+        TEST (test_mlib_fixed_vector_set_value,                "test_mlib_fixed_vector_set_value")
 	TEST (test_mlib_fixed_vector_add,                      "mlib_fixed_vector_add")
 	TEST (test_mlib_fixed_vector_double_add,               "mlib_fixed_vector_double_add")
 	TEST (test_mlib_fixed_vector_complex_add,              "mlib_fixed_vector_complex_add")
