@@ -25,6 +25,7 @@ namespace rt2
 		public:
 			BBox ( mlib::vec4 mn, mlib::vec4 mx);
                         BBox (std::vector<Triangle> mesh);
+                        BBox (Triangle & t);
 
                         bool is_cross(const Ray & r);
                         bool in(Triangle & t);

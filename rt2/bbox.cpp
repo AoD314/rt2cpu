@@ -37,11 +37,30 @@ namespace rt2
                 }
         }
 
-        bool BBox::in(Triangle & t)
+        BBox::BBox(Triangle & t)
         {
                 vec4 a,b,c;
                 t.get_points(a,b,c);
-                return is_cross(Ray(a, normalize(b-a))) || is_cross(Ray(b, normalize(c-b))) || is_cross(Ray(c, normalize(a-c)));
+
+                bmin = vec4( Float::MaxValue());
+                bmax = vec4(-Float::MaxValue());
+
+                for (int i = 0; i < 4; i++)
+                {
+                        if (bmax[i] < a[i]) bmax(i, a[i]);
+                        if (bmax[i] < b[i]) bmax(i, b[i]);
+                        if (bmax[i] < c[i]) bmax(i, c[i]);
+
+                        if (bmin[i] > a[i]) bmin(i, a[i]);
+                        if (bmin[i] > b[i]) bmin(i, b[i]);
+                        if (bmin[i] > c[i]) bmin(i, c[i]);
+                }
+        }
+
+        bool BBox::in(Triangle & t)
+        {
+                BBox box(t);
+                return (box.bmin > (bmin - (box.bmax - box.bmin))) && box.bmin < bmax;
         }
 
         vec4 BBox::get_split_point(Split_point point)
