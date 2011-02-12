@@ -1,6 +1,8 @@
 
 #include "bbox.hpp"
+
 #include <mlib/minmax.hpp>
+#include <mlib/float.hpp>
 using namespace mlib;
 
 namespace rt2
@@ -14,15 +16,31 @@ namespace rt2
 
         BBox::BBox(std::vector<Triangle> mesh)
         {
+                bmin.set1(Float::MaxValue());
+                bmax.set1(Float::MinValue());
 
+                for (size_t i = 0; i < mesh.size(); i++)
+                {
+                        vec4 a,b,c;
+                        mesh[i].get_points(a,b,c);
+                        if (bmax < a) bmax = a;
+                        if (bmax < b) bmax = b;
+                        if (bmax < c) bmax = c;
+
+                        if (bmin > a) bmin = a;
+                        if (bmin > b) bmin = b;
+                        if (bmin > c) bmin = c;
+                }
         }
 
-        bool BBox::in(const Triangle & t)
+        bool BBox::in(Triangle & t)
         {
-                return false;
+                vec4 a,b,c;
+                t.get_points(a,b,c);
+                return (bmin < a && a < bmax) || (bmin < b && b < bmax) || (bmin < c && c < bmax);
         }
 
-        mlib::vec4 BBox::get_split_point(Split_point point)
+        vec4 BBox::get_split_point(Split_point point)
         {
                 vec4 p;
 
@@ -38,12 +56,12 @@ namespace rt2
                 return p;
         }
 
-        mlib::vec4 BBox::get_max_point()
+        vec4 BBox::get_max_point()
         {
                 return bmax;
         }
 
-        mlib::vec4 BBox::get_min_point()
+        vec4 BBox::get_min_point()
         {
                 return bmin;
         }

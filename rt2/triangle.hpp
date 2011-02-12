@@ -23,6 +23,7 @@ namespace rt2
                         float crossing(const Ray & r);
 
 			mlib::vec4 get_normal();
+                        void get_points( mlib::vec4 & a, mlib::vec4 & b, mlib::vec4 & c);
 	};
 
 

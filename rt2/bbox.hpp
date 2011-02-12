@@ -27,7 +27,7 @@ namespace rt2
                         BBox (std::vector<Triangle> mesh);
 
                         bool is_cross(const Ray & r);
-                        bool in(const Triangle & t);
+                        bool in(Triangle & t);
 
                         mlib::vec4 get_split_point(Split_point point);
                         mlib::vec4 get_max_point();

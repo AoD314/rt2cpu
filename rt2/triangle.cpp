@@ -32,6 +32,13 @@ namespace rt2
 		return normal;
 	}
 
+        void Triangle::get_points( mlib::vec4 & a, mlib::vec4 & b, mlib::vec4 & c)
+        {
+                a = v0;
+                b = v1;
+                c = v2;
+        }
+
         float Triangle::crossing(const Ray & r)
 	{
 		vec4 pos = r.pos();
