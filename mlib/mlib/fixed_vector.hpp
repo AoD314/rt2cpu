@@ -5,6 +5,7 @@
 #include "mmemory.hpp"
 #include <math.h>
 #include <iostream>
+#include <sstream>
 #include <iomanip>
 
 #include <xmmintrin.h>
@@ -95,7 +96,7 @@ namespace mlib
                         _align_ __m128 cmp = _mm_cmpge_ps(data, val.data);
                         _align_ float d[4];
                         _mm_store_ps(&d[0], cmp);
-                        return d[0] == 0x0 || d[1] == 0x0 || d[2] == 0x0;
+                        return d[0] == 0x0 && d[1] == 0x0 && d[2] == 0x0;
                 }
 
                 inline bool operator > (const vec4& val)
@@ -103,7 +104,7 @@ namespace mlib
                         _align_ __m128 cmp = _mm_cmple_ps(data, val.data);
                         _align_ float d[4];
                         _mm_store_ps(&d[0], cmp);
-                        return d[0] == 0x0 || d[1] == 0x0 || d[2] == 0x0;
+                        return d[0] == 0x0 && d[1] == 0x0 && d[2] == 0x0;
                 }
 
 
@@ -275,6 +276,29 @@ namespace mlib
                 return abs( vec4(a) );
         }
 
+        ///////////////////////////////////////////
+        /// - - - - - - -  str()  - - - - - - - ///
+        ///////////////////////////////////////////
+
+        inline std::string str(const vec4 & a)
+        {
+                _align_ float v[4];
+                _mm_store_ps(v, a.data);
+
+                std::ostringstream ostr;
+
+                for (size_t i = 0; i < 4; i++)
+                        ostr << std::setfill(' ') << std::fixed <<std::setprecision(10) << v[i] << " ";
+
+                return ostr.str();
+        }
+
+        template <typename Left, typename Op, typename Right>
+        inline std::string str(const X<Left, Op, Right> & a)
+        {
+                return str(vec4(a));
+        }
+
 	///////////////////////////////////////////
 	/// - - - - - - std::ostream& - - - - - ///
 	///////////////////////////////////////////
@@ -285,7 +309,8 @@ namespace mlib
 		_mm_store_ps(v, x.data);
 
 		for (size_t i = 0; i < 4; i++)
-			out << std::fixed << std::setprecision(8) << v[i] << " ";
+                        out << std::setfill(' ') << std::setw(10) << v[i] << " ";
+
 		return out;
 	}
 
