@@ -42,18 +42,37 @@ namespace rt2
 
         vec4 BBox::get_split_point(Split_point point)
         {
-                vec4 p;
+                vec4 bv_size = abs(bmax - bmin);
+
+                int os = 0;
+                float max = bv_size[0];
+
+                if ( bv_size[1] > max)
+                {
+                        max = bv_size[1];
+                        os = 1;
+                }
+
+                if ( bv_size[2] > max)
+                {
+                        max = bv_size[2];
+                        os = 2;
+                }
+
+                max /= 2.0f;
+
+                bv_size(os, max);
 
                 if (point == split_min)
                 {
-
+                        return vec4(bmin + bv_size);
                 }
                 else if (point == split_max)
                 {
-
+                        vec4 lmax(0.0f);
+                        lmax(os, max);
+                        return vec4(bmin + lmax);
                 }
-
-                return p;
         }
 
         vec4 BBox::get_max_point()

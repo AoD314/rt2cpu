@@ -252,6 +252,29 @@ namespace mlib
 		return normalize( vec4(a) );
 	}
 
+        ///////////////////////////////////////////
+        /// - - - - - - - - Abs - - - - - - - - ///
+        ///////////////////////////////////////////
+
+        inline vec4 abs(const vec4 & a)
+        {
+                _align_ float v[4];
+                _mm_store_ps(v, a.data);
+
+                if (v[0] < 0.0f) v[0] = -v[0];
+                if (v[1] < 0.0f) v[1] = -v[1];
+                if (v[2] < 0.0f) v[2] = -v[2];
+                if (v[3] < 0.0f) v[3] = -v[3];
+
+                return vec4(v[0],v[1],v[2],v[3]);
+        }
+
+        template <typename Left, typename Op, typename Right>
+        inline vec4 abs(const X<Left, Op, Right> & a)
+        {
+                return abs( vec4(a) );
+        }
+
 	///////////////////////////////////////////
 	/// - - - - - - std::ostream& - - - - - ///
 	///////////////////////////////////////////
