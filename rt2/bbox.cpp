@@ -19,17 +19,21 @@ namespace rt2
                 bmin.set1(Float::MaxValue());
                 bmax.set1(Float::MinValue());
 
-                for (size_t i = 0; i < mesh.size(); i++)
+                for (size_t j = 0; j < mesh.size(); j++)
                 {
                         vec4 a,b,c;
-                        mesh[i].get_points(a,b,c);
-                        if (bmax < a) bmax = a;
-                        if (bmax < b) bmax = b;
-                        if (bmax < c) bmax = c;
+                        mesh[j].get_points(a,b,c);
 
-                        if (bmin > a) bmin = a;
-                        if (bmin > b) bmin = b;
-                        if (bmin > c) bmin = c;
+                        for (int i = 0; i < 3; i++)
+                        {
+                                if (bmax[i] < a[i]) bmax(i, a[i]);
+                                if (bmax[i] < b[i]) bmax(i, b[i]);
+                                if (bmax[i] < c[i]) bmax(i, c[i]);
+
+                                if (bmin[i] > a[i]) bmin(i, a[i]);
+                                if (bmin[i] > b[i]) bmin(i, b[i]);
+                                if (bmin[i] > c[i]) bmin(i, c[i]);
+                        }
                 }
         }
 
