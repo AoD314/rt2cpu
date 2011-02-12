@@ -42,6 +42,12 @@ bool test_mlib_long()
 	return str == "-7";
 }
 
+bool test_mlib_fixed_vector_operator_eq()
+{
+        vec4 v(1.0f, 2.0f, 3.0f, 4.0f);
+        return v == vec4(1.0f, 2.0f, 3.0f, 4.0f);
+}
+
 bool test_mlib_fixed_vector_set_value()
 {
         vec4 v(1.0f, 2.0f, 3.0f, 4.0f);
@@ -255,6 +261,34 @@ bool test_mlib_fixed_vector_eq()
 	return a == b;
 }
 
+bool test_mlib_fixed_vector_less()
+{
+        vec4 a (1.0f, 2.0f, 3.0f, 4.0f);
+        vec4 b (3.0f, 3.0f, 4.0f, 5.0f);
+        return a < b;
+}
+
+bool test_mlib_fixed_vector_not_less()
+{
+        vec4 a (1.0f, 5.0f, 3.0f, 4.0f);
+        vec4 b (3.0f, 3.0f, 4.0f, 5.0f);
+        return !(a < b);
+}
+
+bool test_mlib_fixed_vector_greater()
+{
+        vec4 a (11.0f, 12.0f, 13.0f, 14.0f);
+        vec4 b ( 3.0f,  3.0f,  4.0f,  5.0f);
+        return a > b;
+}
+
+bool test_mlib_fixed_vector_not_greater()
+{
+        vec4 a (11.0f, 2.0f, 13.0f, 14.0f);
+        vec4 b ( 3.0f, 3.0f,  4.0f,  5.0f);
+        return !(a > b);
+}
+
 bool test_mlib_fixed_vector_neq()
 {
 	vec4 a (1.0f, 2.0f, 3.0f, 4.0f);
@@ -341,6 +375,7 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_long,    "mlib_long")
 	TEST (test_mlib_int,     "mlib_int")
 
+        TEST (test_mlib_fixed_vector_operator_eq,              "test_mlib_fixed_vector_operator_eq")
         TEST (test_mlib_fixed_vector_set_value,                "test_mlib_fixed_vector_set_value")
 	TEST (test_mlib_fixed_vector_add,                      "mlib_fixed_vector_add")
 	TEST (test_mlib_fixed_vector_double_add,               "mlib_fixed_vector_double_add")
@@ -364,6 +399,10 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_fixed_vector_cross,                    "mlib_fixed_vector_cross")
 	TEST (test_mlib_fixed_vector_eq,                       "mlib_fixed_vector_eq")
 	TEST (test_mlib_fixed_vector_neq,                      "mlib_fixed_vector_neq")
+        TEST (test_mlib_fixed_vector_less,                     "test_mlib_fixed_vector_less")
+        TEST (test_mlib_fixed_vector_not_less,                 "test_mlib_fixed_vector_not_less")
+        TEST (test_mlib_fixed_vector_greater,                  "test_mlib_fixed_vector_greater")
+        TEST (test_mlib_fixed_vector_not_greater,              "test_mlib_fixed_vector_not_greater")
 
 	TEST (test_mlib_min_and_max,                  "mlib_min_and_max")
 	TEST (test_mlib_min_and_max_vec,              "mlib_min_and_max_vec")

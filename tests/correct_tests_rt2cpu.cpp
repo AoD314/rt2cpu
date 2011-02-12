@@ -10,6 +10,7 @@
 
 #include <mlib/console_parameters.hpp>
 #include <mlib/timer.hpp>
+#include <mlib/float.hpp>
 
 using namespace mlib;
 using namespace rt2;
@@ -67,6 +68,15 @@ bool test_rt2_ray_nok()
 	return (r.pos() != pos) && (r.dir() == dir);
 }
 
+bool test_rt2_bbox_create()
+{
+        Triangle t(vec4(1.0f, 0.0f, 0.0f, 0.0f), vec4(0.0f, 1.0f, 0.0f, 0.0f), vec4(0.0f, 0.0f, 1.0f, 0.0f), vec4(0.0f));
+
+        BBox box(t);
+
+        return (box.get_min_point() == vec4(0.0f, 0.0f, 0.0f, 0.0f) && box.get_max_point() == vec4(1.0f, 1.0f, 1.0f, 0.0f));
+}
+
 bool test_rt2_bbox_cross()
 {
 	vec4 mn ( 4.0f, 0.0f, 0.0f, 0.0f);
@@ -122,7 +132,7 @@ bool test_rt2_triangle_out_bbox()
 {
         BBox box(vec4(-1.0f), vec4(1.0f));
 
-        Triangle t(vec4(10.5f, 0.0f, 0.0f, 0.0f), vec4(10.0f, 0.5f, 0.0f, 0.0f), vec4(10.0f, 0.0f, 0.5f, 0.0f), vec4(0.0f));
+        Triangle t(vec4(100.0f, 0.0f, 0.0f, 0.0f), vec4(100.0f, 1.0f, 0.0f, 0.0f), vec4(100.0f, 0.0f, 1.0f, 0.0f), vec4(0.0f));
 
         return box.in(t) == false;
 }
@@ -241,6 +251,19 @@ bool test_rt2_sphere_cross_not_center()
         return s.crossing(ray) >= 0.0f;
 }
 
+bool test_rt2_bbox_split()
+{
+        vec4 mn(0.0f, 0.0f, 0.0f, 0.0f);
+        vec4 mx(1.0f, 1.0f, 2.0f, 0.0f);
+
+        BBox box(mn, mx);
+
+        BBox box1(mn, box.get_split_point(split_max));
+        BBox box2(box.get_split_point(split_min), mx);
+
+        return box1.get_max_point() == vec4(1.0f, 1.0f, 1.0f, 0.0f) && box2.get_min_point() == vec4(0.0f, 0.0f, 1.0f, 0.0f);
+}
+
 int main(int argc, char ** argv)
 {
 	size_t total_tests = 0;
@@ -268,7 +291,9 @@ int main(int argc, char ** argv)
         TEST (test_rt2_sphere_cross_in_center,               "test_rt2_sphere_cross_in_center")
         TEST (test_rt2_sphere_cross_not_center,              "test_rt2_sphere_cross_not_center")
 
-	TEST (test_rt2_bbox_cross,                           "test_rt2_bbox_cross")
+        TEST (test_rt2_bbox_create,                          "test_rt2_bbox_create")
+        TEST (test_rt2_bbox_split,                           "test_rt2_bbox_split")
+        TEST (test_rt2_bbox_cross,                           "test_rt2_bbox_cross")
         TEST (test_rt2_bbox_cross_miss,                      "test_rt2_bbox_cross_miss")
         TEST (test_rt2_bbox_cross_miss_parallel,             "test_rt2_bbox_cross_miss_parallel")
         TEST (test_rt2_triangle_in_bbox,                     "test_rt2_triangle_in_bbox")
