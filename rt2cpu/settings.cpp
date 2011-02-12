@@ -24,9 +24,9 @@ Settings::Settings (int argc, char ** argv)
         file_write     = params.has("--saveimg   | -s");
         quiet_mode     = params.has("--quiet     | -q");
 
-        path_to_objfile = params.get<std::string>("--obj | -o", "../data/my_obstrakt.obj");
+        //path_to_objfile = params.get<std::string>("--obj | -o", "../data/my_obstrakt.obj");
         //path_to_objfile = params.get<std::string>("--obj | -o", "../data/my_sharHQ.obj");
-        //path_to_objfile = params.get<std::string>("--obj | -o", "../data/my_stul.obj");
+        path_to_objfile = params.get<std::string>("--obj | -o", "../data/my_stul.obj");
 
         is_exit = false;
 

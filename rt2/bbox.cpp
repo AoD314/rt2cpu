@@ -37,7 +37,7 @@ namespace rt2
         {
                 vec4 a,b,c;
                 t.get_points(a,b,c);
-                return (bmin < a && a < bmax) || (bmin < b && b < bmax) || (bmin < c && c < bmax);
+                return is_cross(Ray(a, normalize(b-a))) || is_cross(Ray(b, normalize(c-b))) || is_cross(Ray(c, normalize(a-c)));
         }
 
         vec4 BBox::get_split_point(Split_point point)

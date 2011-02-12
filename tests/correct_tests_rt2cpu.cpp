@@ -109,6 +109,51 @@ bool test_rt2_bbox_cross_miss_parallel()
         return !box.is_cross(r);
 }
 
+bool test_rt2_triangle_in_bbox()
+{
+        BBox box(vec4(-1.0f), vec4(1.0f));
+
+        Triangle t(vec4(0.5f, 0.0f, 0.0f, 0.0f), vec4(0.0f, 0.5f, 0.0f, 0.0f), vec4(0.0f, 0.0f, 0.5f, 0.0f), vec4(0.0f));
+
+        return box.in(t);
+}
+
+bool test_rt2_triangle_out_bbox()
+{
+        BBox box(vec4(-1.0f), vec4(1.0f));
+
+        Triangle t(vec4(10.5f, 0.0f, 0.0f, 0.0f), vec4(10.0f, 0.5f, 0.0f, 0.0f), vec4(10.0f, 0.0f, 0.5f, 0.0f), vec4(0.0f));
+
+        return box.in(t) == false;
+}
+
+bool test_rt2_triangle_cross_in_bbox()
+{
+        BBox box(vec4(-1.0f), vec4(1.0f));
+
+        Triangle t(vec4(0.5f, 0.0f, 0.0f, 0.0f), vec4(10.0f, 10.5f, 0.0f, 0.0f), vec4(10.0f, 0.0f, 10.5f, 0.0f), vec4(0.0f));
+
+        return box.in(t);
+}
+
+bool test_rt2_triangle_cross_out_bbox()
+{
+        BBox box(vec4(-1.0f), vec4(1.0f));
+
+        Triangle t(vec4(50.0f, -10.0f, 0.0f, 0.0f), vec4(0.0f, 50.0f, 0.0f, 0.0f), vec4(-50.0f, -10.0f, 0.0f, 0.0f), vec4(0.0f));
+
+        return box.in(t);
+}
+
+bool test_rt2_triangle_cross_angle_bbox()
+{
+        BBox box(vec4(-1.0f), vec4(1.0f));
+
+        Triangle t(vec4(2.01f, 0.0f, 0.0f, 0.0f), vec4(0.0f, 2.01f, 0.0f, 0.0f), vec4(0.0f, 0.0f, 2.01f, 0.0f), vec4(0.0f));
+
+        return box.in(t);
+}
+
 bool test_rt2_triangle_cross()
 {
 	vec4 a ( 3.0f, -1.0f, 0.0f, 0.0f);
@@ -226,6 +271,11 @@ int main(int argc, char ** argv)
 	TEST (test_rt2_bbox_cross,                           "test_rt2_bbox_cross")
         TEST (test_rt2_bbox_cross_miss,                      "test_rt2_bbox_cross_miss")
         TEST (test_rt2_bbox_cross_miss_parallel,             "test_rt2_bbox_cross_miss_parallel")
+        TEST (test_rt2_triangle_in_bbox,                     "test_rt2_triangle_in_bbox")
+        TEST (test_rt2_triangle_out_bbox,                    "test_rt2_triangle_out_bbox")
+        TEST (test_rt2_triangle_cross_in_bbox,               "test_rt2_triangle_cross_in_bbox")
+        TEST (test_rt2_triangle_cross_out_bbox,              "test_rt2_triangle_cross_out_bbox")
+        TEST (test_rt2_triangle_cross_angle_bbox,            "test_rt2_triangle_cross_angle_bbox")
 
 	TEST (test_rt2_ray_ok,                               "test_rt2_ray_ok")
 	TEST (test_rt2_ray_nok,                              "test_rt2_ray_nok")
