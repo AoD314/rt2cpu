@@ -91,12 +91,24 @@ namespace mlib
 			data = val.data;
 		}
 
+                template<typename Left, typename Op, typename Right>
+                inline bool operator <= (const X<Left, Op, Right>& expression)
+                {
+                        return operator <= (vec4(expression));
+                }
+
                 inline bool operator <= (const vec4& val)
                 {
                         _align_ __m128 cmp = _mm_cmpgt_ps(data, val.data);
                         _align_ float d[4];
                         _mm_store_ps(&d[0], cmp);
                         return d[0] == 0x0 && d[1] == 0x0 && d[2] == 0x0 && d[3] == 0x0;
+                }
+
+                template<typename Left, typename Op, typename Right>
+                inline bool operator >= (const X<Left, Op, Right>& expression)
+                {
+                        return operator >= (vec4(expression));
                 }
 
                 inline bool operator >= (const vec4& val)
@@ -107,12 +119,24 @@ namespace mlib
                         return d[0] == 0x0 && d[1] == 0x0 && d[2] == 0x0 && d[3] == 0x0;
                 }
 
+                template<typename Left, typename Op, typename Right>
+                inline bool operator < (const X<Left, Op, Right>& expression)
+                {
+                        return operator < (vec4(expression));
+                }
+
                 inline bool operator < (const vec4& val)
                 {
                         _align_ __m128 cmp = _mm_cmpge_ps(data, val.data);
                         _align_ float d[4];
                         _mm_store_ps(&d[0], cmp);
                         return d[0] == 0x0 && d[1] == 0x0 && d[2] == 0x0 && d[3] == 0x0;
+                }
+
+                template<typename Left, typename Op, typename Right>
+                inline bool operator > (const X<Left, Op, Right>& expression)
+                {
+                        return operator > (vec4(expression));
                 }
 
                 inline bool operator > (const vec4& val)
@@ -123,6 +147,12 @@ namespace mlib
                         return d[0] == 0x0 && d[1] == 0x0 && d[2] == 0x0 && d[3] == 0x0;
                 }
 
+                template<typename Left, typename Op, typename Right>
+                inline bool operator != (const X<Left, Op, Right>& expression)
+                {
+                        return operator != (vec4(expression));
+                }
+
 
 		inline bool operator != (const vec4& val)
 		{
@@ -131,6 +161,13 @@ namespace mlib
 			_mm_store_ps(&d[0], cmp);
 			return d[0] == 0x0 || d[1] == 0x0 || d[2] == 0x0 || d[3] == 0x0;
 		}
+
+                template<typename Left, typename Op, typename Right>
+                inline bool operator == (const X<Left, Op, Right>& expression)
+                {
+                        return operator == (vec4(expression));
+                }
+
 
 		inline bool operator == (const vec4& val)
 		{
