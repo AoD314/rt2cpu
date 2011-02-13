@@ -16,15 +16,15 @@ namespace rt2
 
         BBox::BBox(std::vector<Triangle> mesh)
         {
-                bmin.set1(Float::MaxValue());
-                bmax.set1(Float::MinValue());
+                bmin.set1( Float::MaxValue());
+                bmax.set1(-Float::MaxValue());
 
                 for (size_t j = 0; j < mesh.size(); j++)
                 {
                         vec4 a,b,c;
                         mesh[j].get_points(a,b,c);
 
-                        for (int i = 0; i < 3; i++)
+                        for (int i = 0; i < 4; i++)
                         {
                                 if (bmax[i] < a[i]) bmax(i, a[i]);
                                 if (bmax[i] < b[i]) bmax(i, b[i]);
@@ -60,7 +60,7 @@ namespace rt2
         bool BBox::in(Triangle & t)
         {
                 BBox box(t);
-                return (box.bmin > (bmin - (box.bmax - box.bmin))) && box.bmin < bmax;
+                return (box.bmin >= (bmin - (box.bmax - box.bmin))) && box.bmin <= bmax;
         }
 
         vec4 BBox::get_split_point(Split_point point)

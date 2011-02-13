@@ -23,7 +23,9 @@ namespace rt2
                         std::vector<Triangle> stl;
                         std::vector<Triangle> str;
 
-                        for (size_t i = 0; i < storage.size(); i++)
+                        size_t i;
+                        size_t leng = storage.size();
+                        for (i = 0; i < leng; i++)
                         {
                                 if (boxl.in(storage[i]))
                                         stl.push_back(storage[i]);
