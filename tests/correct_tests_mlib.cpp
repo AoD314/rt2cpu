@@ -48,6 +48,30 @@ bool test_mlib_fixed_vector_operator_eq()
         return v == vec4(1.0f, 2.0f, 3.0f, 4.0f);
 }
 
+bool test_mlib_fixed_vector_operator_leq()
+{
+        vec4 v(1.0f, 2.0f, 3.0f, 4.0f);
+        return (v <= vec4(1.0f, 2.0f, 3.0f, 4.0f)) && ( v <= vec4(15.0f) - vec4(4.0f));
+}
+
+bool test_mlib_fixed_vector_operator_l()
+{
+        vec4 v(1.0f, 2.0f, 3.0f, 4.0f);
+        return (v < vec4(20.0f, 21.0f, 22.0f, 22.2f)) && ( v < vec4(9.0f) - vec4(4.0f));
+}
+
+bool test_mlib_fixed_vector_operator_g()
+{
+        vec4 v(1.0f, 2.0f, 3.0f, 4.0f);
+        return (v > vec4(0.0f, 1.0f, 1.0f, 2.2f)) && ( v > vec4(9.0f) - 5.0f * vec4(2.0f));
+}
+
+bool test_mlib_fixed_vector_operator_geq()
+{
+        vec4 v(1.0f, 2.0f, 3.0f, 4.0f);
+        return (v >= vec4(0.0f, 1.0f, 2.0f, 3.2f)) && ( v >= vec4(13.0f) - 6.0f * vec4(2.0f));
+}
+
 bool test_mlib_fixed_vector_set_value()
 {
         vec4 v(1.0f, 2.0f, 3.0f, 4.0f);
@@ -375,6 +399,10 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_long,    "mlib_long")
 	TEST (test_mlib_int,     "mlib_int")
 
+        TEST (test_mlib_fixed_vector_operator_leq,             "test_mlib_fixed_vector_operator_leq")
+        TEST (test_mlib_fixed_vector_operator_l,               "test_mlib_fixed_vector_operator_l")
+        TEST (test_mlib_fixed_vector_operator_g,               "test_mlib_fixed_vector_operator_g")
+        TEST (test_mlib_fixed_vector_operator_geq,             "test_mlib_fixed_vector_operator_geq")
         TEST (test_mlib_fixed_vector_operator_eq,              "test_mlib_fixed_vector_operator_eq")
         TEST (test_mlib_fixed_vector_set_value,                "test_mlib_fixed_vector_set_value")
 	TEST (test_mlib_fixed_vector_add,                      "mlib_fixed_vector_add")
