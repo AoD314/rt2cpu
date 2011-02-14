@@ -8,8 +8,9 @@ namespace rt2
 {
         BVH::BVH(std::vector<Triangle> storage, int max_count_objects_in_bvh)
         {
+                std::cout << "create ++++++++++++++++++++++++++++++++++\n";
                 box = new BBox(storage);
-                if (storage.size() < max_count_objects_in_bvh)
+                if (storage.size() <= max_count_objects_in_bvh)
                 {
                         local_storage = storage;
                         one = NULL;
@@ -23,9 +24,7 @@ namespace rt2
                         std::vector<Triangle> stl;
                         std::vector<Triangle> str;
 
-                        size_t i;
-                        size_t leng = storage.size();
-                        for (i = 0; i < leng; i++)
+                        for (size_t i = 0; i < storage.size(); i++)
                         {
                                 if (boxl.in(storage[i]))
                                         stl.push_back(storage[i]);
@@ -33,9 +32,17 @@ namespace rt2
                                 if (boxr.in(storage[i]))
                                         str.push_back(storage[i]);
                         }
-
-                        one = new BVH(stl, max_count_objects_in_bvh);
-                        two = new BVH(str, max_count_objects_in_bvh);
+                        if (storage.size() == stl.size() || storage.size() == str.size())
+                        {
+                                local_storage = storage;
+                                one = NULL;
+                                two = NULL;
+                        }
+                        else
+                        {
+                                one = new BVH(stl, max_count_objects_in_bvh);
+                                two = new BVH(str, max_count_objects_in_bvh);
+                        }
                 }
         }
 

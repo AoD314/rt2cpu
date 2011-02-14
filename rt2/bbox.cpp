@@ -14,6 +14,12 @@ namespace rt2
 		bmax = mx;
 	}
 
+        BBox::BBox(const BBox & box)
+        {
+                bmin = box.bmin;
+                bmax = box.bmax;
+        }
+
         BBox::BBox(std::vector<Triangle> mesh)
         {
                 bmin.set1( Float::MaxValue());
@@ -60,7 +66,7 @@ namespace rt2
         bool BBox::in(Triangle & t)
         {
                 BBox box(t);
-                return (box.bmin >= (bmin - (box.bmax - box.bmin))) && box.bmin <= bmax;
+                return (box.bmax >= bmin) && box.bmin <= bmax;
         }
 
         vec4 BBox::get_split_point(Split_point point)
