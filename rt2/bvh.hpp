@@ -21,9 +21,9 @@ namespace rt2
 
                 public:
                         BVH(std::vector<Triangle> storage, int max_count_objects_in_bvh);
+                        BVH(const BVH & bvh);
 
                         Triangle * crossing(const Ray & ray, float & t);
-
         };
 }
 

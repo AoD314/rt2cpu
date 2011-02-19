@@ -23,6 +23,7 @@ namespace rt2
 		public:
 			Scene();
 			Scene(Camera c);
+                        Scene(const Scene & s);
 
 			void load_from_file(const std::string & namefile);
 			Camera get_cam();

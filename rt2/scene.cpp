@@ -44,7 +44,7 @@ namespace rt2
 				obj.GetNormalForTriangle(i)
 			));
 		}
-		cout << "\ntotal triangles is " << obj.GetCountTriangle();
+                cout << "total triangles is " << obj.GetCountTriangle() << "\n";
 		cout.flush();
 
                 bvh = new BVH(triangle_list, max_count_objects_in_bvh);
@@ -55,6 +55,13 @@ namespace rt2
 		return cam;
 	}
 
+        Scene::Scene(const Scene & s)
+        {
+                bvh = s.bvh;
+                cam = s.cam;
+                max_count_objects_in_bvh = s.max_count_objects_in_bvh;
+        }
+
         Triangle * Scene::crossing(Ray & ray, float & t)
 	{
                 return bvh->crossing(ray, t);
@@ -62,8 +69,6 @@ namespace rt2
 
         Scene::~Scene()
         {
-                if (bvh != NULL)
-                        delete bvh;
         }
 
 }

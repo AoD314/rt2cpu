@@ -5,8 +5,6 @@ using namespace mlib;
 
 namespace rt2
 {
-	Triangle::Triangle(){}
-
 	Triangle::Triangle(vec4 a, vec4 b, vec4 c, vec4 n)
 	{
 		v0 = a;
