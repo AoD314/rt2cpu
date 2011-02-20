@@ -47,7 +47,7 @@ namespace mlib
 		return _mm_max_ps ( a,b );
 	}
 
-        inline vec4 min ( vec4 & a, vec4 & b )
+        inline vec4 min (const vec4 & a, const vec4 & b )
         {
                 __m128 min = _mm_min_ps ( a.data, b.data );
                 return vec4 ( min );
@@ -60,22 +60,24 @@ namespace mlib
         }
 
         template<typename Left, typename Op, typename Right>
-        inline vec4 min (vec4 & a, const X<Left, Op, Right>& b )
+        inline vec4 min (const vec4 & a, const X<Left, Op, Right>& b )
         {
                 return min(a, vec4(b));
         }
 
         template<typename Left, typename Op, typename Right>
-        inline vec4 min (const X<Left, Op, Right>& a, vec4 & b )
+        inline vec4 min (const X<Left, Op, Right>& a, const vec4 & b )
         {
                 return min(vec4(a), b);
         }
 
-	inline vec4 max ( vec4 & a, vec4 & b )
-	{
-		__m128 max = _mm_max_ps ( a.data, b.data );
-		return vec4 ( max );
-	}
+
+
+        inline vec4 max ( const vec4 & a, const vec4 & b )
+        {
+                __m128 max = _mm_max_ps ( a.data, b.data );
+                return vec4 ( max );
+        }
 
         template<typename Left, typename Op, typename Right>
         inline vec4 max (const X<Left, Op, Right>& a, const X<Left, Op, Right>& b )
@@ -84,16 +86,18 @@ namespace mlib
         }
 
         template<typename Left, typename Op, typename Right>
-        inline vec4 max (vec4 & a, const X<Left, Op, Right>& b )
+        inline vec4 max (const vec4 & a, const X<Left, Op, Right>& b )
         {
                 return max(a, vec4(b));
         }
 
         template<typename Left, typename Op, typename Right>
-        inline vec4 max (const X<Left, Op, Right>& a, vec4& b )
+        inline vec4 max (const X<Left, Op, Right>& a, const vec4& b )
         {
                 return max(vec4(a), b);
         }
+
+
 
 }
 

@@ -22,24 +22,17 @@ namespace rt2
 
         BBox::BBox(std::vector<Triangle> mesh)
         {
-                bmin.set1( Float::MaxValue());
                 bmax.set1(-Float::MaxValue());
+                bmin.set1( Float::MaxValue());
 
                 for (size_t j = 0; j < mesh.size(); j++)
                 {
-                        vec4 a,b,c;
+                        vec4 a, b, c;
                         mesh[j].get_points(a,b,c);
 
-                        for (int i = 0; i < 4; i++)
-                        {
-                                if (bmax[i] < a[i]) bmax(i, a[i]);
-                                if (bmax[i] < b[i]) bmax(i, b[i]);
-                                if (bmax[i] < c[i]) bmax(i, c[i]);
+                        bmax = max(max(max(bmax, c), b), a);
+                        bmin = min(min(min(bmin, c), b), a);
 
-                                if (bmin[i] > a[i]) bmin(i, a[i]);
-                                if (bmin[i] > b[i]) bmin(i, b[i]);
-                                if (bmin[i] > c[i]) bmin(i, c[i]);
-                        }
                 }
         }
 
@@ -48,25 +41,14 @@ namespace rt2
                 vec4 a,b,c;
                 t.get_points(a,b,c);
 
-                bmin = vec4( Float::MaxValue());
-                bmax = vec4(-Float::MaxValue());
-
-                for (int i = 0; i < 4; i++)
-                {
-                        if (bmax[i] < a[i]) bmax(i, a[i]);
-                        if (bmax[i] < b[i]) bmax(i, b[i]);
-                        if (bmax[i] < c[i]) bmax(i, c[i]);
-
-                        if (bmin[i] > a[i]) bmin(i, a[i]);
-                        if (bmin[i] > b[i]) bmin(i, b[i]);
-                        if (bmin[i] > c[i]) bmin(i, c[i]);
-                }
+                bmax = max(max(max(vec4(-Float::MaxValue()), c), b), a);
+                bmin = min(min(min(vec4( Float::MaxValue()), c), b), a);
         }
 
         bool BBox::in(Triangle & t)
         {
                 BBox box(t);
-                return (box.bmax >= bmin) && box.bmin <= bmax;
+                return ((box.bmax >= bmin) && (box.bmin <= bmax));
         }
 
         vec4 BBox::get_split_point(Split_point point)

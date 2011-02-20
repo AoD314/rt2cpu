@@ -14,14 +14,14 @@ namespace rt2
 	{
                 cam = Camera ( vec4( 5.0f, 0.0f, 0.0f, 0.0f), vec4(-1.0f, 0.0f, 0.0f, 0.0f), vec4( 0.0f, 1.0f, 0.0f, 0.0f), 256, 256, 60.0f);
                 bvh = NULL;
-                max_count_objects_in_bvh = 16;
+                max_count_objects_in_bvh = 10000;
 	}
 
 	Scene::Scene(Camera c)
 	{
 		cam = c;
                 bvh = NULL;
-                max_count_objects_in_bvh = 16;
+                max_count_objects_in_bvh = 10000;
 	}
 
         void Scene::SetMaxCountObjectsInBVH(int max_count)

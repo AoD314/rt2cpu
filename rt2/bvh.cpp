@@ -22,6 +22,7 @@ namespace rt2
                         local_storage = storage;
                         one = NULL;
                         two = NULL;
+                        printf("storage = %d\n", storage.size());
                 }
                 else
                 {
@@ -44,6 +45,7 @@ namespace rt2
                                 local_storage = storage;
                                 one = NULL;
                                 two = NULL;
+                                printf("storage = %d\n", storage.size());
                         }
                         else
                         {
@@ -56,12 +58,10 @@ namespace rt2
 
         Triangle * BVH::crossing(const Ray &ray, float &t)
         {
-                if (box->is_cross(ray) == false) return NULL;
-
-                float t_one, t_two = -1;
-
-                Triangle * obj_one;
-                Triangle * obj_two;
+                if (box->is_cross(ray) == false)
+                {
+                        return NULL;
+                }
 
                 if (one == NULL && two == NULL)
                 {
@@ -82,6 +82,11 @@ namespace rt2
                         if (index == -1) return NULL;
                         return &local_storage[index];
                 }
+
+                float t_one, t_two = -1;
+
+                Triangle * obj_one;
+                Triangle * obj_two;
 
                 if (one != NULL)
                 {

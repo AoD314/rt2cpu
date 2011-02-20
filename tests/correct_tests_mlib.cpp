@@ -22,12 +22,14 @@ bool test_mlib_float()
 	std::string str = Float::ToString(f);
 	return str == "1.25";
 }
+
 bool test_mlib_double()
 {
 	double d = Double::Parce("2.75");
 	std::string str = Double::ToString(d);
 	return str == "2.75";
 }
+
 bool test_mlib_int()
 {
 	int i = Int::Parce("6");
@@ -272,6 +274,18 @@ bool test_mlib_min_and_max_vec()
 		mx[0] == 4.0f && mx[1] == 3.0f && mx[2] == 3.0f && mx[3] == 4.0f;
 }
 
+bool test_mlib_complex_min_and_max_vec()
+{
+        vec4 a ( 1.0f, 2.0f, 3.0f, 4.0f );
+        vec4 b ( 4.0f, 3.0f, 2.0f, 1.0f );
+        vec4 c ( 6.0f, 2.0f, 1.0f, 0.0f );
+        vec4 mn = min(max(a, c), b);
+        vec4 mx = max(min(a, c) + vec4(2.0f), b);
+        return  mn[0] == 4.0f && mn[1] == 2.0f && mn[2] == 2.0f && mn[3] == 1.0f &&
+                mx[0] == 4.0f && mx[1] == 4.0f && mx[2] == 3.0f && mx[3] == 2.0f;
+}
+
+
 bool test_mlib_objfile()
 {
         Objfile file("../data/my_stul.obj");
@@ -432,6 +446,7 @@ int main(int argc, char ** argv)
         TEST (test_mlib_fixed_vector_greater,                  "test_mlib_fixed_vector_greater")
         TEST (test_mlib_fixed_vector_not_greater,              "test_mlib_fixed_vector_not_greater")
 
+        TEST (test_mlib_complex_min_and_max_vec,      "test_mlib_complex_min_and_max_vec")
 	TEST (test_mlib_min_and_max,                  "mlib_min_and_max")
 	TEST (test_mlib_min_and_max_vec,              "mlib_min_and_max_vec")
 
