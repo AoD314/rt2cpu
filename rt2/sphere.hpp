@@ -5,11 +5,12 @@
 #include <mlib/fixed_vector.hpp>
 
 #include "ray.hpp"
+#include "primitive.hpp"
 
 namespace rt2
 {
 
-	class Sphere
+        class Sphere : public Primitive
 	{
 		private:
 			mlib::vec4 pos;
@@ -23,7 +24,7 @@ namespace rt2
 
                         float crossing(const Ray & r);
 
-			mlib::vec4 get_normal(const mlib::vec4 & point);
+                        mlib::vec4 get_normal(const mlib::vec4 & point) const;
 
 	};
 }

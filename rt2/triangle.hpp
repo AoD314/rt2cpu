@@ -5,11 +5,12 @@
 #include <mlib/fixed_vector.hpp>
 
 #include "ray.hpp"
+#include "primitive.hpp"
 
 namespace rt2
 {
 
-	class Triangle
+        class Triangle : public Primitive
 	{
 		private:
 			mlib::vec4 v0, v1, v2, normal;
@@ -21,7 +22,7 @@ namespace rt2
 
                         float crossing(const Ray & r);
 
-			mlib::vec4 get_normal();
+                        mlib::vec4 get_normal(const mlib::vec4 & point)const;
                         void get_points( mlib::vec4 & a, mlib::vec4 & b, mlib::vec4 & c);
 	};
 

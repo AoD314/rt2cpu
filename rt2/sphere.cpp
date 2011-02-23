@@ -54,7 +54,7 @@ namespace rt2
                         return -1;
 	}
 
-	vec4 Sphere::get_normal(const mlib::vec4 & point)
+        vec4 Sphere::get_normal(const mlib::vec4 & point) const
 	{
 		return normalize(point - pos);
 	}

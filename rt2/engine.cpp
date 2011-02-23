@@ -29,7 +29,7 @@ namespace rt2
 
                         vec4 l_pos(4.0f, 5.0f, -4.0f, 0.0f);
 
-                        float d = dot(normalize(obj->get_normal()), normalize( l_pos - point ));
+                        float d = dot(normalize(obj->get_normal(point)), normalize( l_pos - point ));
 
                         vec4 cc;// = d * vec4(1.0f);
 

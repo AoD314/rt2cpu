@@ -25,12 +25,12 @@ namespace rt2
                 e2 = t.e2;
 	}
 
-	vec4 Triangle::get_normal()
+        vec4 Triangle::get_normal(const vec4 & ) const
 	{
 		return normal;
 	}
 
-        void Triangle::get_points( mlib::vec4 & a, mlib::vec4 & b, mlib::vec4 & c)
+        void Triangle::get_points( vec4 & a, mlib::vec4 & b, mlib::vec4 & c)
         {
                 a = v0;
                 b = v1;
