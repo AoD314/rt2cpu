@@ -285,7 +285,6 @@ bool test_mlib_complex_min_and_max_vec()
                 mx[0] == 4.0f && mx[1] == 4.0f && mx[2] == 3.0f && mx[3] == 2.0f;
 }
 
-
 bool test_mlib_objfile()
 {
         Objfile file("../data/my_stul.obj");

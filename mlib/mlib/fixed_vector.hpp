@@ -374,7 +374,7 @@ namespace mlib
 	inline float calc_distance(const vec4 & a, const vec4 & b)
 	{
 		__m128 r = _mm_sub_ps(a.data, b.data);
-		return sqrt(dot(r, r));
+                return sqrtf(dot(r, r));
 	}
 
 	template <typename Left, typename Op, typename Right>

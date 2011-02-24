@@ -43,8 +43,8 @@ bool performance_test_ray_cross_triangle_ok()
 		vec4 p ( 0.0f, 0.0f,  3.0f, rand);
 		vec4 d ( 0.0f, 0.0f, -1.0f, rand);
 
-		rt2::Ray r(p, d);
-		rt2::Triangle t(a, b, c, a);
+                Ray r(p, d);
+                Triangle t(a, b, c, a);
 
 		timer.Start();
 

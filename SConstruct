@@ -7,6 +7,7 @@ SetOption('num_jobs', num_cpu)
 wall = '-Wunreachable-code -Wall -Wextra -pedantic -Weffc++ -Wconversion -Wsign-conversion -Woverloaded-virtual -Wctor-dtor-privacy -Wold-style-cast -Wnon-virtual-dtor'
 
 env    = Environment(CC = 'g++', CCFLAGS = '-msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -fopenmp -g -ggdb -O0 -msahf -fstack-protector-all')
+env_w  = Environment(CC = 'g++', CCFLAGS = '-msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -fopenmp -g -ggdb -O0 -msahf -fstack-protector-all -Wunreachable-code -Wall -Wextra -pedantic -Weffc++ -Wconversion -Wsign-conversion -Woverloaded-virtual -Wctor-dtor-privacy -Wold-style-cast -Wnon-virtual-dtor')
 perf   = Environment(CC = 'g++', CCFLAGS = '-msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -fopenmp -O3 -msahf -fstack-protector-all')
 perf_d = Environment(CC = 'g++', CCFLAGS = '-msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -fopenmp -O3 -g -ggdb -msahf -fstack-protector-all')
 
@@ -21,6 +22,7 @@ cmp_src  = ['tests/cmp_tests.cpp']
 
 e = env
 l = env
+#l = env_w
 
 l.SharedLibrary('./build/mlib.so', mlib_src)
 l.SharedLibrary('./build/rt2.so', rt2_src, CPPPATH='./mlib/')

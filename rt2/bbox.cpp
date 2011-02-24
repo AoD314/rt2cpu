@@ -14,40 +14,34 @@ namespace rt2
 		bmax = mx;
 	}
 
-        BBox::BBox(const BBox & box)
+        BBox::BBox(const BBox & bbox)
         {
-                bmin = box.bmin;
-                bmax = box.bmax;
+                bmin = bbox.bmin;
+                bmax = bbox.bmax;
         }
 
-        BBox::BBox(std::vector<Triangle> mesh)
+        BBox::BBox(std::vector< rt2::Primitive * > mesh)
         {
                 bmax.set1(-Float::MaxValue());
                 bmin.set1( Float::MaxValue());
 
                 for (size_t j = 0; j < mesh.size(); j++)
                 {
-                        vec4 a, b, c;
-                        mesh[j].get_points(a,b,c);
-
-                        bmax = max(max(max(bmax, c), b), a);
-                        bmin = min(min(min(bmin, c), b), a);
-
+                        BBox local_box = mesh[j]->get_bbox();
+                        bmax = max(bmax, local_box.get_max_point());
+                        bmin = min(bmin, local_box.get_min_point());
                 }
         }
 
-        BBox::BBox(Triangle & t)
+        void BBox::operator = (const BBox & bbox)
         {
-                vec4 a,b,c;
-                t.get_points(a,b,c);
-
-                bmax = max(max(max(vec4(-Float::MaxValue()), c), b), a);
-                bmin = min(min(min(vec4( Float::MaxValue()), c), b), a);
+                bmax = bbox.bmax;
+                bmin = bbox.bmin;
         }
 
-        bool BBox::in(Triangle & t)
-        {
-                BBox box(t);
+        bool BBox::in(rt2::Primitive * p)
+        {                
+                BBox box = p->get_bbox();
                 return ((box.bmax >= bmin) && (box.bmin <= bmax));
         }
 
@@ -111,4 +105,3 @@ namespace rt2
 	}
 
 }
-

@@ -24,6 +24,11 @@ namespace rt2
             rad = s.rad;
         }
 
+        BBox Sphere::get_bbox()
+        {
+                return BBox(vec4::zero(), vec4::zero());
+        }
+
         float Sphere::crossing(const Ray & r)
 	{
                 vec4 rd(r.dir());

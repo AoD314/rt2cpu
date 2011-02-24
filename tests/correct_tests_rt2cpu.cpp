@@ -2,6 +2,7 @@
 #include "tests.hpp"
 #define TEST(method, label) print_result ( method(), label, total_tests, total_good_tests );
 
+#include "primitive.hpp"
 #include "triangle.hpp"
 #include "sphere.hpp"
 #include "ray.hpp"
@@ -72,7 +73,7 @@ bool test_rt2_bbox_create()
 {
         Triangle t(vec4(1.0f, 0.0f, 0.0f, 0.0f), vec4(0.0f, 1.0f, 0.0f, 0.0f), vec4(0.0f, 0.0f, 1.0f, 0.0f), vec4(0.0f));
 
-        BBox box(t);
+        BBox box(t.get_bbox());
 
         return (box.get_min_point() == vec4(0.0f, 0.0f, 0.0f, 0.0f) && box.get_max_point() == vec4(1.0f, 1.0f, 1.0f, 0.0f));
 }
@@ -123,45 +124,45 @@ bool test_rt2_triangle_in_bbox()
 {
         BBox box(vec4(-1.0f), vec4(1.0f));
 
-        Triangle t(vec4(0.5f, 0.0f, 0.0f, 0.0f), vec4(0.0f, 0.5f, 0.0f, 0.0f), vec4(0.0f, 0.0f, 0.5f, 0.0f), vec4(0.0f));
+        Primitive * p = new Triangle(vec4(0.5f, 0.0f, 0.0f, 0.0f), vec4(0.0f, 0.5f, 0.0f, 0.0f), vec4(0.0f, 0.0f, 0.5f, 0.0f), vec4(0.0f));
 
-        return box.in(t);
+        return box.in(p);
 }
 
 bool test_rt2_triangle_out_bbox()
 {
         BBox box(vec4(-1.0f), vec4(1.0f));
 
-        Triangle t(vec4(100.0f, 0.0f, 0.0f, 0.0f), vec4(100.0f, 1.0f, 0.0f, 0.0f), vec4(100.0f, 0.0f, 1.0f, 0.0f), vec4(0.0f));
+        Primitive * p = new Triangle(vec4(100.0f, 0.0f, 0.0f, 0.0f), vec4(100.0f, 1.0f, 0.0f, 0.0f), vec4(100.0f, 0.0f, 1.0f, 0.0f), vec4(0.0f));
 
-        return box.in(t) == false;
+        return box.in(p) == false;
 }
 
 bool test_rt2_triangle_cross_in_bbox()
 {
         BBox box(vec4(-1.0f), vec4(1.0f));
 
-        Triangle t(vec4(0.5f, 0.0f, 0.0f, 0.0f), vec4(10.0f, 10.5f, 0.0f, 0.0f), vec4(10.0f, 0.0f, 10.5f, 0.0f), vec4(0.0f));
+        Primitive * p = new Triangle(vec4(0.5f, 0.0f, 0.0f, 0.0f), vec4(10.0f, 10.5f, 0.0f, 0.0f), vec4(10.0f, 0.0f, 10.5f, 0.0f), vec4(0.0f));
 
-        return box.in(t);
+        return box.in(p);
 }
 
 bool test_rt2_triangle_cross_out_bbox()
 {
         BBox box(vec4(-1.0f), vec4(1.0f));
 
-        Triangle t(vec4(50.0f, -10.0f, 0.0f, 0.0f), vec4(0.0f, 50.0f, 0.0f, 0.0f), vec4(-50.0f, -10.0f, 0.0f, 0.0f), vec4(0.0f));
+        Primitive * p = new Triangle(vec4(50.0f, -10.0f, 0.0f, 0.0f), vec4(0.0f, 50.0f, 0.0f, 0.0f), vec4(-50.0f, -10.0f, 0.0f, 0.0f), vec4(0.0f));
 
-        return box.in(t);
+        return box.in(p);
 }
 
 bool test_rt2_triangle_cross_angle_bbox()
 {
         BBox box(vec4(-1.0f), vec4(1.0f));
 
-        Triangle t(vec4(2.01f, 0.0f, 0.0f, 0.0f), vec4(0.0f, 2.01f, 0.0f, 0.0f), vec4(0.0f, 0.0f, 2.01f, 0.0f), vec4(0.0f));
+        Primitive * p = new Triangle(vec4(2.01f, 0.0f, 0.0f, 0.0f), vec4(0.0f, 2.01f, 0.0f, 0.0f), vec4(0.0f, 0.0f, 2.01f, 0.0f), vec4(0.0f));
 
-        return box.in(t);
+        return box.in(p);
 }
 
 bool test_rt2_triangle_cross()

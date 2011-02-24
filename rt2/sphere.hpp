@@ -4,8 +4,8 @@
 
 #include <mlib/fixed_vector.hpp>
 
-#include "ray.hpp"
 #include "primitive.hpp"
+#include "ray.hpp"
 
 namespace rt2
 {
@@ -19,12 +19,11 @@ namespace rt2
 		public:
 			Sphere(mlib::vec4 position, float radius);
                         Sphere(const Sphere & s);
-
                         void operator = (const Sphere & s);
 
                         float crossing(const Ray & r);
-
                         mlib::vec4 get_normal(const mlib::vec4 & point) const;
+                        BBox get_bbox();
 
 	};
 }

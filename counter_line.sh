@@ -66,6 +66,8 @@ all_l=`find . -type f -name '*.[c,h]pp' -exec cat {} \; | wc -l`
 all_t=`find . -type f -name '*.tex' -exec cat {} \; | wc -l`
 all_p=`find . -type f -name '*.py' -exec cat {} \; | wc -l`
 all_c=`find . -type f -name '*.[c,h]pp' -exec cat {} \; | wc -c`
+files=`find . -type f -name '*.[h,c]pp' | wc -l` 
+echo "Total count source files : $files"
 echo "Total lines source code : $all_l"
 echo "Total lines docs : $all_t"
 echo "Total lines python scripts : $all_p"

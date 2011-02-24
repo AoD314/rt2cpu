@@ -20,7 +20,7 @@ namespace rt2
 	{
                 vec4 point;
                 float t;
-                Triangle * obj = scene.crossing(ray, t);
+                Primitive * obj = scene.crossing(ray, t);
 
                 if (obj != NULL)
                 {

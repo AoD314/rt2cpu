@@ -16,6 +16,7 @@ namespace rt2
 
         BVH::BVH(std::vector<Triangle> storage, int max_count_objects_in_bvh)
         {
+                /*
                 box = new BBox(storage);
                 if (storage.size() <= max_count_objects_in_bvh)
                 {
@@ -53,6 +54,7 @@ namespace rt2
                                 two = new BVH(str, max_count_objects_in_bvh);
                         }
                 }
+                */
         }
 
 

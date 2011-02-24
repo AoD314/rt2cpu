@@ -15,6 +15,21 @@ namespace rt2
 		e2 = v2 - v0;
 	}
 
+        void Triangle::operator = (const Triangle & t)
+        {
+                v0 = t.v0;
+                v1 = t.v1;
+                v2 = t.v2;
+                normal = t.normal;
+                e1 = t.e1;
+                e2 = t.e2;
+        }
+
+        BBox Triangle::get_bbox()
+        {
+                return BBox(vec4::zero(), vec4::zero());
+        }
+
 	Triangle::Triangle(const Triangle & t)
 	{
 		v0 = t.v0;
@@ -29,13 +44,6 @@ namespace rt2
 	{
 		return normal;
 	}
-
-        void Triangle::get_points( vec4 & a, mlib::vec4 & b, mlib::vec4 & c)
-        {
-                a = v0;
-                b = v1;
-                c = v2;
-        }
 
         float Triangle::crossing(const Ray & r)
 	{
