@@ -12,12 +12,18 @@ class ConsoleParameters
     private:
         int argc;
         char ** argv;
+        std::string path;
         std::vector<std::string> get_aliases_from_string(std::string aliases);
 
     public:
-        ConsoleParameters(int argc, char ** argv): argc(argc), argv(argv){}
+        ConsoleParameters(int argc, char ** argv): argc(argc), argv(argv), path(argv[0])
+        {
+                path = path.substr(0,path.find_last_of("/\\"));
+        }
 
         bool has(const std::string& param);
+
+        std::string get_path();
 
         template <typename T>
         T get(std::string param, T def_value = T());

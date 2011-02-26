@@ -137,6 +137,11 @@ int ConsoleParameters::count_args() const
 	return argc;
 }
 
+std::string ConsoleParameters::get_path()
+{
+        return path;
+}
+
 std::string ConsoleParameters::operator [](const int index) const
 {
 	if (index < count_args())
