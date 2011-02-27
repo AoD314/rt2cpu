@@ -1,6 +1,6 @@
 
 #include "triangle.hpp"
-
+#include <mlib/minmax.hpp>
 using namespace mlib;
 
 namespace rt2
@@ -27,7 +27,7 @@ namespace rt2
 
         BBox Triangle::get_bbox()
         {
-                return BBox(vec4::zero(), vec4::zero());
+                return BBox(min(min(v0,v1),v2), max(max(v0,v1),v2));
         }
 
 	Triangle::Triangle(const Triangle & t)

@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "primitive.hpp"
 #include "triangle.hpp"
 #include "sphere.hpp"
 #include "camera.hpp"
@@ -30,7 +31,7 @@ namespace rt2
 
                         void SetMaxCountObjectsInBVH(int max_count);
 
-                        Triangle * crossing (Ray & ray, float & t);
+                        Primitive * crossing (Ray & ray, float & t);
 
                         ~Scene();
 	};

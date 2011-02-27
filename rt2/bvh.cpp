@@ -14,24 +14,23 @@ namespace rt2
                 local_storage = bvh.local_storage;
         }
 
-        BVH::BVH(std::vector<Triangle> storage, int max_count_objects_in_bvh)
+        BVH::BVH(std::vector<Primitive *> storage, int max_count_objects_in_bvh)
         {
-                /*
+
                 box = new BBox(storage);
                 if (storage.size() <= max_count_objects_in_bvh)
                 {
                         local_storage = storage;
                         one = NULL;
                         two = NULL;
-                        printf("storage = %d\n", storage.size());
                 }
                 else
                 {
                         BBox boxl(box->get_split_point(split_min), box->get_max_point());
                         BBox boxr(box->get_min_point(), box->get_split_point(split_max));
 
-                        std::vector<Triangle> stl;
-                        std::vector<Triangle> str;
+                        std::vector<Primitive *> stl;
+                        std::vector<Primitive *> str;
 
                         for (size_t i = 0; i < storage.size(); i++)
                         {
@@ -46,7 +45,6 @@ namespace rt2
                                 local_storage = storage;
                                 one = NULL;
                                 two = NULL;
-                                printf("storage = %d\n", storage.size());
                         }
                         else
                         {
@@ -54,11 +52,10 @@ namespace rt2
                                 two = new BVH(str, max_count_objects_in_bvh);
                         }
                 }
-                */
         }
 
 
-        Triangle * BVH::crossing(const Ray &ray, float &t)
+        Primitive * BVH::crossing(const Ray &ray, float &t)
         {
                 if (box->is_cross(ray) == false)
                 {
@@ -72,7 +69,7 @@ namespace rt2
 
                         for (size_t i = 0; i < local_storage.size(); i++)
                         {
-                                float lt = local_storage[i].crossing(ray);
+                                float lt = local_storage[i]->crossing(ray);
 
                                 if (lt >= 0.0f && lt < t)
                                 {
@@ -82,13 +79,14 @@ namespace rt2
                         }
 
                         if (index == -1) return NULL;
-                        return &local_storage[index];
+                        printf("found %ld \n", index);
+                        return local_storage[index];
                 }
 
                 float t_one, t_two = -1;
 
-                Triangle * obj_one;
-                Triangle * obj_two;
+                Primitive * obj_one;
+                Primitive * obj_two;
 
                 if (one != NULL)
                 {

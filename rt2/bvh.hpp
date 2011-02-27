@@ -4,7 +4,7 @@
 
 #include <vector>
 
-#include "triangle.hpp"
+#include "primitive.hpp"
 #include "ray.hpp"
 #include "bbox.hpp"
 
@@ -17,13 +17,13 @@ namespace rt2
                         BVH * two;
                         BBox * box;
 
-                        std::vector<Triangle> local_storage;
+                        std::vector<Primitive *> local_storage;
 
                 public:
-                        BVH(std::vector<Triangle> storage, int max_count_objects_in_bvh);
+                        BVH(std::vector<Primitive *> storage, int max_count_objects_in_bvh);
                         BVH(const BVH & bvh);
 
-                        Triangle * crossing(const Ray & ray, float & t);
+                        Primitive * crossing(const Ray & ray, float & t);
         };
 }
 

@@ -31,7 +31,9 @@ namespace rt2
 
 	void Scene::load_from_file(const std::string & namefile)
 	{
+
 		Objfile obj(namefile);
+                /*
                 vector<Triangle> triangle_list;
 
 		for (size_t i = 0; i < obj.GetCountTriangle(); i++)
@@ -44,10 +46,16 @@ namespace rt2
 				obj.GetNormalForTriangle(i)
 			));
 		}
+                */
                 cout << "total triangles is " << obj.GetCountTriangle() << "\n";
 		cout.flush();
 
-                bvh = new BVH(triangle_list, max_count_objects_in_bvh);
+                vector<Primitive *> v;
+                v.push_back(new Sphere(vec4(0.0f), 1.0f));
+                v.push_back(new Sphere(vec4(1.0f), 1.0f));
+                v.push_back(new Sphere(vec4(-1.0f), 1.0f));
+
+                bvh = new BVH(v, max_count_objects_in_bvh);
 	}
 
 	Camera Scene::get_cam()
@@ -62,7 +70,7 @@ namespace rt2
                 max_count_objects_in_bvh = s.max_count_objects_in_bvh;
         }
 
-        Triangle * Scene::crossing(Ray & ray, float & t)
+        Primitive * Scene::crossing(Ray & ray, float & t)
 	{
                 return bvh->crossing(ray, t);
 	}

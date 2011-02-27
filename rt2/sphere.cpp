@@ -26,7 +26,7 @@ namespace rt2
 
         BBox Sphere::get_bbox()
         {
-                return BBox(vec4::zero(), vec4::zero());
+                return BBox(pos - vec4(rad, rad, rad, 0.0f), pos + vec4(rad, rad, rad, 0.0f));
         }
 
         float Sphere::crossing(const Ray & r)
