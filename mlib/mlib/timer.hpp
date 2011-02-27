@@ -80,11 +80,13 @@ namespace mlib
 
 			double OperationPerSecond() const;
 
+                        double GetTimeInMSeconds() const;
 			double GetTimeInSeconds() const;
 			double GetTimeInMinutes() const;
 			double GetTimeInHours() const;
 			double GetTimeInDays() const;
 
+                        double GetTotalTimeInMSeconds() const;
 			double GetTotalTimeInSeconds() const;
 			double GetTotalTimeInMinutes() const;
 			double GetTotalTimeInHours() const;

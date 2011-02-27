@@ -87,6 +87,11 @@ namespace mlib
 		return 1.0 / seconds_last;
 	}
 
+        double Timer::GetTimeInMSeconds () const
+        {
+                return GetTimeInSeconds() * 1000;
+        }
+
 	double Timer::GetTimeInSeconds () const 
 	{
 		return seconds_last;
@@ -130,6 +135,12 @@ namespace mlib
 
 		return ret;
 	}
+
+        double Timer::GetTotalTimeInMSeconds () const
+        {
+                return GetTotalTimeInSeconds() * 1000;
+        }
+
 
 	double Timer::GetTotalTimeInMinutes () const
 	{
