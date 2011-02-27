@@ -120,6 +120,33 @@ bool test_rt2_bbox_cross_miss_parallel()
         return !box.is_cross(r);
 }
 
+bool test_rt2_sphere_in_bbox()
+{
+        BBox box(vec4(1.0f,1.0f,1.0f,0.0f), vec4(10.0f, 10.0f, 10.0f, 0.0f));
+
+        Primitive * p = new Sphere(vec4(5.5f, 5.5f, 5.5f, 0.0f), 0.25f);
+
+        return box.in(p);
+}
+
+bool test_rt2_sphere_out_bbox()
+{
+        BBox box(vec4(-1.0f, -1.0f, -1.0f, 0.0f), vec4(1.0f, 1.0f, 1.0f, 0.0f));
+
+        Primitive * p = new Sphere(vec4(10.0f, 10.0f, 10.0f, 0.0f), 0.25f);
+
+        return box.in(p) == false;
+}
+
+bool test_rt2_sphere_cross_bbox()
+{
+        BBox box(vec4(1.0f, 1.0f, 1.0f, 0.0f), vec4(10.0f, 10.0f, 10.0f, 0.0f));
+
+        Primitive * p = new Sphere(vec4(10.25f, 10.25f, 10.25f, 00.0f), 0.75f);
+
+        return box.in(p);
+}
+
 bool test_rt2_triangle_in_bbox()
 {
         BBox box(vec4(-1.0f), vec4(1.0f));
@@ -302,6 +329,9 @@ int main(int argc, char ** argv)
         TEST (test_rt2_triangle_cross_in_bbox,               "test_rt2_triangle_cross_in_bbox")
         TEST (test_rt2_triangle_cross_out_bbox,              "test_rt2_triangle_cross_out_bbox")
         TEST (test_rt2_triangle_cross_angle_bbox,            "test_rt2_triangle_cross_angle_bbox")
+        TEST (test_rt2_sphere_in_bbox,                       "test_rt2_sphere_in_bbox")
+        TEST (test_rt2_sphere_out_bbox,                      "test_rt2_sphere_out_bbox")
+        TEST (test_rt2_sphere_cross_bbox,                    "test_rt2_sphere_cross_bbox")
 
 	TEST (test_rt2_ray_ok,                               "test_rt2_ray_ok")
 	TEST (test_rt2_ray_nok,                              "test_rt2_ray_nok")
