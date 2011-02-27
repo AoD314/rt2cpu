@@ -49,13 +49,14 @@ namespace rt2
                         }
                         color = vec4(0.75f) * d + vec4(0.05f, 0.05f, 0.05f, 0.0f) + spec;
 
-                        if ( depth_local > 0)
+                        if ( depth_local > 1)
                         {
                                 vec4 ref = reflect(normal, ray.dir());
                                 Ray rray(point + ref * 0.0025f, ref);
-                                color += ray_tracing(rray, depth_local - 1) * 0.5f;
+                                color += ray_tracing(rray, depth_local - 1) * 0.75f;
                         }
                 }
+
                 return color;
 	}
 

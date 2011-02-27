@@ -41,6 +41,8 @@ rt2/sphere.hpp
 rt2/sphere.cpp
 rt2/triangle.cpp
 rt2/triangle.hpp
+rt2/plane.hpp
+rt2/plane.cpp
 rt2/primitive.hpp
 rt2/primitive.cpp
 rt2cpu/main.cpp

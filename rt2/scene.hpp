@@ -8,6 +8,7 @@
 #include "primitive.hpp"
 #include "triangle.hpp"
 #include "sphere.hpp"
+#include "plane.hpp"
 #include "camera.hpp"
 #include "ray.hpp"
 #include "bvh.hpp"

@@ -53,6 +53,17 @@ namespace rt2
                 v.push_back(new Sphere(vec4(-7.0f, 0.0f, -5.5f, 0.0f), 2.5f));
                 v.push_back(new Sphere(vec4(-7.0f, 0.0f,  0.0f, 0.0f), 2.5f));
                 v.push_back(new Sphere(vec4(-7.0f, 0.0f,  5.5f, 0.0f), 2.5f));
+
+                v.push_back(new Sphere(vec4(-8.0f, 4.5f, -4.5f, 0.0f), 1.5f));
+                v.push_back(new Sphere(vec4(-7.0f, 4.5f,  0.0f, 0.0f), 1.5f));
+                v.push_back(new Sphere(vec4(-8.0f, 4.5f,  4.5f, 0.0f), 1.5f));
+
+                v.push_back(new Sphere(vec4(-8.0f, -4.5f, -4.5f, 0.0f), 1.5f));
+                v.push_back(new Sphere(vec4(-7.0f, -4.5f,  0.0f, 0.0f), 1.5f));
+                v.push_back(new Sphere(vec4(-8.0f, -4.5f,  4.5f, 0.0f), 1.5f));
+
+                v.push_back(new Plane(vec4(0.0f, 4.5f, 0.0f, 0.0f), vec4(0.0f, -1.0f, 0.0f, 0.0f)));
+
                 //*/
 
                 /*/
