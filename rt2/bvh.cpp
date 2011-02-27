@@ -64,6 +64,7 @@ namespace rt2
                 if (one == NULL && two == NULL)
                 {
                         size_t index = -1;
+                        t = Float::MaxValue();
 
                         for (size_t i = 0; i < local_storage.size(); i++)
                         {

@@ -42,6 +42,7 @@ namespace rt2
                         return vec4(0.8f) * d + vec4(0.05f, 0.05f, 0.05f, 0.0f) + spec;
                 }
 
+
                 return vec4(0.0f);
 	}
 

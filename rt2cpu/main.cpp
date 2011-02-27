@@ -63,15 +63,15 @@ int main ( int argc, char ** argv )
                 std::cout << "\nCPU Frequency: " << timer.GetFrequency() << std::endl;
 		std::cout.flush();
 
-                //*/
+                /*/
                 Camera camera(	vec4( 4.0f, 3.0f, -4.0f, 0.0f),
                                 vec4(-1.0f/1.5f, -0.5f/1.5f, 1.0f/1.5f, 0.0f),
                                 vec4( 0.0f, 1.0f,  0.0f, 0.0f),
                                 settings.width, settings.height, 60.0f
 			     );
                 //*/
-                /*/
-                Camera camera(	vec4( 3.0f, 0.0f, 0.0f, 0.0f),
+                //*/
+                Camera camera(	vec4( 5.0f, 0.0f, 0.0f, 0.0f),
                                 vec4(-1.0f, 0.0f, 0.0f, 0.0f),
                                 vec4( 0.0f, 1.0f, 0.0f, 0.0f),
                                 settings.width, settings.height, 60.0f
