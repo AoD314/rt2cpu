@@ -31,7 +31,7 @@ namespace rt2
 
                         void SetMaxCountObjectsInBVH(int max_count);
 
-                        Primitive * crossing (Ray & ray, float & t);
+                        Primitive * crossing (const Ray & ray, float & t);
 
                         ~Scene();
 	};

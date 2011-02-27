@@ -85,6 +85,7 @@ int main ( int argc, char ** argv )
 		Engine engine(scene, InitSDL(settings));
                 engine.set_threads(settings.threads);
                 engine.set_antialiasing(settings.antialiasing);
+                engine.set_depth(settings.depth);
 
                 timer.Start();
 

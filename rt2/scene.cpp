@@ -84,7 +84,7 @@ namespace rt2
                 max_count_objects_in_bvh = s.max_count_objects_in_bvh;
         }
 
-        Primitive * Scene::crossing(Ray & ray, float & t)
+        Primitive * Scene::crossing(const Ray & ray, float & t)
 	{
                 return bvh->crossing(ray, t);
 	}

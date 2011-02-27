@@ -16,11 +16,19 @@ namespace rt2
 		num_frame = 0;
 	}
 
-	vec4 Engine::ray_tracing(Ray ray)
+        vec4 Engine::reflect(vec4 n, vec4 i)
+        {
+                return i - 2.0f * n * dot (n, i);
+        }
+
+
+        vec4 Engine::ray_tracing(const Ray & ray, int depth_local)
 	{
                 vec4 point;
                 float t;
                 Primitive * obj = scene.crossing(ray, t);
+
+                vec4 color(0.0f);
 
                 if (obj != NULL)
                 {
@@ -37,13 +45,18 @@ namespace rt2
                         vec4 spec;
                         if (tt > 0.0f)
                         {
-                                spec = vec4(0.9f) * powf(tt, 32.0f);
+                                spec = vec4(0.75f) * powf(tt, 32.0f);
                         }
-                        return vec4(0.8f) * d + vec4(0.05f, 0.05f, 0.05f, 0.0f) + spec;
+                        color = vec4(0.75f) * d + vec4(0.05f, 0.05f, 0.05f, 0.0f) + spec;
+
+                        if ( depth_local > 0)
+                        {
+                                vec4 ref = reflect(normal, ray.dir());
+                                Ray rray(point + ref * 0.0025f, ref);
+                                color += ray_tracing(rray, depth_local - 1) * 0.5f;
+                        }
                 }
-
-
-                return vec4(0.0f);
+                return color;
 	}
 
 	void Engine::rendering()
@@ -66,7 +79,7 @@ namespace rt2
                                 vec4 color_total;
                                 for (int s = 0; s < aa; s++)
                                 {
-                                        color_total += ray_tracing(cam.get_ray(i, j, s, aa));
+                                        color_total += ray_tracing(cam.get_ray(i, j, s, aa), depth);
                                 }
                                 color_total /= static_cast<float>(aa);
                                 vbuf[j * w + i] = to_color(color_total);

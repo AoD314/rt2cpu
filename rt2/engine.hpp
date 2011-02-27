@@ -22,7 +22,8 @@ namespace rt2
 			float fps;
                         mlib::Timer timer;
 
-			mlib::vec4 ray_tracing(Ray ray);
+                        mlib::vec4 reflect(mlib::vec4 n, mlib::vec4 i);
+                        mlib::vec4 ray_tracing(const Ray & ray, int d);
 
 		public:
 			Engine(Scene s, unsigned int * vbuffer);
