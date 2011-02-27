@@ -10,7 +10,7 @@ namespace mlib
 	float Float::Parce(std::string val)
 	{
 		std::istringstream i(val);
-		float x;
+                float x = 0.0f;
 
 		if (!(i >> x)) return 0;
 
@@ -41,8 +41,10 @@ namespace mlib
 
 	std::string Float::ToString(float val, int precision)
 	{
-		std::ostringstream s;
-		s << std::fixed << std::setprecision(precision) << val;
+                std::ostringstream s;
+                s << std::fixed;
+                s << std::setprecision(precision);
+                s << val;
 		return s.str();
 	}
 

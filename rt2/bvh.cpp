@@ -79,14 +79,15 @@ namespace rt2
                         }
 
                         if (index == -1) return NULL;
-                        printf("found %ld \n", index);
+                        //printf("found %ld \n", index);
                         return local_storage[index];
                 }
 
-                float t_one, t_two = -1;
+                float t_one = -1;
+                float t_two = -1;
 
-                Primitive * obj_one;
-                Primitive * obj_two;
+                Primitive * obj_one = NULL;
+                Primitive * obj_two = NULL;
 
                 if (one != NULL)
                 {

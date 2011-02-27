@@ -14,14 +14,14 @@ namespace rt2
 	{
                 cam = Camera ( vec4( 5.0f, 0.0f, 0.0f, 0.0f), vec4(-1.0f, 0.0f, 0.0f, 0.0f), vec4( 0.0f, 1.0f, 0.0f, 0.0f), 256, 256, 60.0f);
                 bvh = NULL;
-                max_count_objects_in_bvh = 10000;
+                max_count_objects_in_bvh = 32;
 	}
 
 	Scene::Scene(Camera c)
 	{
 		cam = c;
                 bvh = NULL;
-                max_count_objects_in_bvh = 10000;
+                max_count_objects_in_bvh = 32;
 	}
 
         void Scene::SetMaxCountObjectsInBVH(int max_count)
@@ -31,14 +31,13 @@ namespace rt2
 
 	void Scene::load_from_file(const std::string & namefile)
 	{
-
 		Objfile obj(namefile);
-                /*
-                vector<Triangle> triangle_list;
+                vector<Primitive *> v;
 
+                /*/
 		for (size_t i = 0; i < obj.GetCountTriangle(); i++)
 		{
-			triangle_list.push_back( Triangle
+                        v.push_back( new Triangle
 			(
 				obj.GetPointInTriangle(i, 0),
 				obj.GetPointInTriangle(i, 1),
@@ -46,14 +45,22 @@ namespace rt2
 				obj.GetNormalForTriangle(i)
 			));
 		}
-                */
+                //*/
                 cout << "total triangles is " << obj.GetCountTriangle() << "\n";
 		cout.flush();
 
-                vector<Primitive *> v;
-                v.push_back(new Sphere(vec4(0.0f), 1.0f));
-                v.push_back(new Sphere(vec4(1.0f), 1.0f));
-                v.push_back(new Sphere(vec4(-1.0f), 1.0f));
+                //*/
+                v.push_back(new Sphere(vec4(0.0f, 0.0f, 0.0f, 0.0f), 0.25f));
+                int kkk = 6;
+                for (int i=1; i < kkk; i++)
+                        for (int j=1; j < kkk; j++)
+                        {
+                                v.push_back(new Sphere(vec4(0.0f,  i,  j, 0.0f), 0.25f));
+                                v.push_back(new Sphere(vec4(0.0f, -i, -j, 0.0f), 0.25f));
+                                v.push_back(new Sphere(vec4(0.0f,  i, -j, 0.0f), 0.25f));
+                                v.push_back(new Sphere(vec4(0.0f, -i,  j, 0.0f), 0.25f));
+                        }
+                //*/
 
                 bvh = new BVH(v, max_count_objects_in_bvh);
 	}

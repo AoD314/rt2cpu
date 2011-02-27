@@ -20,7 +20,7 @@ namespace rt2
 
 			unsigned long long num_frame;
 			float fps;
-			mlib::Timer timer;
+                        //mlib::Timer timer;
 
 			mlib::vec4 ray_tracing(Ray ray);
 
