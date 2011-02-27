@@ -34,7 +34,7 @@ namespace rt2
 		Objfile obj(namefile);
                 vector<Primitive *> v;
 
-                /*/
+                //*/
 		for (size_t i = 0; i < obj.GetCountTriangle(); i++)
 		{
                         v.push_back( new Triangle
@@ -49,9 +49,9 @@ namespace rt2
                 cout << "total triangles is " << obj.GetCountTriangle() << "\n";
 		cout.flush();
 
-                //*/
+                /*/
                 v.push_back(new Sphere(vec4(0.0f, 0.0f, 0.0f, 0.0f), 0.25f));
-                int kkk = 6;
+                int kkk = 2;
                 for (int i=1; i < kkk; i++)
                         for (int j=1; j < kkk; j++)
                         {

@@ -35,7 +35,7 @@ namespace rt2
                         vec4 r = ray.dir() - 2.0f * normal * dot(normal, ray.dir());
                         float tt = dot(r, normalize(ray.pos() - point));
                         vec4 spec;
-                        if (tt >=0 )
+                        if (tt > 0.0f)
                         {
                                 spec = vec4(0.9f) * powf(tt, 32.0f);
                         }
@@ -47,7 +47,7 @@ namespace rt2
 
 	void Engine::rendering()
 	{
-                //timer.Start();
+                timer.Start();
 
 		unsigned int w = scene.get_cam().get_width();
 		unsigned int h = scene.get_cam().get_height();
@@ -71,8 +71,8 @@ namespace rt2
                                 vbuf[j * w + i] = to_color(color_total);
 			}
 
-                //timer.Stop();
-                //fps = static_cast<float>(timer.OperationPerSecond());
+                timer.Stop();
+                fps = static_cast<float>(timer.OperationPerSecond());
 		num_frame++;
 	}
 

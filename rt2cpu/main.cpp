@@ -59,19 +59,19 @@ int main ( int argc, char ** argv )
 		if (settings.is_exit) return 0;
 		settings.print_params();
 
-                //Timer timer;
-                //std::cout << "\nCPU Frequency: " << timer.GetFrequency() << std::endl;
+                Timer timer;
+                std::cout << "\nCPU Frequency: " << timer.GetFrequency() << std::endl;
 		std::cout.flush();
 
-                /*/
+                //*/
                 Camera camera(	vec4( 4.0f, 3.0f, -4.0f, 0.0f),
                                 vec4(-1.0f/1.5f, -0.5f/1.5f, 1.0f/1.5f, 0.0f),
                                 vec4( 0.0f, 1.0f,  0.0f, 0.0f),
                                 settings.width, settings.height, 60.0f
 			     );
                 //*/
-                //*/
-                Camera camera(	vec4( 6.0f, 0.0f, 0.0f, 0.0f),
+                /*/
+                Camera camera(	vec4( 3.0f, 0.0f, 0.0f, 0.0f),
                                 vec4(-1.0f, 0.0f, 0.0f, 0.0f),
                                 vec4( 0.0f, 1.0f, 0.0f, 0.0f),
                                 settings.width, settings.height, 60.0f
@@ -86,7 +86,7 @@ int main ( int argc, char ** argv )
                 engine.set_threads(settings.threads);
                 engine.set_antialiasing(settings.antialiasing);
 
-                //timer.Start();
+                timer.Start();
 
 		for (size_t i = 0; i < settings.count_frame; i++)
 		{
@@ -96,13 +96,13 @@ int main ( int argc, char ** argv )
 			{
 				SDL_SaveBMP ( screen, string(Long::ToString(engine.get_num_frame(), 8) + ".bmp").c_str() );
 			}
-                        std::cout << "\nframe [" << Long::ToString(engine.get_num_frame(), 5) << "] = " << /*Float::ToString(engine.get_fps(), 3) << */ " fps"; std::cout.flush();
+                        std::cout << "\nframe [" << Long::ToString(engine.get_num_frame(), 5) << "] = " << Float::ToString(engine.get_fps(), 3) << " fps"; std::cout.flush();
 			SDL_UpdateRect ( screen, 0, 0, settings.width, settings.height);
 		}
 
-                //timer.Stop ();
+                timer.Stop ();
 
-                //std::cout << "\n\nTotal time: " << timer;
+                std::cout << "\n\nTotal time: " << timer;
                 std::cout << "\n";
 	}
 	catch (Exception & exception)

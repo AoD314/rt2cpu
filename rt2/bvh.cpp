@@ -16,7 +16,6 @@ namespace rt2
 
         BVH::BVH(std::vector<Primitive *> storage, int max_count_objects_in_bvh)
         {
-
                 box = new BBox(storage);
                 if (storage.size() <= max_count_objects_in_bvh)
                 {
@@ -65,26 +64,28 @@ namespace rt2
                 if (one == NULL && two == NULL)
                 {
                         size_t index = -1;
-                        t = Float::MaxValue();
 
                         for (size_t i = 0; i < local_storage.size(); i++)
                         {
                                 float lt = local_storage[i]->crossing(ray);
 
-                                if (lt >= 0.0f && lt < t)
+                                if (lt >= 0.0f && lt <= t)
                                 {
                                         t = lt;
                                         index = i;
                                 }
                         }
 
-                        if (index == -1) return NULL;
-                        //printf("found %ld \n", index);
+                        if (index == -1)
+                        {
+                                return NULL;
+                        }
+
                         return local_storage[index];
                 }
 
-                float t_one = -1;
-                float t_two = -1;
+                float t_one = Float::MaxValue();
+                float t_two = Float::MaxValue();
 
                 Primitive * obj_one = NULL;
                 Primitive * obj_two = NULL;
@@ -98,13 +99,13 @@ namespace rt2
                         obj_two = two->crossing(ray, t_two);
                 }
 
-                if (t_one >= 0.0f && t_one >= t_two)
+                if (t_one >= 0.0f && t_one <= t_two)
                 {
                         t = t_one;
                         return obj_one;
                 }
 
-                if (t_two >= 0.0f && t_two >= t_one)
+                if (t_two >= 0.0f && t_two <= t_one)
                 {
                         t = t_two;
                         return obj_two;
