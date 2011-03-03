@@ -4,6 +4,7 @@
 \usepackage[T2A]{fontenc}
 \usepackage[pdftex]{graphicx}
 \usepackage{amstext}
+\usepackage{amsmath}
 \usepackage{textcomp}
 \usepackage{multicol}
 \usepackage{hyperref}
@@ -27,6 +28,8 @@
 %\setmonofont[SmallCapsFont={Courier New}]{Courier New}
 %\fontsize{10}{10}
 
+% отступ при наборе формул в блоке multline
+\multlinegap=2cm
 
 %\usepackage{courier}
 %\setmainfont[Mapping=tex-text]{Courier}
@@ -357,58 +360,58 @@ $$
 (x-x_c)^2 + (y-y_c)^2 + (z-z_c)^2 = r^2
 \label{equation_sphere}
 \end{equation}
-где $S = \VECXYZ{c}$ - центр сферы, а $r$ - радиус. Подставим уравнение (\ref{equation_ray}) в (\ref{equation_sphere}):
+где $\vec{C} = \VECXYZ{c}$ - центр сферы, а $r$ - радиус. Подставим уравнение (\ref{equation_ray}) в (\ref{equation_sphere}):
 $$
 \left( (x_0 + t \cdot x_d) - x_c \right)^2 + 
 \left( (y_0 + t \cdot y_d) - y_c \right)^2 + 
 \left( (z_0 + t \cdot z_d) - z_c \right)^2 = r^2
 $$
-приведем это уравнение в виду
+раскроем скобки, приведем подобные
+\begin{multline*}
+(x_p + t \cdot x_d)^2 - 2(x_p + t \cdot x_d)\cdot x_c + x_c^2 + \\
+ + (y_p + t \cdot y_d)^2 - 2(y_p + t \cdot y_d)\cdot y_c + y_c^2 + \\
+ + (z_p + t \cdot z_d)^2 - 2(z_p + t \cdot z_d)\cdot z_c + z_c^2 = r^2
+\end{multline*}
+\begin{multline*}
+x^2_p + 2x_px_d\cdot t + x_d^2 \cdot t^2 - 2 x_px_c - 2 x_dx_c \cdot t + x_c^2 + \\
+ + y^2_p + 2y_py_d\cdot t + y_d^2 \cdot t^2 - 2 y_py_c - 2 y_dy_c \cdot t + y_c^2 + \\
+ + z^2_p + 2z_pz_d\cdot t + z_d^2 \cdot t^2 - 2 z_pz_c - 2 z_dz_c \cdot t + z_c^2 = r^2
+\end{multline*}
+
+приведем уравнение в виду
 \begin{equation}
-A \cdot t^2 + B \cdot t + C = 0
+a \cdot t^2 + b \cdot t + c = 0
 \label{equation_square}
 \end{equation}
 после раскрытия скобок и приведения подобных, получаем:
-\par
-$$
-A = x^2_d + y^2_d + z^2_d
-$$ 
-\par
-$$
-B = 2x_d(x_0 - x_c) + 2y_d(y_0 - y_c)  + 2z_d(z_0 - z_c) 
-$$ 
-\par
-$$
-C = (x_0 - x_c)^2 + (y_0 - y_c)^2 + (z_0 - z_c)^2 
-$$
+\begin{eqnarray*}
+\begin{split}
+a &= x^2_d + y^2_d + z^2_d \\
+b &= 2x_px_d + 2 y_py_d + 2z_pz_d - 2x_dx_c - 2y_dy_c - 2z_dz_c \\
+c &= x_p^2 + y_p^2 + z_p^2 - 2x_px_c - 2y_py_c - 2z_pz_c + x_c^2 + y_c^2 + z_c^2 - r^2 \end{split}
+\end{eqnarray*}
+упростим
+\begin{eqnarray*}
+\begin{split}
+a &= (\vec{D}, \vec{D}) \\
+b &= 2x_d(x_0 - x_c) + 2y_d(y_0 - y_c) + 2z_d(z_0 - z_c) = 2 \cdot (\vec{D}, \vec{P}-\vec{C}) \\
+c &= (x_0 - x_c)^2 + (y_0 - y_c)^2 + (z_0 - z_c)^2  - r^2 = 2 \cdot (\vec{P}-\vec{C},\vec{P}-\vec{C})
+\end{split}
+\end{eqnarray*}
+перепишем в векторном виде
+\begin{eqnarray*}
+\begin{split}
+a &= (\vec{D}, \vec{D}) \\
+b &= 2 \cdot (\vec{D}, \vec{P}-\vec{C}) \\
+c &= 2 \cdot (\vec{P}-\vec{C},\vec{P}-\vec{C}) - r^2
+\end{split}
+\end{eqnarray*}
 Если уравнение (\ref{equation_square}) не имеет вещественных решений, то луч не пересекает сферу. Если имеется два решения, то наименьший положительный корень этого уравнения определит на луче ближайшую точку пересечения луча со сферой.
 \par
-Рассмотрим подробнее как вычисляются коэффициенты $A$, $B$, $C$:
-\par
+Далее решаем обыкновенное квадратное уравнение, находим корни и получаем значение $t$,  при условие, что $a = (\vec{D},\vec{D}) \neq 0$
 $$
-A = x^2_d + y^2_d + z^2_d = (D, D)
-$$ 
-\par
+t_{1,2} = \frac{-b \pm \sqrt{b^2 - 4 \cdot a \cdot c}}{2 \cdot a}
 $$
-B = 2x_d(x_0 - x_c) + 2y_d(y_0 - y_c)  + 2z_d(z_0 - z_c)  = 2 \cdot (D, O - S)
-$$ 
-\par
-$$
-C = (x_0 - x_c)^2 + (y_0 - y_c)^2 + (z_0 - z_c)^2 = (O - S, O - S )
-$$
-Далее решаем обыкновенное квадратное уравнение и находим корни и получаем значение $t$
-$$
-t_{1,2} = \frac{-B \pm \sqrt{B^2 - 4 \cdot A \cdot C}}{2 \cdot A}
-$$
-
-$$
-t_{1} = \frac{ - 2 \cdot (\vec{D}, \vec{D} - \vec{S}) + \sqrt{(2 \cdot (\vec{D}, \vec{D} - \vec{S}))^2 - 4 \cdot (\vec{D}, \vec{D}) \cdot (\vec{O} - \vec{S}, \vec{O} - \vec{S} )}}{2 \cdot (\vec{D}, \vec{D})}
-$$
-
-$$
-t_{2} = \frac{ - 2 \cdot (\vec{D}, \vec{D} - \vec{S}) - \sqrt{(2 \cdot (\vec{D}, \vec{D} - \vec{S}))^2 - 4 \cdot (\vec{D}, \vec{D}) \cdot (\vec{O} - \vec{S}, \vec{O} - \vec{S} )}}{2 \cdot (\vec{D}, \vec{D})}
-$$
-
 \subsubsection{\index{Треугольник}Треугольник}
 Алгоритм пересечения луча и треугольника основан на барицентрических координатах.
 \par
