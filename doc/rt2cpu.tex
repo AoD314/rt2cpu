@@ -424,86 +424,78 @@ $$
 \alpha_1 + \alpha_2 + \cdots + \alpha_n  = 1
 $$
 Числа $\alpha_1, \alpha_2, \dots,  \alpha_n $ называются барицентрическими координатами точки $x$. Легко видеть, что барицентрические координаты не зависят от выбора $z$.
-
 Точка $T(u,v)$, принадлежащая треугольнику, может быть записана в виде:
 \begin{equation}
 \label{triangle_bar}
 T(u,v) = (1-u-v)V_0 + uV_1 + vV_2
 \end{equation}
-
-\noindent где $(u,v)$ -- это бариецентрические координаты такие, что $u \geq 0$, $v \geq 0$ и $u + v \leq 1$
-
+\noindent где $(u,v)$ -- это бариецентрические координаты такие, что $u \geq 0$, $v \geq 0$ и $u + v \leq 1$, а $V_0, V_1, V_2$ - это точки пространства, образующие треугольник.
 Вычисление пересечения между лучем(\ref{equation_ray}) и треугольником(\ref{triangle_bar}), это решение следующего уравнения:
-
 $$
-O + tD = (1-u-v)V_0 + uV_1 + vV_2
+\vec{P} + t\cdot \vec{D} = (1-u-v)\vec{V_0} + u\vec{V_1} + v\vec{V_2}
 $$
-
-\noindent после нескольких очевидных преобразований:
-
-$$
-O + tD = V_0 - uV_0 - vV_0 + uV_1 + vV_2
-$$
-$$
-O - V_0 = - tD + uV_1 - uV_0 + vV_2 - vV_0
-$$
-
-$$
-- tD + u(V_1 - V_0) + v(V_2 - V_0) = O - V_0
-$$
-
-\noindent получаем:
-
+после очевидных преобразований:
+\begin{multline*}
+\begin{split}
+\vec{P} + t\cdot \vec{D} &= \vec{V_0} - u\vec{V_0} - v\vec{V_0} + u\vec{V_1} + v\vec{V_2} \\
+\vec{P} - \vec{V_0} &= - t\vec{D} + u\vec{V_1} - u\vec{V_0} + v\vec{V_2} - v\vec{V_0} \\
+- t\vec{D} &+ u(\vec{V_1} - \vec{V_0}) + v(\vec{V_2} - \vec{V_0}) = \vec{P} - \vec{V_0} \\
+\end{split}
+\end{multline*}
+получаем:
 \begin{equation}
 \label{ray_cross_tr}
-\left[ -D, V_1 - V_0 , V_2 - V_0\right] 
+\left[ -\vec{D}, \vec{V_1} - \vec{V_0}, \vec{V_2} - \vec{V_0}\right] 
 \left[  
 \begin{array}{c} t \\ u \\ v \\ \end{array}
-\right] = O - V_0
+\right] = \vec{P} - \vec{V_0}
 \end{equation}
-
-Что бы решить задачу, необходимо найти вектор $\VEC{t}{u}{v}$. Обозначив $E_1 = V_1 - V_0$, $E_2 = V_2 - V_0$ и $T = O - V_0$ решим уравнение (\ref{ray_cross_tr}), используя метод Крамера:
-
+Что бы решить задачу, необходимо найти вектор $\VEC{t}{u}{v}$. Обозначив $\vec{E_1} = \vec{V_1} - \vec{V_0}$, $\vec{E_2} = \vec{V_2} - \vec{V_0}$ и $\vec{T} = \vec{P} - \vec{V_0}$ решим уравнение (\ref{ray_cross_tr}), используя метод Крамера:
 \begin{equation}
 \label{ray_cross_tr_solv}
 \left[  
 \begin{array}{c} t \\ u \\ v \\ \end{array}
 \right] = 
-\frac{1}{| -D , E_1, E_2|} 
+\frac{1}{| -\vec{D}, \vec{E_1}, \vec{E_2}|} 
 \left[  
 	\begin{array}{lcccl}
-	|& T , & E_1, &E_2 & | \\
-	|&-D , & T  , &E_2 & | \\
-	|&-D , & E_1, &T   & | \\
+	|& \vec{T} , & \vec{E_1}, &\vec{E_2} & | \\
+	|&-\vec{D} , & \vec{T}  , &\vec{E_2} & | \\
+	|&-\vec{D} , & \vec{E_1}, &\vec{T}   & | \\
 	\end{array}
 \right] 
 \end{equation}
-
-\noindent Из курса линейной алгебры известно, что: $|A, B, C| = - (A \times C) \cdot B = - (C \times B) \cdot A$. Принимая во внимания этот факт, перепишем уравление (\ref{ray_cross_tr_solv}).
-
+Из курса линейной алгебры известно, что: $|A, B, C| = - (A \times C) \cdot B = - (C \times B) \cdot A$. Принимая во внимания этот факт, перепишем уравнение (\ref{ray_cross_tr_solv}).
 \begin{equation}
 \label{ray_cross_tr_solv2}
 \left[  
 \begin{array}{c} t \\ u \\ v \\ \end{array}
 \right] = 
-\frac{1}{(D \times E_2)\cdot E_1} 
+\frac{1}{(\vec{D} \times \vec{E_2})\cdot \vec{E_1}} 
 \left[  
 	\begin{array}{c}
-	(T \times E_1) \cdot E_2 \\
-	(D \times E_2) \cdot T \\
-	(T \times E_1) \cdot D \\
+	(\vec{T} \times \vec{E_1}) \cdot \vec{E_2} \\
+	(\vec{D} \times \vec{E_2}) \cdot \vec{T} \\
+	(\vec{T} \times \vec{E_1}) \cdot \vec{D} \\
 	\end{array}
 \right] = 
-\frac{1}{P \cdot E_1} 
+\frac{1}{(\vec{S}, \vec{E_1})} 
 \left[  
 	\begin{array}{c}
-	Q \cdot E_2 \\
-	P \cdot T \\	
-	Q \cdot D \\	
+	(\vec{Q}, \vec{E_2}) \\
+	(\vec{S}, \vec{T}) \\	
+	(\vec{Q}, \vec{D}) \\	
 	\end{array}
 \right]
 \end{equation}
-где $P = (D \times E_2)$ и $Q = T \times E_1$
+где $\vec{S} = (\vec{D} \times \vec{E_2})$ и $\vec{Q} = (\vec{T} \times \vec{E_1})$
+
+\begin{codebox}
+\Procname{ $\proc{Алгоритм нахождения точки пересечения луча и треугольника}$}
+\li Вычисляем вектор $\left[ \begin{array}{c} t \\ u \\ v \\ \end{array} \right]$
+\li \If $(u \geq 0) \ \&\& \ (v \geq 0) \ \&\& \ (u + v \leq 1)$
+\li \Then $point = \vec{P} + t \cdot \vec{D}$
+\end{codebox}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
