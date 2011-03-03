@@ -10,6 +10,7 @@
 \usepackage{setspace}
 \usepackage[usenames,dvipsnames]{color} % для source-highlight
 \usepackage{indentfirst}
+\usepackage{clrscode}
 
 % меняем размеры страницы
 \usepackage{geometry}
@@ -304,18 +305,18 @@ $$
 \begin{equation}
 \left\{
 \begin{array}{ccccc}
-x & = & x_0 & + & t \cdot x_d \\
-y & = & y_0 & + & t \cdot y_d \\
-z & = & z_0 & + & t \cdot z_d \\
+x & = & x_p & + & t \cdot x_d \\
+y & = & y_p & + & t \cdot y_d \\
+z & = & z_p & + & t \cdot z_d \\
 \end{array}
 \right.
 \label{equation_ray}
 \end{equation}
 или
 $$
-\vec{R}(t) = \vec{O} + t \cdot \vec{D}
+\vec{R}(t) = \vec{P} + t \cdot \vec{D}
 $$
-где $O = \VECXYZ{0} $ - начало луча, а $D = \VECXYZ{d} $ - направление луча. 
+где $\vec{P} = \VECXYZ{p} $ - начало луча, а $\vec{D} = \VECXYZ{d} $ - направление луча. 
 \par
 Уравнение плоскости задается следующим образом:
 \begin{equation}
@@ -325,41 +326,32 @@ Ax + By + Cz + D = 0
 \par
 Для того, что бы найти точку пересечения луча с плоскостью, необходимо подставить уравнение (\ref{equation_ray}) в (\ref{equation_plane}):
 $$
-A(x_0 + t \cdot x_d) + B(y_0 + t \cdot y_d) + C(z_0 + t \cdot z_d) + D = 0
+A(x_p + t \cdot x_d) + B(y_p + t \cdot y_d) + C(z_p + t \cdot z_d) + D = 0
 $$
-Раскроем скобки и приведем подобные
+Раскроем скобки и привидём подобные
 $$
-t(Ax_d + By_d + Cz_d ) + Ax_0 + By_0 + Cz_0 + D = 0
+t(Ax_d + By_d + Cz_d ) + Ax_p + By_p + Cz_p + D = 0
 $$
-найдем неизвестную величину t
+выразим неизвестную величину t:
 $$
- t = - \frac{Ax_0 + By_0 + Cz_0 + D}{Ax_d + By_d + Cz_d}
+ t = - \frac{Ax_p + By_p + Cz_p + D}{Ax_d + By_d + Cz_d}
 $$
-из уравнения видно, что луч либо пересекает плоскость в какой то точке, либо нет. Это связано с тем, что если $Ax_d + By_d + Cz_d = 0$, то плоскость и луч параллельны друг другу. Т.к. $P = \VEC{A}{B}{C} $ - это нормаль к поверхности, то из геометрии известно, что если $( D , P ) = 0$, то вектора параллельны.
+из уравнения видно, что луч либо пересекает плоскость в какой то точке, либо нет. Это связано с тем, что если $Ax_d + By_d + Cz_d = 0$, то плоскость и луч параллельны друг другу. Т.к. $\vec{N} = \VEC{A}{B}{C} $ - это нормаль к поверхности,а из геометрии известно, что если $( \vec{D} , \vec{P} ) = 0$, то вектора параллельны.
 \par
    Для того, что бы найти величину $t$, необходимо рассчитать всего несколько скалярных произведений:
 $$
-t = - \frac{(O, P) + D}{(D, P)}
+t = - \frac{(\vec{P}, \vec{N}) + D}{(\vec{D}, \vec{N})}
 $$
-при условии, что $(D, P) \neq 0$
+при условии, что $(\vec{D}, \vec{N}) \neq 0$
+\begin{codebox}
+\Procname{ $\proc{Алгоритм нахождения точки пересечения луча и плоскости}$}
+\li \If $(\vec{D}, \vec{N}) \neq 0$
+\li \Then $ t = - \displaystyle\frac{(\vec{P}, \vec{N}) + D}{(\vec{D}, \vec{N})} $
+\li $point = \vec{P} + t \cdot \vec{D}$
+\end{codebox}
 
 \subsubsection{\index{Сфера}Сфера}
 Для сферы необходимо проделать те же выкладки.
-Уравнение луча:
-\begin{equation}
-\left\{
-\begin{array}{ccccc}
-x & = & x_0 & + & t \cdot x_d \\
-y & = & y_0 & + & t \cdot y_d \\
-z & = & z_0 & + & t \cdot z_d \\
-\end{array}
-\right.
-\label{equation_ray}
-\end{equation}
-или
-$$
-\vec{R}(t) = \vec{O} + t \cdot \vec{D}
-$$
 Уравнение сферы записывается следующем образом:
 \begin{equation}
 (x-x_c)^2 + (y-y_c)^2 + (z-z_c)^2 = r^2
