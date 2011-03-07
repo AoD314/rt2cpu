@@ -9,7 +9,7 @@ print "cpp -> tex"
 os.system('cd ./src/; python ./convert-cpp-to-tex.py')
 
 print "create compare"
-os.system('cd ./apps/; python ./draw.py')
+os.system('cd ./apps/; python ./cmp_virtual_method.py')
 
 print "generate docs"
 os.system('texi2pdf rt2cpu.tex')
