@@ -22,7 +22,7 @@ namespace rt2
         {
                 float A = dot(dir, r.pos());
                 float B = dot(dir, r.dir());
-                if (B > 0.0f)
+                if (abs(B) > 0.0f)
                 {
                         return (A + D) / B;
                 }
