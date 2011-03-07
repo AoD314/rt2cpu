@@ -65,10 +65,6 @@ class AA
 
 int main(int argc, char ** argv)
 {
-	mlib::Timer timer(1, mlib::mode_min);
-	size_t t1, t2;
-	int ccc = atoi(argv[2]);
-
 	std::vector<Base *> v;
 	int c = atoi(argv[1]);
 	for (int i = 0; i < c; i++)
@@ -88,36 +84,47 @@ int main(int argc, char ** argv)
 		va.push_back(new AA(-4));
 	}
 
-	int sum;
-
-	for (int ii = 0; ii < ccc; ii++)
+	for (int mm = 1; mm <=2; mm++)
 	{
-		timer.Start();
-		sum = 0;
-		for (int i = 0; i < c * 4; i++)
+		mlib::TimerModeCount mode;
+		if (mm == 1) mode = mlib::mode_min;
+		if (mm == 2) mode = mlib::mode_avg;
+
+		mlib::Timer timer(1, mode);
+		size_t t1, t2;
+		int ccc = atoi(argv[2]);
+
+		int sum;
+
+		for (int ii = 0; ii < ccc; ii++)
 		{
-			sum += v[i]->base();
+			timer.Start();
+			sum = 0;
+			for (int i = 0; i < c * 4; i++)
+			{
+				sum += v[i]->base();
+			}
+			timer.Stop();
 		}
-		timer.Stop();
-	}
 
-	t1 = timer.GetTotalTimeInTick();
+		t1 = timer.GetTotalTimeInTick();
 
-	timer.Reset();
-	for (int ii = 0; ii < ccc; ii++)
-	{
-		timer.Start();
-		sum = 0;
-		for (int i = 0; i < c * 4; i++)
+		timer.Reset();
+		for (int ii = 0; ii < ccc; ii++)
 		{
-			sum += va[i]->base();
+			timer.Start();
+			sum = 0;
+			for (int i = 0; i < c * 4; i++)
+			{
+				sum += va[i]->base();
+			}
+			timer.Stop();
 		}
-		timer.Stop();
+
+		t2 = timer.GetTotalTimeInTick();
+
+		std::cout << int( ((t1+sum) * 100.0f / t2) - 100.0) << " ";
 	}
-
-	t2 = timer.GetTotalTimeInTick();
-
-	std::cout << int( ((t1+sum) * 100.0f / t2) - 100.0) << "\n";
 
 	return 0;
 }
