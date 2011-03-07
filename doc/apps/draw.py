@@ -27,7 +27,7 @@ def pcall(r, ind, x, mn, av):
 		i = ind[j]
 		v = r[j]
 		x[i] = v * 4
-		s = run(v, 1024 * 512).split(' ')
+		s = run(v, 1024 * 256).split(' ')
 		mn[i] = int(s[0])
 		av[i] = int(s[1])
 
@@ -69,3 +69,4 @@ if __name__ == '__main__':
 	create_test('compare_virtual_methods_b.eps', range(1,501,5))
 	t = (time.time() - t)
 	print "TIME : " + str(t)
+
