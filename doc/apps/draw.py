@@ -1,11 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import sys, subprocess, os
+import subprocess, os
 import matplotlib.pyplot as plt
 import matplotlib.legend as legend
-import multiprocessing as mp
-
+import threading as th
+import time
 
 from matplotlib import rc 
 rc('font',**{'family':'serif'}) 
@@ -17,30 +17,40 @@ rc('text.latex',preamble='\usepackage[russian]{babel}')
 def progressbar(p, m):
 	print chr(27) + '[A' + "progress " + m + ": " + str(p) + "% "
 
-def progress(p, m):
-	print "progress " + m + ": " + str(p) + "% "
-
 def run(p,t):
 	s = "./cmp_virtual_method " + str(p) + " " + str(t)
 	output = str(os.popen(s, "r").read())
 	return output[:-1]
 
-def create_test(f, r, k):
-	x  = []
-	mn = []
-	av = []
-	
-	com = 16 #  1<= com <= 64
-	if k==1: com = 32
-	if k==2: com = 16
-	if k==3: com = 2
+def pcall(r, ind, x, mn, av):
+	for j in range(len(ind)):
+		i = ind[j]
+		v = r[j]
+		x[i] = v * 4
+		s = run(v, 1024 * 512).split(' ')
+		mn[i] = int(s[0])
+		av[i] = int(s[1])
 
-	for i in r:
-		progress(i * 100 / len(r), '<' + str(k) + '>')
-		x = x + [i*k]
-		s = run(i*k, com ** 4).split(' ')
-		mn = mn + [int(s[0])]
-		av = av + [int(s[1])]
+def create_test(f, r):
+	l = len(r)
+	x  = range(l)
+	mn = range(l)
+	av = range(l)
+
+	plt.clf()
+
+	N = 6
+	
+	lr = []
+	tt = []
+	for i in range(N):
+		lr = lr + [r[i::N]]
+		tt = tt + [th.Thread(target=pcall, args=(lr[i], list(x[i::N]), x, mn, av))]
+		tt[i].daemon = True
+		tt[i].start()
+
+	for i in range(N):
+		tt[i].join()
 
 	ax = plt.subplot(1,1,1)
 	p1, = plt.plot(x, mn, 'gs-', aa=True, label='min')
@@ -54,8 +64,8 @@ def create_test(f, r, k):
 	plt.savefig(f)
 
 if __name__ == '__main__':
-	mp.Process(target=create_test, args=('compare_virtual_methods_s.eps', range(1,51), 1)).start()
-	mp.Process(target=create_test, args=('compare_virtual_methods_m.eps', range(1,51), 100)).start()
-	mp.Process(target=create_test, args=('compare_virtual_methods_b.eps', range(1,51), 10000)).start()
-	
-	print "done."
+	t = time.time()
+	create_test('compare_virtual_methods_l.eps', range(1,31))
+	create_test('compare_virtual_methods_b.eps', range(1,501,5))
+	t = (time.time() - t)
+	print "TIME : " + str(t)
