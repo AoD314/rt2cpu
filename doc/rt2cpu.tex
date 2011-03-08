@@ -534,13 +534,88 @@ $$
 \end{equation}
 где $\vec{S} = (\vec{D} \times \vec{E_2})$ и $\vec{Q} = (\vec{T} \times \vec{E_1})$
 
+На этом можно остановится, однако можно заметить, что $ (E_1 \times E_2) $ это нормаль к треугольнику, которую можно заранее предвычислить. 
+Запишем решение по другому:
+\begin{eqnarray*}
+\begin{split}
+| -\vec{D}, \vec{E_1}, \vec{E_2} | & = -\vec{D} \cdot (\vec{E_1} \times \vec{E_2}) = -\vec{D} \cdot \vec{N}\\
+| \vec{T}, \vec{E_1}, \vec{E_2} | & = \vec{T} \cdot (\vec{E_1} \times \vec{E_2}) = \vec{T} \cdot \vec{N}\\
+| -\vec{D}, \vec{T}, \vec{E_2} | & = (\vec{T} \times -\vec{D}) \cdot \vec{E_2} = \vec{\hat{Q}} \cdot \vec{E_2}\\
+| -\vec{D}, \vec{E_1}, \vec{T} | & = - | - \vec{D}, \vec{T}, \vec{E_1} | = -(-\vec{D} \times \vec{T} ) \cdot \vec{E_1} = - \vec{\hat{Q}} \cdot \vec{E_1}\\
+\end{split}
+\end{eqnarray*}
+где 
+$\vec{\hat{Q}} = -\vec{D} \times \vec{T}$.
+
+Тогда вычисление по формуле (\ref{ray_cross_tr_solv2}) можно переписать так:
+\begin{equation*}
+\left[  
+\begin{array}{c} t \\ u \\ v \\ \end{array}
+\right] = 
+\frac{1}{(-\vec{D} \cdot \vec{N})} 
+\left[  
+	\begin{array}{c}
+	(\vec{T}, \vec{N}) \\
+	(\vec{\hat{Q}}, \vec{E_2}) \\	
+	(-\vec{\hat{Q}}, \vec{E_1}) \\	
+	\end{array}
+\right]
+\end{equation*}
+где 
+$\vec{E_1} = \vec{V_1} - \vec{V_0}$,
+$\vec{E_2} = \vec{V_2} - \vec{V_0}$,
+$\vec{T}   = \vec{P} - \vec{P}$,
+$\vec{N} = (\vec{E_1} \times \vec{E_2})$,
+$\vec{\hat{Q}} = (-\vec{D} \times \vec{T})$.
+
+
+Таким образом мы избавились от одной операции векторного умножения (фактически она осталась, но мы можем ее подсчитать заранее). 
+Для того, что бы еще улучшить данный алгоритм и избавится от знака минус, произведем несколько замен:
+\begin{eqnarray*}
+\begin{split}
+\vec{\tilde {E_1}} &= -\vec{E_1} = \vec{V_0} - \vec{V_1}\\
+\vec{\tilde {E_2}} &= \vec{E_2} = \vec{V_2} - \vec{V_0}\\
+\vec{\tilde {T}} &= -\vec{T} = \vec{V_0} - \vec{P}\\
+\vec{\tilde {N}} &= -\vec{N} = - (\vec{E_2} \times \vec{E_1}) = (\vec{E_2} \times -\vec{E_1}) = (\vec{\tilde {E_2}} \times \vec{\tilde{E_1}}) \\
+\vec{ \tilde{ Q } } &= - \vec{D} \times \vec{T} = - ( \vec{D} \times \vec{T}) = - ( \vec{D} \times ( - \vec{\tilde{T}})) = ( \vec{D} \times \vec{\tilde{T}} ) \\
+-\vec{D} \cdot \vec{N} &= (-\vec{D} \cdot (-\vec{\tilde{N}})) = (\vec{D} \cdot \vec{\tilde{N}}) \\
+\vec{T} \cdot \vec{N} &= (-\vec{\tilde{T}}) \cdot (-\vec{\tilde{N}}) = (\vec{\tilde{T}} \cdot \vec{\tilde{N}}) \\
+\vec{\hat{Q}} \cdot \vec{E_2} &= (-\vec{D} \times \vec{T}) \cdot \vec{E_2} = (\vec{\tilde{T}} \times \vec{D}) \cdot \vec{\tilde{E_2}} \\
+-\vec{\hat{Q}} \cdot \vec{E_1} &= (\vec{\tilde{T}} \times \vec{D}) \cdot \vec{\tilde{E_1}}
+\end{split}
+\end{eqnarray*}
+
+В результате получаем следующие решение:
+
+\begin{equation}
+\label{ray_cross_tr_solv_fin}
+\left[  
+\begin{array}{c} t \\ u \\ v \\ \end{array}
+\right] = 
+\frac{1}{(\vec{D} \cdot \vec{\tilde{N}})} 
+\left[  
+	\begin{array}{c}
+	(\vec{\tilde{T}} \cdot \vec{\tilde{N}}) \\
+	(\vec{\tilde{S}} \cdot \vec{\tilde{E_2}}) \\	
+	(\vec{\tilde{S}} \cdot \vec{\tilde{E_1}}) \\	
+	\end{array}
+\right]
+\end{equation}
+где 
+$\vec{\tilde {E_1}} = \vec{V_0} - \vec{V_1}$,
+$\vec{\tilde {E_2}} = \vec{V_2} - \vec{V_0}$,
+$\vec{\tilde {T}}  = \vec{V_0} - \vec{P}$,
+$\vec{\tilde{S}} = \vec{\tilde{T}} \times \vec{D}$,
+$\vec{\tilde {N}} = (\vec{\tilde {E_2}} \times \vec{\tilde{E_1}})$.
+
 \begin{codebox}
 \Procname{ $\proc{Алгоритм нахождения точки пересечения луча и треугольника}$}
-\li Вычисляем вектор $\left[ \begin{array}{c} t \\ u \\ v \\ \end{array} \right]$
+\li Вычисляем по формуле (\ref{ray_cross_tr_solv_fin}) вектор $\left[ \begin{array}{c} t \\ u \\ v \\ \end{array} \right]$
 \li \If $(u \geq 0) \ \&\& \ (v \geq 0) \ \&\& \ (u + v \leq 1)$
 \li \Then $point = \vec{P} + t \cdot \vec{D}$
 \end{codebox}
 
+\cppsource{src/triangle.tex}{Реализация алгоритма пересечения луча и треугольника}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -642,8 +717,8 @@ cout << 5040 << endl;
 Рассмотрим его по порядку. Для того что бы начать отсчет времени, необходимо вызвать метод Start(). 
 Вначале необходимо вызвать инструкцию cpuid, для того что бы процессор не менял порядок исполнения инструкций. Затем, вызывая инструкцию rdtsc, происходит запись количества тактов процессора в регистры edx и eax, которые и сохраняются в классе.
 При вызове метода Stop(), 
-Иснтрукция rdtscp читает значение значение количества тактов процессора и сохраняет их в регисты edx и eax, гарантируя при этом, что весь код, который находится о этой инструкции будет выполнен. После данной инструкции, так же стоит вызвать инструкцию cpuid, что бы предотвратить внеочередное исполнение инструкций.
-Следует заметить, что на "замерянное" время это ни как не повлияет, т.к. инструкция cpuid следует за инструкцией rdtscp\footnote{rdtscp - инструкция появилась лишь в процессорах Intel Core i7}. Далее просиходит вычисление разности времения в тактах между вызовом Start() и Stop(), и вызывается функция CalcSec() для вычисления времени в разных режимах отсчета времени.
+Иснтрукция rdtscp читает значение значение количества тактов процессора и сохраняет их в регистры edx и eax, гарантируя при этом, что весь код, который находится о этой инструкции будет выполнен. После данной инструкции, так же стоит вызвать инструкцию cpuid, что бы предотвратить внеочередное исполнение инструкций.
+Следует заметить, что на "замеряемое"\ время это ни как не повлияет, т.к. инструкция cpuid следует за инструкцией rdtscp\footnote{rdtscp - инструкция появилась лишь в процессорах Intel Core i7}. Далее просиходит вычисление разности времения в тактах между вызовом Start() и Stop(), и вызывается функция CalcSec() для вычисления времени в разных режимах отсчета времени.
 
 Причины использования инструкции rdtscp состоит в том, что при использование rdtsc сама инструкция могла выполнится позже, чем ожидалось, что вносила ошибку в вычисления времени.
 

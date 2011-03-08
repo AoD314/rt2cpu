@@ -12,7 +12,7 @@ Lines:   Count byte:      File name:
    41           968       console_parameters.hpp        
    21           303       double.hpp                    
   145          3962       list.hpp                      
-  719         22045       fixed_vector.hpp              
+  724         22197       fixed_vector.hpp              
    22           348       float.hpp                     
    27           397       exception.hpp                 
    22           371       long.hpp                      
@@ -33,20 +33,20 @@ module rt2:
 Lines:   Count byte:      File name:
    29           668       plane.hpp                     
    33           581       camera.hpp                    
-   34           343       ray.cpp                       
+   23           246       ray.cpp                       
    44           882       bbox.hpp                      
     2            26       primitive.cpp                 
    38           817       plane.cpp                     
    67          1711       sphere.cpp                    
   118          3702       bvh.cpp                       
-   71          1374       triangle.cpp                  
-   47           750       engine.hpp                    
+   69          1404       triangle.cpp                  
+   47           752       engine.hpp                    
    23           455       primitive.hpp                 
-  107          3214       scene.cpp                     
-  129          3194       engine.cpp                    
-   33           627       triangle.hpp                  
+  107          3248       scene.cpp                     
+  129          3200       engine.cpp                    
+   33           634       triangle.hpp                  
    31           589       sphere.hpp                    
-   28           320       ray.hpp                       
+   35           563       ray.hpp                       
   107          2538       bbox.cpp                      
    79          1978       camera.cpp                    
    42           746       scene.hpp                     
@@ -54,10 +54,10 @@ Lines:   Count byte:      File name:
 
 module tests:
 Lines:   Count byte:      File name:
-  352         10316       correct_tests_rt2cpu.cpp      
+  349         10102       correct_tests_rt2cpu.cpp      
   130          2988       cmp_tests.cpp                 
    35           600       tests.hpp                     
-  209          4469       performance_tests_mlib.cpp    
+  209          4466       performance_tests_mlib.cpp    
   463         13445       correct_tests_mlib.cpp        
 
 module docs:
@@ -71,19 +71,20 @@ Lines:   Count byte:      File name:
     4           313       templatefactorial.tex         
     4           268       specfactorial.tex             
     5           300       definetemplate.tex            
-  699         79714       rt2cpu.tex                    
+   17           999       triangle.tex                  
+  800         85075       rt2cpu.tex                    
 
 module python:
 Lines:   Count byte:      File name:
-  121          2648       convert-cpp-to-tex.py         
+  124          2682       convert-cpp-to-tex.py         
    72          1770       cmp_virtual_method.py         
    17           333       build_docs.py                 
 
 All:
-Total count source files : 65
-Total lines source code : 5076
-Total lines docs : 831
-Total lines python scripts : 210
-Total size source code  : 120936 byte = 118 KByte
+Total count source files : 66
+Total lines source code : 5090
+Total lines docs : 949
+Total lines python scripts : 213
+Total size source code  : 121479 byte = 118 KByte
  
-TOTAL LINE WORK: 6117
+TOTAL LINE WORK: 6252
