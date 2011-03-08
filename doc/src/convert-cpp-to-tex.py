@@ -41,6 +41,9 @@ def gettex(str):
 	if (str == '$'):
 		return '\\$'
 
+	if (str == '&'):
+		return '\\&'
+
 	if (str == '%'):
 		return '\\%'
 
