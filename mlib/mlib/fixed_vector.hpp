@@ -229,6 +229,11 @@ namespace mlib
 			return d[i];
 		}
 
+                inline vec4 operator- ()
+                {
+                        return vec4(_mm_sub_ps(_mm_set1_ps(0.0f), data));
+                }
+
 		inline void operator() (size_t i, float val)
 		{
 			_align_ float d[4];
