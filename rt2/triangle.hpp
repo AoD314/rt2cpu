@@ -17,7 +17,7 @@ namespace rt2
 			mlib::vec4 e1, e2;
 
 		public:
-			Triangle(mlib::vec4 a, mlib::vec4 b, mlib::vec4 c, mlib::vec4 n);
+                        Triangle(mlib::vec4 a, mlib::vec4 b, mlib::vec4 c);
 			Triangle(const Triangle & t);
                         void operator = (const Triangle & t);
 
