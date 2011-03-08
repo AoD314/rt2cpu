@@ -20,15 +20,4 @@ namespace rt2
 		p = r.pos();
 		d = r.dir();
 	}
-
-	mlib::vec4 Ray::pos() const
-	{
-		return p;
-	}
-
-	mlib::vec4 Ray::dir() const
-	{
-		return d;
-	}
 }
-

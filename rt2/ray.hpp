@@ -18,8 +18,15 @@ namespace rt2
 
 			void operator = (const Ray & r);
 
-			mlib::vec4 pos() const;
-			mlib::vec4 dir() const;
+                        inline mlib::vec4 pos() const
+                        {
+                                return p;
+                        }
+
+                        inline mlib::vec4 dir() const
+                        {
+                                return d;
+                        }
 	};
 
 }
