@@ -30,6 +30,8 @@
 %\setmonofont[SmallCapsFont={Courier New}]{Courier New}
 %\fontsize{10}{10}
 
+\newcommand{\normalize}{\mathrm{normalize}}
+
 % отступ при наборе формул в блоке multline
 \multlinegap=2cm
 
@@ -315,8 +317,32 @@ $$
 \end{center}
 
 Расчет луча осуществляется достатольно просто. Луч определяется 2 векторами: положением и направлением. Положение луча совпадает с положением камеры. А направление вычисляется слудующим образом.
+Пусть необходимо рассчитать луч, для точки с координатами $(\hat x, \hat y) : 0 \le \hat x < width, 0 \le \hat y < height$
+Для это преобразуем координаты $(\hat x, \hat y)$ в $(x, y) : -1 \le x \le 1, -1 \le y \le 1$:
+\begin{equation*}
+\begin{split}
+x &= 2.0 \cdot (\hat x / width) - 1.0{}\\
+y &= 1.0 - 2.0 \cdot (\hat y / height)
+\end{split}
+\end{equation*}
+Учитывая соотношение сторон и угол раствора камеры:
+\begin{equation*}
+\begin{split}
+aspect &= width / height \\
+tan\_av &= \tg(angle\_of\_view \cdot rad\_to\_angle) \\
+x &= x \cdot aspect \cdot tan\_av \\
+y &= y \cdot tan\_av
+\end{split}
+\end{equation*}
+
+Для получения направляющего вектора луча, осталось взять векторы камеры с соответствующими коэффициентами:
+$$ 
+dir = \normalize(C_d + C_l * x + C_u * y)
+$$
 
 \subsubsection{Алгоритм антиалиасинга}
+
+Алгоритм антиалиасинга очень похож на алгоритм расчет луча. После рассчета $(x, y)$ следует уточнить данные координаты: происходит разбиение прямоугольника, образованного точками $(x,y); (x+1,y); (x+1,y+1); (x,y+1)$ с помощью равномерной сетки $ a \times a $. Таким образом, общие количество генерируемых лучей увеличивается в $a^2$ раз.
 
 \subsection{Примитивы}
 \subsubsection{\index{Плоскость}Плоскость}
