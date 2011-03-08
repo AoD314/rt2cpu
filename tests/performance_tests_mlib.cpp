@@ -44,7 +44,7 @@ bool performance_test_ray_cross_triangle_ok()
 		vec4 d ( 0.0f, 0.0f, -1.0f, rand);
 
                 Ray r(p, d);
-                Triangle t(a, b, c, a);
+                Triangle t(a, b, c);
 
 		timer.Start();
 
