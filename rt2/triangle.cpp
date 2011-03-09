@@ -42,7 +42,7 @@ namespace rt2
 
         vec4 Triangle::get_normal(const vec4 & ) const
 	{
-                return normal;
+                return normalize(normal);
 	}
 
         float Triangle::crossing(const Ray & r)
