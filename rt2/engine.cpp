@@ -34,26 +34,36 @@ namespace rt2
                 {
                         point = ray.pos() + t * ray.dir();
 
-                        vec4 l_pos(4.0f, 5.0f, -4.0f, 0.0f);
-                        vec4 normal = obj->get_normal(point);
+                        vec4 l_pos(40.0f, 20.0f, 10.0f, 0.0f);
+                        vec4 dir_to_l = normalize(l_pos - point);
 
-                        float d = dot(normalize(normal), normalize( l_pos - point ));
-                        if (d < 0.0f) d = 0.0f;
+                        Ray ray_shadow(point + dir_to_l * 0.00025f, dir_to_l);
+                        Primitive * obj_shadow = scene.crossing(ray_shadow, t);
 
-                        vec4 r = ray.dir() - 2.0f * normal * dot(normal, ray.dir());
-                        float tt = dot(r, normalize(ray.pos() - point));
-                        vec4 spec;
-                        if (tt > 0.0f)
+                        color = vec4(0.05f, 0.05f, 0.05f, 0.0f);
+
+                        if (obj_shadow == NULL || calc_distance(point, l_pos) < t)
                         {
-                                spec = vec4(0.75f) * powf(tt, 32.0f);
-                        }
-                        color = vec4(0.75f) * d + vec4(0.05f, 0.05f, 0.05f, 0.0f) + spec;
+                                vec4 normal = obj->get_normal(point);
+                                float d = dot(normal, dir_to_l);
+                                if (d < 0.0f) d = 0.0f;
+                                color += vec4(0.75f) * d;
 
-                        if ( depth_local > 1)
-                        {
+                                //vec4 r = ray.dir() - 2.0f * normal * dot(normal, ray.dir());
                                 vec4 ref = reflect(normal, ray.dir());
-                                Ray rray(point + ref * 0.0025f, ref);
-                                color += ray_tracing(rray, depth_local - 1) * 0.75f;
+
+                                float tt = dot(ref, normalize(ray.pos() - point));
+
+                                if (tt > 0.0f)
+                                {
+                                        color += vec4(0.75f) * powf(tt, 32.0f); // spec
+                                }
+
+                                if ( depth_local > 1)
+                                {
+                                        Ray rray(point + ref * 0.0025f, ref);
+                                        color += ray_tracing(rray, depth_local - 1) * 0.75f;
+                                }
                         }
                 }
 
@@ -62,7 +72,7 @@ namespace rt2
 
 	void Engine::rendering()
 	{
-                timer.Start();
+                //timer.Start();
 
 		unsigned int w = scene.get_cam().get_width();
 		unsigned int h = scene.get_cam().get_height();
@@ -86,8 +96,8 @@ namespace rt2
                                 vbuf[j * w + i] = to_color(color_total);
 			}
 
-                timer.Stop();
-                fps = static_cast<float>(timer.OperationPerSecond());
+                //timer.Stop();
+                //fps = static_cast<float>(timer.OperationPerSecond());
 		num_frame++;
 	}
 
