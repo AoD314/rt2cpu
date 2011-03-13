@@ -59,37 +59,101 @@ int main ( int argc, char ** argv )
 		if (settings.is_exit) return 0;
 		settings.print_params();
 
-                Timer timer;
-                std::cout << "\nCPU Frequency: " << timer.GetFrequency() << std::endl;
+                //Timer timer;
+                //std::cout << "\nCPU Frequency: " << timer.GetFrequency() << std::endl;
 		std::cout.flush();
 
-                /*/
-                Camera camera(	vec4( 4.0f, 3.0f, -4.0f, 0.0f),
-                                vec4(-1.0f/1.5f, -0.5f/1.5f, 1.0f/1.5f, 0.0f),
-                                vec4( 0.0f, 1.0f,  0.0f, 0.0f),
-                                settings.width, settings.height, 60.0f, settings.antialiasing
-			     );
-                //*/
-                //*/
-                Camera camera(	vec4( 5.0f, 0.0f, 0.0f, 0.0f),
-                                vec4(-1.0f, 0.0f, 0.0f, 0.0f),
-                                vec4( 0.0f, 1.0f, 0.0f, 0.0f),
-                                settings.width, settings.height, 60.0f
-                             );
-                //*/
+                vec4 cam_pos = vec4( 5.0f, 0.0f, 0.0f, 0.0f);
 
-		Scene scene(camera);
-                scene.SetMaxCountObjectsInBVH(settings.max_count_objects_in_bvh);
-		scene.load_from_file(settings.path_to_objfile);
+                Camera * camera = new Camera (cam_pos, 0.0f, 0.0f, 0.0f, settings.width, settings.height, 60.0f, settings.antialiasing);
+
+                camera->rotate_y(45);
+                //camera->rotate_z(45);
+                camera->move(vec4(5.0f, 4.0f, -5.0f, 0.0f));
+
+                Scene * scene = new Scene(camera);
+                scene->SetMaxCountObjectsInBVH(settings.max_count_objects_in_bvh);
+                //timer.Start();
+                scene->load_from_file(settings.path_to_objfile);
+                //timer.Stop();
+                //std::cout << "Time build BVH: " << timer.GetTotalTimeInMSeconds() << "ms \n";
+                std::cout.flush();
+                //timer.Reset();
 
 		Engine engine(scene, InitSDL(settings));
                 engine.set_threads(settings.threads);                
                 engine.set_depth(settings.depth);
 
-                timer.Start();
+                //timer.Start();
 
-		for (size_t i = 0; i < settings.count_frame; i++)
+                SDL_Event event;
+                bool exit = false;
+
+                for (size_t i = 0; i < settings.count_frame; i++)
 		{
+                        /*/
+                        while (SDL_PollEvent(&event))
+                        {
+                                switch( event.type )
+                                {
+                                        case SDL_KEYDOWN:
+                                                switch( event.key.keysym.sym )
+                                                {
+                                                        case SDLK_w:
+                                                                camera->rotate_x(1);
+                                                        break;
+                                                        case SDLK_q:
+                                                                camera->rotate_x(-1);
+                                                        break;
+
+                                                        case SDLK_a:
+                                                                camera->rotate_y(1);
+                                                        break;
+                                                        case SDLK_s:
+                                                                camera->rotate_y(-1);
+                                                        break;
+
+                                                        case SDLK_z:
+                                                                camera->rotate_z(1);
+                                                        break;
+                                                        case SDLK_x:
+                                                                camera->rotate_z(-1);
+                                                        break;
+
+                                                        case SDLK_UP:
+                                                                cam_pos(0, cam_pos[0] + 0.1f);
+                                                        break;
+                                                        case SDLK_DOWN:
+                                                                cam_pos(0, cam_pos[0] - 0.1f);
+                                                        break;
+
+                                                        case SDLK_LEFT:
+                                                                cam_pos(1, cam_pos[1] + 0.1f);
+                                                        break;
+                                                        case SDLK_RIGHT:
+                                                                cam_pos(1, cam_pos[1] - 0.1f);
+                                                        break;
+
+                                                        case SDLK_LESS:
+                                                                cam_pos(2, cam_pos[2] + 0.1f);
+                                                        break;
+                                                        case SDLK_GREATER:
+                                                                cam_pos(2, cam_pos[2] - 0.1f);
+                                                        break;
+
+                                                        case SDLK_ESCAPE:
+                                                                exit = true;
+                                                        break;
+
+                                                        default:
+                                                        break;
+                                                }
+                                        break;
+                                }
+                        }
+                        camera->move(cam_pos);
+                        /*/
+
 			engine.rendering();
 
 			if ( settings.file_write == true )
@@ -98,11 +162,12 @@ int main ( int argc, char ** argv )
 			}
                         std::cout << "\nframe [" << Long::ToString(engine.get_num_frame(), 5) << "] = " << Float::ToString(engine.get_fps(), 3) << " fps"; std::cout.flush();
 			SDL_UpdateRect ( screen, 0, 0, settings.width, settings.height);
+                        if (exit == true) break;
 		}
 
-                timer.Stop ();
+                //timer.Stop ();
 
-                std::cout << "\n\nTotal time: " << timer;
+                //std::cout << "\n\nTotal time: " << timer;
                 std::cout << "\n";
 	}
 	catch (Exception & exception)
