@@ -31,8 +31,8 @@ namespace rt2
 
         float Sphere::crossing(const Ray & r)
 	{
-                vec4 rd(r.dir());
-                vec4 rp(r.pos());
+                vec4 rd = r.dir();
+                vec4 rp = r.pos();
                 float A = dot(rd, rd);
                 float B = 2.0f * dot(rd, rp - pos);
                 float D = B * B - 4.0f * A * (dot(rp - pos, rp - pos) - rad * rad);
@@ -44,7 +44,7 @@ namespace rt2
                         float t = -1;
                         if (t1 > 0.0f)
                                 if (t2 > 0.0f)
-                                        t = min(t1,t2);
+                                        t = min(t1, t2);
                                 else
                                         t = t1;
                         if (t2 > 0.0f && t1 < 0.0f)

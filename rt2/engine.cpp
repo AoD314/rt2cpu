@@ -30,7 +30,11 @@ namespace rt2
 
                 vec4 color(0.0f);
 
-                if (obj != NULL)
+                if (obj == NULL)
+                {
+                        return color;
+                }
+                else
                 {
                         point = ray.pos() + t * ray.dir();
 
@@ -65,9 +69,8 @@ namespace rt2
                                         color += ray_tracing(rray, depth_local - 1) * 0.75f;
                                 }
                         }
+                        return color;
                 }
-
-                return color;
 	}
 
 	void Engine::rendering()
