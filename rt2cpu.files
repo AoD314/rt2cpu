@@ -25,6 +25,7 @@ mlib/objfile.cpp
 mlib/processor.cpp
 mlib/randomize.cpp
 mlib/timer.cpp
+rt2/config.hpp
 rt2/bbox.cpp
 rt2/bbox.hpp
 rt2/bvh.cpp
@@ -49,6 +50,7 @@ rt2cpu/main.cpp
 rt2cpu/settings.cpp
 rt2cpu/settings.hpp
 tests/cmp_tests.cpp
+tests/tests.hpp
 tests/correct_tests_mlib.cpp
 tests/correct_tests_rt2cpu.cpp
 tests/performance_tests_mlib.cpp

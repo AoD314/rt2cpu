@@ -21,10 +21,7 @@ bool print_debug_info;
 bool test_rt2_camera_gen_ray_to_center()
 {
 	vec4 pos    ( 5.0f, 0.0f, 0.0f, 0.0f);
-	vec4 dir    (-1.0f, 0.0f, 0.0f, 0.0f);
-	vec4 dir_up ( 0.0f, 1.0f, 0.0f, 0.0f);
-
-	Camera cam(pos, dir, dir_up, 640, 480, 60);
+        Camera cam(pos, 0, 0, 0, 640, 480, 60);
 	Ray r = cam.get_ray(320, 240);
 	return (r.dir()[0] == -1.0f) && (r.dir()[1] == 0.0f) && (r.dir()[2] == 0.0f) && (r.dir()[3] == 0.0f);
 }
@@ -32,21 +29,15 @@ bool test_rt2_camera_gen_ray_to_center()
 bool test_rt2_camera_gen_ray_to_up_right()
 {
 	vec4 pos    ( 5.0f, 0.0f, 0.0f, 0.0f);
-	vec4 dir    (-1.0f, 0.0f, 0.0f, 0.0f);
-	vec4 dir_up ( 0.0f, 1.0f, 0.0f, 0.0f);
-
-	Camera cam(pos, dir, dir_up, 2048, 1024, 60);
+        Camera cam(pos, 0, 0, 0, 2048, 1024, 60);
 	Ray r = cam.get_ray(0, 0);
         return (r.dir()[0] == -0.25f) && (r.dir()[1] == 0.433012724f) && (r.dir()[2] == 0.866025448f) && (r.dir()[3] == 0.0f);
 }
 
 bool test_rt2_camera_gen_ray_to_up_right_with_aa()
 {
-	vec4 pos    ( 5.0f, 0.0f, 0.0f, 0.0f);
-	vec4 dir    (-1.0f, 0.0f, 0.0f, 0.0f);
-	vec4 dir_up ( 0.0f, 1.0f, 0.0f, 0.0f);
-
-        Camera cam(pos, dir, dir_up, 2048, 1024, 60, 8);
+        vec4 pos  ( 5.0f, 0.0f, 0.0f, 0.0f);
+        Camera cam(pos, 0, 0, 0, 2048, 1024, 60, 8);
         Ray r = cam.get_ray(0, 0, 0);
         return (r.dir()[0] == -0.25f) && (r.dir()[1] == 0.433012724f) && (r.dir()[2] == 0.866025448f) && (r.dir()[3] == 0.0f);
 }
