@@ -5,8 +5,8 @@ num_cpu = int(os.environ.get('NUM_CPU', 12))
 SetOption('num_jobs', num_cpu)
 
 def print_cmd_line(s, target, src, env):
-	sys.stdout.write(" (CC) %s \n"% (' and '.join([str(x) for x in target])))
-	#sys.stdout.write("%s\n"%s); # by default
+	#sys.stdout.write(" (CC) %s \n"% (' and '.join([str(x) for x in target])))
+	sys.stdout.write("%s\n"%s); # by default
 
 mode = 'r'  # [d - debug], [p - profile], [w - warrning]
 
@@ -14,8 +14,9 @@ flgs = ''
 
 if 'd' in mode:
 	flgs += ' -g -ggdb -O0 '
-else:
-	flgs += ' -O3 -ffast-math '
+
+if 'r' in mode:
+	flgs += ' -O3 '
 
 if 'p' in mode:
 	flgs += ' -pg '
