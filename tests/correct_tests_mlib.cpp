@@ -333,6 +333,14 @@ bool test_mlib_fixed_vector_neq()
 	return a != b;
 }
 
+bool test_mlib_fixed_vector_correct_eq()
+{
+        vec4 a (1.0f);
+        vec4 b (32.0f);
+        vec4 eq = a + b * 0.03125f;
+        return ( eq == vec4(2.0f));
+}
+
 bool test_mlib_processor_sse()
 {
     return Processor::supportSSE();
@@ -380,8 +388,8 @@ bool test_mlib_processor_rdtscp()
 
 int main(int argc, char ** argv)
 {
-	size_t total_tests = 0;
-	size_t total_good_tests = 0;
+        size_t total_tests = 0;
+        size_t total_good_tests = 0;
 
 	ConsoleParameters params(argc, argv);
 	print_debug_info = params.has(" -p | --print ");
@@ -394,9 +402,10 @@ int main(int argc, char ** argv)
 
 	std::cout << "Tests:\n";
 
-	Timer timer;
-	timer.Start();
+        Timer timer;
+        timer.Start();
 
+        /*/
         TEST (test_mlib_processor_sse,       "mlib_processor_sse")
         TEST (test_mlib_processor_avx,       "mlib_processor_avx")
         TEST (test_mlib_processor_sse2,      "mlib_processor_sse2")
@@ -406,18 +415,19 @@ int main(int argc, char ** argv)
         TEST (test_mlib_processor_sse4_2,    "mlib_processor_sse4.2")
         TEST (test_mlib_processor_popcnt,    "mlib_processor_popcnt")
         TEST (test_mlib_processor_rdtscp,    "mlib_processor_rdtscp")
+        //*/
 
 	TEST (test_mlib_float,   "mlib_float")
 	TEST (test_mlib_double,  "mlib_double")
 	TEST (test_mlib_long,    "mlib_long")
 	TEST (test_mlib_int,     "mlib_int")
 
-        TEST (test_mlib_fixed_vector_operator_leq,             "test_mlib_fixed_vector_operator_leq")
-        TEST (test_mlib_fixed_vector_operator_l,               "test_mlib_fixed_vector_operator_l")
-        TEST (test_mlib_fixed_vector_operator_g,               "test_mlib_fixed_vector_operator_g")
-        TEST (test_mlib_fixed_vector_operator_geq,             "test_mlib_fixed_vector_operator_geq")
-        TEST (test_mlib_fixed_vector_operator_eq,              "test_mlib_fixed_vector_operator_eq")
-        TEST (test_mlib_fixed_vector_set_value,                "test_mlib_fixed_vector_set_value")
+        TEST (test_mlib_fixed_vector_operator_leq,             "mlib_fixed_vector_operator_leq")
+        TEST (test_mlib_fixed_vector_operator_l,               "mlib_fixed_vector_operator_l")
+        TEST (test_mlib_fixed_vector_operator_g,               "mlib_fixed_vector_operator_g")
+        TEST (test_mlib_fixed_vector_operator_geq,             "mlib_fixed_vector_operator_geq")
+        TEST (test_mlib_fixed_vector_operator_eq,              "mlib_fixed_vector_operator_eq")
+        TEST (test_mlib_fixed_vector_set_value,                "mlib_fixed_vector_set_value")
 	TEST (test_mlib_fixed_vector_add,                      "mlib_fixed_vector_add")
 	TEST (test_mlib_fixed_vector_double_add,               "mlib_fixed_vector_double_add")
 	TEST (test_mlib_fixed_vector_complex_add,              "mlib_fixed_vector_complex_add")
@@ -440,23 +450,25 @@ int main(int argc, char ** argv)
 	TEST (test_mlib_fixed_vector_cross,                    "mlib_fixed_vector_cross")
 	TEST (test_mlib_fixed_vector_eq,                       "mlib_fixed_vector_eq")
 	TEST (test_mlib_fixed_vector_neq,                      "mlib_fixed_vector_neq")
-        TEST (test_mlib_fixed_vector_less,                     "test_mlib_fixed_vector_less")
-        TEST (test_mlib_fixed_vector_not_less,                 "test_mlib_fixed_vector_not_less")
-        TEST (test_mlib_fixed_vector_greater,                  "test_mlib_fixed_vector_greater")
-        TEST (test_mlib_fixed_vector_not_greater,              "test_mlib_fixed_vector_not_greater")
+        TEST (test_mlib_fixed_vector_less,                     "mlib_fixed_vector_less")
+        TEST (test_mlib_fixed_vector_not_less,                 "mlib_fixed_vector_not_less")
+        TEST (test_mlib_fixed_vector_greater,                  "mlib_fixed_vector_greater")
+        TEST (test_mlib_fixed_vector_not_greater,              "mlib_fixed_vector_not_greater")
 
-        TEST (test_mlib_complex_min_and_max_vec,      "test_mlib_complex_min_and_max_vec")
+        TEST (test_mlib_fixed_vector_correct_eq,               "mlib_fixed_vector_correct_eq")
+
+        TEST (test_mlib_complex_min_and_max_vec,      "mlib_complex_min_and_max_vec")
 	TEST (test_mlib_min_and_max,                  "mlib_min_and_max")
 	TEST (test_mlib_min_and_max_vec,              "mlib_min_and_max_vec")
 
 	TEST (test_mlib_objfile,                      "mlib_objfile")
 
-	timer.Stop();
+        timer.Stop();
 
-	std::cout.setf( std::ios::right );
-	std::cout       << "\n" << std::setfill('0') << std::setw(3) << total_good_tests << " / " << std::setw(3) << total_tests << " passed. "
-			<< "       " << std::setw(3) << total_tests - total_good_tests <<  " errors.\n\n";
-	std::cout << "Time: " << std::fixed << std::setprecision(8) << timer.GetTimeInSeconds() << " sec. \n\n";
+        std::cout.setf( std::ios::right );
+        std::cout       << "\n" << std::setfill('0') << std::setw(3) << total_good_tests << " / " << std::setw(3) << total_tests << " passed. "
+                        << "       " << std::setw(3) << (total_tests - total_good_tests) <<  " errors.\n\n";
+        std::cout << "Time: " << std::fixed << std::setprecision(8) << timer.GetTimeInSeconds() << " sec. \n\n";
 
 	return 0;
 }
