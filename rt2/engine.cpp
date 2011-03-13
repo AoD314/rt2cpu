@@ -7,6 +7,8 @@ using namespace mlib;
 
 #include <math.h>
 
+#include "config.hpp"
+
 namespace rt2
 {
 	Engine::Engine(Scene s, unsigned int * vbuffer)

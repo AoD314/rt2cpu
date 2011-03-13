@@ -8,7 +8,7 @@ def print_cmd_line(s, target, src, env):
 	#sys.stdout.write(" (CC) %s \n"% (' and '.join([str(x) for x in target])))
 	sys.stdout.write("%s\n"%s); # by default
 
-mode = 'r'  # [d - debug], [p - profile], [w - warrning]
+mode = 'r'  # [ r - release], [d - debug], [p - profile], [w - warrning]
 
 flgs = ''
 

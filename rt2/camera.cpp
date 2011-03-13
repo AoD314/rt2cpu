@@ -6,6 +6,8 @@ using namespace mlib;
 const float PI = 3.1415926535897932384626433832795f;
 const float rad_to_angle = PI / 180.0f;
 
+#include "config.hpp"
+
 namespace rt2
 {
 	Camera::Camera()
@@ -118,19 +120,23 @@ namespace rt2
 		float xx = 2.0f * (static_cast<float>(i) / static_cast<float>(width) ) - 1.0f;
 		float yy = 1.0f - 2.0f * (static_cast<float>(j) / static_cast<float>(height) );
 
-                xx += dX[part];
-                yy += dY[part];
+                #ifdef new_alg_aa
 
-                /*/
-		if (allpart > 1)
-		{
-                        float deltaX =   2.0f / static_cast<float>(width  * (aa - 1));
-                        float deltaY = - 2.0f / static_cast<float>(height * (aa - 1));
+                        xx += dX[part];
+                        yy += dY[part];
 
-                        xx += deltaX * static_cast<float>(part % aa);
-                        yy += deltaY * static_cast<float>(part / aa);
-		}
-                //*/
+                #else
+
+                        if (aa > 1)
+                        {
+                                float deltaX =   2.0f / static_cast<float>(width  * (aa - 1));
+                                float deltaY = - 2.0f / static_cast<float>(height * (aa - 1));
+
+                                xx += deltaX * static_cast<float>(part % aa);
+                                yy += deltaY * static_cast<float>(part / aa);
+                        }
+
+                #endif
 
 		xx *= (aspect * tan_aview);
 		yy *= tan_aview;
