@@ -70,7 +70,7 @@ namespace rt2
                         {
                                 float lt = local_storage[i]->crossing(ray);
 
-                                if (lt >= 0.0f && lt <= t)
+                                if (lt > 0.0f && lt < t)
                                 {
                                         t = lt;
                                         index = i;

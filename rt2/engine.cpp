@@ -53,7 +53,6 @@ namespace rt2
                                 if (d < 0.0f) d = 0.0f;
                                 color += vec4(0.75f) * d;
 
-                                //vec4 r = ray.dir() - 2.0f * normal * dot(normal, ray.dir());
                                 vec4 ref = reflect(normal, ray.dir());
 
                                 float tt = dot(ref, normalize(ray.pos() - point));
