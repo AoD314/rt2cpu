@@ -15,7 +15,6 @@ namespace rt2
 			Scene scene;
 
 			int threads;
-			int aa;
 			int depth;
 
 			unsigned long long num_frame;
@@ -33,12 +32,9 @@ namespace rt2
 
 			float get_fps();
 			int get_threads();
-			int get_antialiasing();
-
 
 			void set_threads(int t);
 			void set_depth(int d);
-			void set_antialiasing(int a);
 
 	};
 

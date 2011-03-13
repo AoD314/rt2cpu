@@ -67,7 +67,7 @@ int main ( int argc, char ** argv )
                 Camera camera(	vec4( 4.0f, 3.0f, -4.0f, 0.0f),
                                 vec4(-1.0f/1.5f, -0.5f/1.5f, 1.0f/1.5f, 0.0f),
                                 vec4( 0.0f, 1.0f,  0.0f, 0.0f),
-                                settings.width, settings.height, 60.0f
+                                settings.width, settings.height, 60.0f, settings.antialiasing
 			     );
                 //*/
                 //*/
@@ -83,8 +83,7 @@ int main ( int argc, char ** argv )
 		scene.load_from_file(settings.path_to_objfile);
 
 		Engine engine(scene, InitSDL(settings));
-                engine.set_threads(settings.threads);
-                engine.set_antialiasing(settings.antialiasing);
+                engine.set_threads(settings.threads);                
                 engine.set_depth(settings.depth);
 
                 timer.Start();

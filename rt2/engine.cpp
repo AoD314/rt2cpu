@@ -82,6 +82,7 @@ namespace rt2
                 unsigned int i, j;
 
 		Camera cam = scene.get_cam();
+                int aa = cam.get_aa();
 
                 omp_set_num_threads(threads);
 
@@ -92,7 +93,7 @@ namespace rt2
                                 vec4 color_total;
                                 for (int s = 0; s < aa; s++)
                                 {
-                                        color_total += ray_tracing(cam.get_ray(i, j, s, aa), depth);
+                                        color_total += ray_tracing(cam.get_ray(i, j, s), depth);
                                 }
                                 color_total /= static_cast<float>(aa);
                                 vbuf[j * w + i] = to_color(color_total);
@@ -113,19 +114,9 @@ namespace rt2
 		return threads;
 	}
 
-	int Engine::get_antialiasing()
-	{
-                return static_cast<int>(sqrt(aa));
-	}
-
 	void Engine::set_threads(int t)
 	{
 		threads = t;
-	}
-
-	void Engine::set_antialiasing(int a)
-	{
-                aa = a * a;
 	}
 
 	void Engine::set_depth(int d)
