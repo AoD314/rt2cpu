@@ -4,61 +4,25 @@
 using namespace mlib;
 
 const float PI = 3.1415926535897932384626433832795f;
-const float rad_to_angle = PI / 180.0f;
+const float angle_to_rad = PI / 180.0f;
 
 #include "config.hpp"
 
 namespace rt2
 {
-	Camera::Camera()
+        Camera::Camera(vec4 p, float angleX, float angleY, float angleZ, unsigned int w, unsigned int h, float angleofview, unsigned int aa)
 	{
-		pos    = vec4(5.0f, 0.0f, 0.0f, 0.0f);
-		dir    = vec4(-1.0f, 0.0f, 0.0f, 0.0f);
-		dir_up = vec4(0.0f, 1.0f, 0.0f, 0.0f);
-		dir_lf = normalize ( cross ( dir, dir_up ));
-		width  = 512;
-		height = 512;
-		aspect = static_cast<float>(width) / static_cast<float>(height);
-                tan_aview = tan (60.0f * rad_to_angle);
+                pos    = p;
+                dir    = vec4(-1.0f, 0.0f, 0.0f, 0.0f);
+                dir_up = vec4( 0.0f, 1.0f, 0.0f, 0.0f);
 
-                aa = 1;
-                dX = new float[aa];
-                dY = new float[aa];
-                dX[0] = 0.0f;
-                dY[0] = 0.0f;
-	}
-
-        void Camera::operator = (const Camera & cam)
-        {
-                pos       = cam.pos;
-                dir       = cam.dir;
-                dir_up    = cam.dir_up;
-                dir_lf    = cam.dir_lf;
-                width     = cam.width;
-                height    = cam.height;
-                aspect    = cam.aspect;
-                tan_aview = cam.tan_aview;
-                aa        = cam.aa;
-
-                dX = new float[aa];
-                dY = new float[aa];
-                for (unsigned int i = 0; i < aa; i++)
-                {
-                        dX[i] = cam.dX[i];
-                        dY[i] = cam.dY[i];
-                }
-        }
-
-        Camera::Camera(vec4 p, vec4 d, vec4 du, unsigned int w, unsigned int h, float angleofview, unsigned int aa)
-	{
-		pos = p;
-		dir = d;
-		dir_up = du;
-		dir_lf = normalize ( cross ( dir, dir_up ));
-		width = w;
+                dir_lf = normalize ( cross ( dir, dir_up ));
+                width  = w;
 		height = h;
 		aspect = static_cast<float>(width) / static_cast<float>(height);
-                tan_aview = tan (angleofview * rad_to_angle);
+                tan_aview = tan (angleofview * angle_to_rad);
+
+                aX = aY = aZ = 0.0f;
 
                 this->aa = aa;
                 dX = new float[aa];
@@ -76,27 +40,10 @@ namespace rt2
                         dX[0] = 0.0f;
                         dY[0] = 0.0f;
                 }
-	}
 
-	Camera::Camera(const Camera & cam)
-	{
-		pos       = cam.pos;
-		dir       = cam.dir;
-		dir_up    = cam.dir_up;
-		dir_lf    = cam.dir_lf;
-		width     = cam.width;
-		height    = cam.height;
-		aspect    = cam.aspect;
-		tan_aview = cam.tan_aview;
-                aa        = cam.aa;
-
-                dX = new float[aa];
-                dY = new float[aa];
-                for (unsigned int i = 0; i < aa; i++)
-                {
-                        dX[i] = cam.dX[i];
-                        dY[i] = cam.dY[i];
-                }
+                rotate_x(angleX);
+                rotate_y(angleY);
+                rotate_z(angleZ);
 	}
 
 	unsigned int Camera::get_width()
@@ -114,6 +61,50 @@ namespace rt2
                 return aa;
         }
 
+        void Camera::move(vec4 npos)
+        {
+                pos = npos;
+        }
+
+        void Camera::rotate_x(float deg)
+        {
+                aX += deg * angle_to_rad;
+
+                vec4 mat1(1.0f,     0.0f,      0.0f, 0.0f);
+                vec4 mat2(0.0f, cosf(aX), -sinf(aX), 0.0f);
+                vec4 mat3(0.0f, sinf(aX),  cosf(aX), 0.0f);
+
+                dir    = normalize(vec4( dot(mat1, dir),    dot(mat2, dir),    dot(mat3, dir),    0.0f));
+                dir_lf = normalize(vec4( dot(mat1, dir_lf), dot(mat2, dir_lf), dot(mat3, dir_lf), 0.0f));
+                dir_up = normalize(vec4( dot(mat1, dir_up), dot(mat2, dir_up), dot(mat3, dir_up), 0.0f));
+
+        }
+
+        void Camera::rotate_y(float deg)
+        {
+                aY += deg * angle_to_rad;
+
+                vec4 mat1( cosf(aY), 0.0f, sinf(aY), 0.0f);
+                vec4 mat2(     0.0f, 1.0f, 0.0f,     0.0f);
+                vec4 mat3(-sinf(aY), 0.0f, cosf(aY), 0.0f);
+
+                dir    = normalize(vec4( dot(mat1, dir),    dot(mat2, dir),    dot(mat3, dir),    0.0f));
+                dir_lf = normalize(vec4( dot(mat1, dir_lf), dot(mat2, dir_lf), dot(mat3, dir_lf), 0.0f));
+                dir_up = normalize(vec4( dot(mat1, dir_up), dot(mat2, dir_up), dot(mat3, dir_up), 0.0f));
+        }
+
+        void Camera::rotate_z(float deg)
+        {
+                aZ += deg * angle_to_rad;
+
+                vec4 mat1(cosf(aZ), -sinf(aZ), 0.0f, 0.0f);
+                vec4 mat2(sinf(aZ),  cosf(aZ), 0.0f, 0.0f);
+                vec4 mat3(0.0f,          0.0f, 1.0f, 0.0f);
+
+                dir    = normalize(vec4( dot(mat1, dir),    dot(mat2, dir),    dot(mat3, dir),    0.0f));
+                dir_lf = normalize(vec4( dot(mat1, dir_lf), dot(mat2, dir_lf), dot(mat3, dir_lf), 0.0f));
+                dir_up = normalize(vec4( dot(mat1, dir_up), dot(mat2, dir_up), dot(mat3, dir_up), 0.0f));
+        }
 
         Ray Camera::get_ray(unsigned int i, unsigned int j, unsigned int part)
 	{

@@ -10,18 +10,11 @@ using namespace std;
 
 namespace rt2
 {
-	Scene::Scene()
-	{
-                cam = Camera ( vec4( 5.0f, 0.0f, 0.0f, 0.0f), vec4(-1.0f, 0.0f, 0.0f, 0.0f), vec4( 0.0f, 1.0f, 0.0f, 0.0f), 256, 256, 60.0f);
-                bvh = NULL;
-                max_count_objects_in_bvh = 32;
-	}
-
-	Scene::Scene(Camera c)
+        Scene::Scene(Camera * c)
 	{
 		cam = c;
                 bvh = NULL;
-                max_count_objects_in_bvh = 32;
+                max_count_objects_in_bvh = 16;
 	}
 
         void Scene::SetMaxCountObjectsInBVH(int max_count)
@@ -62,9 +55,11 @@ namespace rt2
                 v.push_back(new Sphere(vec4(-8.0f, -4.5f,  4.5f, 0.0f), 1.5f));
                 //*/
 
-                /*/
-                v.push_back(new Plane(vec4(0.0f, 0.0f, 0.0f, 0.0f), vec4(0.0f, 1.0f, 0.0f, 0.0f)));
                 //*/
+                //v.push_back(new Plane(vec4(0.0f, 0.0f, 0.0f, 0.0f), vec4(0.0f, 1.0f, 0.0f, 0.0f)));
+                //*/
+
+                //v.push_back(new Sphere(vec4(2.0f, 1.0f, 0.0f, 0.0f), 0.5f));
 
                 /*/
                 v.push_back(new Sphere(vec4(0.0f, 0.0f, 0.0f, 0.0f), 0.25f));
@@ -83,17 +78,10 @@ namespace rt2
                 bvh = new BVH(v, max_count_objects_in_bvh);
 	}
 
-	Camera Scene::get_cam()
+        Camera * Scene::get_cam()
 	{
-		return cam;
+                return cam;
 	}
-
-        Scene::Scene(const Scene & s)
-        {
-                bvh = s.bvh;
-                cam = s.cam;
-                max_count_objects_in_bvh = s.max_count_objects_in_bvh;
-        }
 
         Primitive * Scene::crossing(const Ray & ray, float & t)
 	{

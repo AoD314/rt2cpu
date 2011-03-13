@@ -12,7 +12,7 @@ namespace rt2
 	{
 		private:
 			unsigned int * vbuf;
-			Scene scene;
+                        Scene * scene;
 
 			int threads;
 			int depth;
@@ -25,7 +25,7 @@ namespace rt2
                         mlib::vec4 ray_tracing(const Ray & ray, int d);
 
 		public:
-			Engine(Scene s, unsigned int * vbuffer);
+                        Engine(Scene * s, unsigned int * vbuffer);
 			void rendering();
 
 			unsigned long long get_num_frame();

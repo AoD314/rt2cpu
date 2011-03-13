@@ -11,7 +11,7 @@ using namespace mlib;
 
 namespace rt2
 {
-	Engine::Engine(Scene s, unsigned int * vbuffer)
+        Engine::Engine(Scene * s, unsigned int * vbuffer)
 	{
 		scene = s;
 		vbuf = vbuffer;
@@ -28,7 +28,7 @@ namespace rt2
 	{
                 vec4 point;
                 float t;
-                Primitive * obj = scene.crossing(ray, t);
+                Primitive * obj = scene->crossing(ray, t);
 
                 vec4 color(0.0f);
 
@@ -44,7 +44,7 @@ namespace rt2
                         vec4 dir_to_l = normalize(l_pos - point);
 
                         Ray ray_shadow(point + dir_to_l * 0.00025f, dir_to_l);
-                        Primitive * obj_shadow = scene.crossing(ray_shadow, t);
+                        Primitive * obj_shadow = scene->crossing(ray_shadow, t);
 
                         color = vec4(0.05f, 0.05f, 0.05f, 0.0f);
 
@@ -78,13 +78,13 @@ namespace rt2
 	{
                 //timer.Start();
 
-		unsigned int w = scene.get_cam().get_width();
-		unsigned int h = scene.get_cam().get_height();
+                unsigned int w = scene->get_cam()->get_width();
+                unsigned int h = scene->get_cam()->get_height();
 
                 unsigned int i, j;
 
-		Camera cam = scene.get_cam();
-                int aa = cam.get_aa();
+                Camera * cam = scene->get_cam();
+                int aa = cam->get_aa();
 
                 omp_set_num_threads(threads);
 
@@ -95,7 +95,7 @@ namespace rt2
                                 vec4 color_total;
                                 for (int s = 0; s < aa; s++)
                                 {
-                                        color_total += ray_tracing(cam.get_ray(i, j, s), depth);
+                                        color_total += ray_tracing(cam->get_ray(i, j, s), depth);
                                 }
                                 color_total /= static_cast<float>(aa);
                                 vbuf[j * w + i] = to_color(color_total);
