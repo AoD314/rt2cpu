@@ -47,15 +47,14 @@ namespace rt2
                         Primitive * obj_shadow = scene->crossing(ray_shadow, t);
 
                         color = vec4(0.05f, 0.05f, 0.05f, 0.0f);
+                        vec4 normal = obj->get_normal(point);
+                        vec4 ref = reflect(normal, ray.dir());
 
                         if (obj_shadow == NULL || calc_distance(point, l_pos) < t)
                         {
-                                vec4 normal = obj->get_normal(point);
                                 float d = dot(normal, dir_to_l);
                                 if (d < 0.0f) d = 0.0f;
                                 color += vec4(0.75f) * d;
-
-                                vec4 ref = reflect(normal, ray.dir());
 
                                 float tt = dot(ref, normalize(ray.pos() - point));
 
@@ -63,13 +62,14 @@ namespace rt2
                                 {
                                         color += vec4(0.75f) * powf(tt, 32.0f); // spec
                                 }
-
-                                if ( depth_local > 1)
-                                {
-                                        Ray rray(point + ref * 0.0025f, ref);
-                                        color += ray_tracing(rray, depth_local - 1) * 0.75f;
-                                }
                         }
+
+                        if ( depth_local > 1)
+                        {
+                                Ray rray(point + ref * 0.0025f, ref);
+                                color += ray_tracing(rray, depth_local - 1) * 0.75f;
+                        }
+
                         return color;
                 }
 	}
