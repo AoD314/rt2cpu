@@ -10,16 +10,29 @@ using namespace std;
 
 namespace rt2
 {
-        Scene::Scene(Camera * c)
+        Scene::Scene(Camera * c, Light * l, int cl)
+
 	{
 		cam = c;
                 bvh = NULL;
+                lights = l;
+                count_lights = cl;
                 max_count_objects_in_bvh = 16;
 	}
 
         void Scene::SetMaxCountObjectsInBVH(int max_count)
         {
                 max_count_objects_in_bvh = max_count;
+        }
+
+        int Scene::get_lights()
+        {
+                return count_lights;
+        }
+
+        Light & Scene::get_light(int i)
+        {
+                return lights[i];
         }
 
 	void Scene::load_from_file(const std::string & namefile)
@@ -41,25 +54,42 @@ namespace rt2
                 cout << "total triangles is " << obj.GetCountTriangle() << "\n";
 		cout.flush();
 
+                //*/
+                v.push_back( new Triangle
+                (
+                        vec4( 2.0f, -1.25f,  2.0f, 0.0f),
+                        vec4(-2.0f, -1.25f,  2.0f, 0.0f),
+                        vec4(-2.0f, -1.25f, -2.0f, 0.0f)
+                ));
+
+                v.push_back( new Triangle
+                (
+                        vec4( 2.0f, -1.25f,  2.0f, 0.0f),
+                        vec4(-2.0f, -1.25f, -2.0f, 0.0f),
+                        vec4( 2.0f, -1.25f, -2.0f, 0.0f)
+                ));
+                //*/
+
+
                 /*/
-                v.push_back(new Sphere(vec4(-7.0f, 0.0f, -5.5f, 0.0f), 2.5f));
+                v.push_back(new Sphere(vec4(-7.0f, 0.0f, -4.0f, 0.0f), 2.5f));
                 v.push_back(new Sphere(vec4(-7.0f, 0.0f,  0.0f, 0.0f), 2.5f));
-                v.push_back(new Sphere(vec4(-7.0f, 0.0f,  5.5f, 0.0f), 2.5f));
+                v.push_back(new Sphere(vec4(-7.0f, 0.0f,  4.0f, 0.0f), 2.5f));
 
-                v.push_back(new Sphere(vec4(-8.0f, 4.5f, -4.5f, 0.0f), 1.5f));
-                v.push_back(new Sphere(vec4(-7.0f, 4.5f,  0.0f, 0.0f), 1.5f));
-                v.push_back(new Sphere(vec4(-8.0f, 4.5f,  4.5f, 0.0f), 1.5f));
+                v.push_back(new Sphere(vec4(-8.0f, 4.0f, -4.0f, 0.0f), 2.5f));
+                v.push_back(new Sphere(vec4(-7.0f, 4.0f,  0.0f, 0.0f), 2.5f));
+                v.push_back(new Sphere(vec4(-8.0f, 4.0f,  4.0f, 0.0f), 2.5f));
 
-                v.push_back(new Sphere(vec4(-8.0f, -4.5f, -4.5f, 0.0f), 1.5f));
-                v.push_back(new Sphere(vec4(-7.0f, -4.5f,  0.0f, 0.0f), 1.5f));
-                v.push_back(new Sphere(vec4(-8.0f, -4.5f,  4.5f, 0.0f), 1.5f));
+                v.push_back(new Sphere(vec4(-8.0f, -4.0f, -4.0f, 0.0f), 2.5f));
+                v.push_back(new Sphere(vec4(-7.0f, -4.0f,  0.0f, 0.0f), 2.5f));
+                v.push_back(new Sphere(vec4(-8.0f, -4.0f,  4.0f, 0.0f), 2.5f));
                 //*/
 
                 //*/
                 //v.push_back(new Plane(vec4(0.0f, 0.0f, 0.0f, 0.0f), vec4(0.0f, 1.0f, 0.0f, 0.0f)));
                 //*/
 
-                //v.push_back(new Sphere(vec4(2.0f, 1.0f, 0.0f, 0.0f), 0.5f));
+                v.push_back(new Sphere(vec4(0.45f, 1.25f, -0.05f, 0.0f), 0.25f));
 
                 /*/
                 v.push_back(new Sphere(vec4(0.0f, 0.0f, 0.0f, 0.0f), 0.25f));

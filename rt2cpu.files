@@ -34,6 +34,8 @@ rt2/camera.cpp
 rt2/camera.hpp
 rt2/engine.cpp
 rt2/engine.hpp
+rt2/light.cpp
+rt2/light.hpp
 rt2/ray.cpp
 rt2/ray.hpp
 rt2/scene.cpp

@@ -13,6 +13,7 @@ SDL_Surface *screen;
 #include <string>
 
 #include "scene.hpp"
+#include "light.hpp"
 #include "engine.hpp"
 
 #include "settings.hpp"
@@ -68,15 +69,24 @@ int main ( int argc, char ** argv )
                 Camera * camera = new Camera (cam_pos, 0.0f, 0.0f, 0.0f, settings.width, settings.height, 60.0f, settings.antialiasing);
 
                 camera->rotate_y(45);
-                //camera->rotate_z(45);
                 camera->move(vec4(5.0f, 4.0f, -5.0f, 0.0f));
 
-                Scene * scene = new Scene(camera);
+                // set lights
+
+                Light * lights = new Light[settings.lights];
+                for (size_t i = 0; i < settings.lights; i++)
+                {
+                        float intens = 1.0f / static_cast<float>(settings.lights);
+                        lights[i].set(vec4(6.0f, 15.0f, 6.0f - 0.5f * (i * intens), 0.0f), intens);
+                }
+
+                Scene * scene = new Scene(camera, lights, settings.lights);
                 scene->SetMaxCountObjectsInBVH(settings.max_count_objects_in_bvh);
                 //timer.Start();
                 scene->load_from_file(settings.path_to_objfile);
                 //timer.Stop();
-                //std::cout << "Time build BVH: " << timer.GetTotalTimeInMSeconds() << "ms \n";
+                std::cout << "Time build BVH: ";
+                //<< timer.GetTotalTimeInMSeconds() << "ms \n";
                 std::cout.flush();
                 //timer.Reset();
 
@@ -152,7 +162,7 @@ int main ( int argc, char ** argv )
                                 }
                         }
                         camera->move(cam_pos);
-                        /*/
+                        //*/
 
 			engine.rendering();
 
