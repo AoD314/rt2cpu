@@ -18,43 +18,26 @@ for name in names:
 color_key = 'blue'
 keyword = ['asm', 'auto', 'break', 'case', 'catch', 'char', 'class', 'const', 'continue', 'default', 'do', 'double', 'else', 'enum', 'extern', 'float', 'for', 'friend', 'goto', 'if', 'inline', 'int', 'long', 'namespace', 'new', 'operator', 'private', 'protected', 'public', 'register', 'return', 'short', 'signed', 'sizeof', 'static', 'struct', 'switch', 'template', 'this', 'throw', 'try', 'typedef', 'typeid', 'typename', 'union', 'unsigned', 'using', 'virtual', 'void', 'volatile', 'while']
 
+dic_replace = {}
 
 def gettex(str):
 	if (str in keyword):
-		res = '\\textcolor{' + color_key + '}{' + str + '}'
-		return res
-
-	if (str == " "):
-		res = '\\ '
-		return res
-
+		return '\\textcolor{' + color_key + '}{' + str + '}'
+  
+	if (str in ['{', '}', '#', '%', '&', '$', '_', ' ']):
+		return '\\' + str
+  
 	if (str == '\n'):
-		res = '\\\\\n'
-		return res
+		return '\\\\\n'
 	
 	if (str == '\\'):
 		return '$\\backslash$'
 	
-	if (str == '_'):
-		return '\\_'
-	
-	if (str == '$'):
-		return '\\$'
-
-	if (str == '&'):
-		return '\\&'
-
-	if (str == '%'):
-		return '\\%'
-
 	if (str == "..."):
 		return ' \dots '
 	
 	if (str in ['<', '>', '=']):
 		return '$'+ str +'$'
-	
-	if (str in ['{', '}', '#']):
-		return '\\' + str
 
 	if (str in ['\t']):
 		return '\\ \\ \\ \\ '
@@ -121,4 +104,3 @@ for file_n in files:
 	f.close()
 
 print 'done.'
-
