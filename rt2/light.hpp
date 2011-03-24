@@ -8,10 +8,12 @@ class Light
 {
         private:
                 mlib::vec4 p;
-
+                float intens;
         public:
-                Light(mlib::vec4 pos, float intens);
+                Light();
+                void set(mlib::vec4 pos, float intens);
                 mlib::vec4 pos();
+                mlib::vec4 color();
 };
 
 #endif

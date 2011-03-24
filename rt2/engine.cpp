@@ -40,27 +40,37 @@ namespace rt2
                 {
                         point = ray.pos() + t * ray.dir();
 
-                        vec4 l_pos(40.0f, 20.0f, 10.0f, 0.0f);
-                        vec4 dir_to_l = normalize(l_pos - point);
+                        int cl = scene->get_lights();
 
-                        Ray ray_shadow(point + dir_to_l * 0.00025f, dir_to_l);
-                        Primitive * obj_shadow = scene->crossing(ray_shadow, t);
-
-                        color = vec4(0.05f, 0.05f, 0.05f, 0.0f);
                         vec4 normal = obj->get_normal(point);
                         vec4 ref = reflect(normal, ray.dir());
 
-                        if (obj_shadow == NULL || calc_distance(point, l_pos) < t)
+                        Light light;
+
+                        color = vec4(0.05f, 0.05f, 0.05f, 0.0f);
+
+                        for (int i = 0; i < cl; i++)
                         {
-                                float d = dot(normal, dir_to_l);
-                                if (d < 0.0f) d = 0.0f;
-                                color += vec4(0.75f) * d;
+                                light = scene->get_light(i);
+                                vec4 l_pos = light.pos();
+                                vec4 l_col = light.color();
+                                vec4 dir_to_l = normalize(l_pos - point);
 
-                                float tt = dot(ref, normalize(ray.pos() - point));
+                                Ray ray_shadow(point + dir_to_l * 0.00025f, dir_to_l);
+                                Primitive * obj_shadow = scene->crossing(ray_shadow, t);
 
-                                if (tt > 0.0f)
+                                if (obj_shadow == NULL || calc_distance(point, l_pos) < t)
                                 {
-                                        color += vec4(0.75f) * powf(tt, 32.0f); // spec
+                                        float d = dot(normal, dir_to_l);
+                                        if (d < 0.0f) d = 0.0f;
+                                        color += l_col * d;
+
+                                        float tt = dot(ref, normalize(ray.pos() - point));
+
+                                        if (tt > 0.0f)
+                                        {
+                                                color += vec4(0.75f) * powf(tt, 32.0f); // spec
+                                        }
                                 }
                         }
 
