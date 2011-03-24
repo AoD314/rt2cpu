@@ -15,8 +15,8 @@ namespace rt2
                 pos    = p;
                 dir    = vec4(-1.0f, 0.0f, 0.0f, 0.0f);
                 dir_up = vec4( 0.0f, 1.0f, 0.0f, 0.0f);
-
                 dir_lf = normalize ( cross ( dir, dir_up ));
+
                 width  = w;
 		height = h;
 		aspect = static_cast<float>(width) / static_cast<float>(height);
@@ -70,6 +70,10 @@ namespace rt2
         {
                 aX += deg * angle_to_rad;
 
+                dir    = vec4(-1.0f, 0.0f, 0.0f, 0.0f);
+                dir_up = vec4( 0.0f, 1.0f, 0.0f, 0.0f);
+                dir_lf = normalize ( cross ( dir, dir_up ));
+
                 vec4 mat1(1.0f,     0.0f,      0.0f, 0.0f);
                 vec4 mat2(0.0f, cosf(aX), -sinf(aX), 0.0f);
                 vec4 mat3(0.0f, sinf(aX),  cosf(aX), 0.0f);
@@ -84,6 +88,10 @@ namespace rt2
         {
                 aY += deg * angle_to_rad;
 
+                dir    = vec4(-1.0f, 0.0f, 0.0f, 0.0f);
+                dir_up = vec4( 0.0f, 1.0f, 0.0f, 0.0f);
+                dir_lf = normalize ( cross ( dir, dir_up ));
+
                 vec4 mat1( cosf(aY), 0.0f, sinf(aY), 0.0f);
                 vec4 mat2(     0.0f, 1.0f, 0.0f,     0.0f);
                 vec4 mat3(-sinf(aY), 0.0f, cosf(aY), 0.0f);
@@ -96,6 +104,10 @@ namespace rt2
         void Camera::rotate_z(float deg)
         {
                 aZ += deg * angle_to_rad;
+
+                dir    = vec4(-1.0f, 0.0f, 0.0f, 0.0f);
+                dir_up = vec4( 0.0f, 1.0f, 0.0f, 0.0f);
+                dir_lf = normalize ( cross ( dir, dir_up ));
 
                 vec4 mat1(cosf(aZ), -sinf(aZ), 0.0f, 0.0f);
                 vec4 mat2(sinf(aZ),  cosf(aZ), 0.0f, 0.0f);
