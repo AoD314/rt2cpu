@@ -32,33 +32,36 @@ Lines:   Count byte:      File name:
 module rt2:
 Lines:   Count byte:      File name:
    29           668       plane.hpp                     
-   33           581       camera.hpp                    
+   43          1027       camera.hpp                    
+   19           349       light.hpp                     
    23           246       ray.cpp                       
    44           882       bbox.hpp                      
     2            26       primitive.cpp                 
-   38           817       plane.cpp                     
-   67          1711       sphere.cpp                    
-  118          3702       bvh.cpp                       
-   69          1404       triangle.cpp                  
-   47           752       engine.hpp                    
+   38           813       plane.cpp                     
+   67          1714       sphere.cpp                    
+  118          3700       bvh.cpp                       
+   69          1415       triangle.cpp                  
+   60          1094       engine.hpp                    
    23           455       primitive.hpp                 
-  107          3248       scene.cpp                     
-  129          3200       engine.cpp                    
+  125          3757       scene.cpp                     
+  175          5383       engine.cpp                    
    33           634       triangle.hpp                  
    31           589       sphere.hpp                    
    35           563       ray.hpp                       
   107          2538       bbox.cpp                      
-   79          1978       camera.cpp                    
-   42           746       scene.hpp                     
+  159          5293       camera.cpp                    
+   47           971       scene.hpp                     
+    9            94       config.hpp                    
    30           626       bvh.hpp                       
+   22           251       light.cpp                     
 
 module tests:
 Lines:   Count byte:      File name:
-  349         10102       correct_tests_rt2cpu.cpp      
+  340          9880       correct_tests_rt2cpu.cpp      
   130          2988       cmp_tests.cpp                 
    35           600       tests.hpp                     
   209          4466       performance_tests_mlib.cpp    
-  463         13445       correct_tests_mlib.cpp        
+  475         13755       correct_tests_mlib.cpp        
 
 module docs:
 Lines:   Count byte:      File name:
@@ -72,19 +75,21 @@ Lines:   Count byte:      File name:
     4           268       specfactorial.tex             
     5           300       definetemplate.tex            
    17           999       triangle.tex                  
-  800         85075       rt2cpu.tex                    
+  840         93652       rt2cpu.tex                    
 
 module python:
 Lines:   Count byte:      File name:
-  124          2682       convert-cpp-to-tex.py         
+  106          2519       convert-cpp-to-tex.py         
    72          1770       cmp_virtual_method.py         
-   17           333       build_docs.py                 
+   21           449       build_docs.py                 
+   48          1033       aa_pattern.py                 
+   59          1263       aa_example.py                 
 
 All:
-Total count source files : 66
-Total lines source code : 5090
-Total lines docs : 949
-Total lines python scripts : 213
-Total size source code  : 121479 byte = 118 KByte
+Total count source files : 69
+Total lines source code : 5390
+Total lines docs : 989
+Total lines python scripts : 306
+Total size source code  : 133422 byte = 130 KByte
  
-TOTAL LINE WORK: 6252
+TOTAL LINE WORK: 6685
