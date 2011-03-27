@@ -26,7 +26,7 @@ if 'w' in mode:
 	flgs += ' -Wunreachable-code -Woverloaded-virtual -Wctor-dtor-privacy -Wnon-virtual-dtor ' 
 
 e = Environment(CC = 'g++')
-e.Append(CCFLAGS = '-msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -fopenmp -msahf -fstack-protector-all')
+e.Append(CCFLAGS = '-msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -std=c++0x -fopenmp -msahf -fstack-protector-all')
 e.Append(CCFLAGS = flgs)
 e.Append(LINKFLAGS = '-fopenmp')
 e.Append(LINKFLAGS = '-Wl,-R./build')
@@ -44,7 +44,7 @@ cmp_src  = ['tests/cmp_tests.cpp']
 
 
 e.SharedLibrary('./build/mlib.so', mlib_src)
-e.SharedLibrary('./build/rt2.so', rt2_src, CPPPATH='./mlib/')
+e.SharedLibrary('./build/rt2.so', rt2_src, CPPPATH='./mlib/', LIBS=['gomp', 'tbb'])
 
 e.Program('./build/rt2cpu', rt2cpu_src, CPPPATH=['./mlib/', './rt2/'], LIBS=['SDL', 'gomp', 'mlib', 'rt2'], LIBPATH='./build')
 

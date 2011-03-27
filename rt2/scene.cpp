@@ -89,7 +89,7 @@ namespace rt2
                 //v.push_back(new Plane(vec4(0.0f, 0.0f, 0.0f, 0.0f), vec4(0.0f, 1.0f, 0.0f, 0.0f)));
                 //*/
 
-                v.push_back(new Sphere(vec4(0.45f, 1.25f, -0.05f, 0.0f), 0.25f));
+                v.push_back(new Sphere(vec4(0.45f, 1.30f, -0.15f, 0.0f), 0.30f));
 
                 /*/
                 v.push_back(new Sphere(vec4(0.0f, 0.0f, 0.0f, 0.0f), 0.25f));

@@ -17,6 +17,7 @@ SDL_Surface *screen;
 #include "engine.hpp"
 
 #include "settings.hpp"
+#include "config.hpp"
 
 #include <mlib/timer.hpp>
 #include <mlib/float.hpp>
@@ -60,8 +61,14 @@ int main ( int argc, char ** argv )
 		if (settings.is_exit) return 0;
 		settings.print_params();
 
-                //Timer timer;
-                //std::cout << "\nCPU Frequency: " << timer.GetFrequency() << std::endl;
+                #ifdef use_tbb
+                        std::cout << "using : TBB\n";
+                #else
+                        std::cout << "using : OpenMP\n";
+                #endif
+
+                Timer timer;
+                std::cout << "\nCPU Frequency: " << timer.GetFrequency() << std::endl;
 		std::cout.flush();
 
                 vec4 cam_pos = vec4( 5.0f, 0.0f, 0.0f, 0.0f);
@@ -77,18 +84,18 @@ int main ( int argc, char ** argv )
                 for (size_t i = 0; i < settings.lights; i++)
                 {
                         float intens = 1.0f / static_cast<float>(settings.lights);
-                        lights[i].set(vec4(6.0f, 15.0f, 6.0f - 0.5f * (i * intens), 0.0f), intens);
+                        lights[i].set(vec4(6.0f, 8.0f, 6.0f - 1.0f * (i * intens), 0.0f), intens);
                 }
 
                 Scene * scene = new Scene(camera, lights, settings.lights);
                 scene->SetMaxCountObjectsInBVH(settings.max_count_objects_in_bvh);
-                //timer.Start();
+                timer.Start();
                 scene->load_from_file(settings.path_to_objfile);
-                //timer.Stop();
+                timer.Stop();
                 std::cout << "Time build BVH: ";
-                //<< timer.GetTotalTimeInMSeconds() << "ms \n";
+                std::cout << timer.GetTotalTimeInMSeconds() << " ms \n";
                 std::cout.flush();
-                //timer.Reset();
+                timer.Reset();
 
 		Engine engine(scene, InitSDL(settings));
                 engine.set_threads(settings.threads);                
@@ -175,9 +182,9 @@ int main ( int argc, char ** argv )
                         if (exit == true) break;
 		}
 
-                //timer.Stop ();
+                timer.Stop ();
 
-                //std::cout << "\n\nTotal time: " << timer;
+                std::cout << "\n\nTotal time: " << timer;
                 std::cout << "\n";
 	}
 	catch (Exception & exception)

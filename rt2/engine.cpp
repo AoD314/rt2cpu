@@ -7,8 +7,6 @@ using namespace mlib;
 
 #include <math.h>
 
-#include "config.hpp"
-
 namespace rt2
 {
         Engine::Engine(Scene * s, unsigned int * vbuffer)
@@ -69,7 +67,7 @@ namespace rt2
 
                                         if (tt > 0.0f)
                                         {
-                                                color += vec4(0.75f) * powf(tt, 32.0f); // spec
+                                                color += vec4(0.75f) * powf(tt, 64.0f); // spec
                                         }
                                 }
                         }
@@ -96,20 +94,48 @@ namespace rt2
                 Camera * cam = scene->get_cam();
                 int aa = cam->get_aa();
 
-                omp_set_num_threads(threads);
+                #ifndef use_tbb
 
-                #pragma omp parallel for private(i, j) schedule(static, 1)
-                for (j = 0; j < h; j++)
-                        for (i = 0; i < w; i++)
-			{
-                                vec4 color_total;
-                                for (int s = 0; s < aa; s++)
+                        #pragma omp parallel for private(i, j) schedule(static, 1)
+                        for (j = 0; j < h; j++)
+                                for (i = 0; i < w; i++)
                                 {
-                                        color_total += ray_tracing(cam->get_ray(i, j, s), depth);
+                                        vec4 color_total;
+                                        for (int s = 0; s < aa; s++)
+                                        {
+                                                color_total += ray_tracing(cam->get_ray(i, j, s), depth);
+                                        }
+                                        color_total /= static_cast<float>(aa);
+                                        vbuf[j * w + i] = to_color(color_total);
                                 }
-                                color_total /= static_cast<float>(aa);
-                                vbuf[j * w + i] = to_color(color_total);
-			}
+
+                #else
+
+
+
+                tbb::parallel_for
+                (
+                        tbb::blocked_range<size_t> ( size_t(0), w * h, w ),
+                        [&]( const tbb::blocked_range<size_t>& range)
+                        {
+                                size_t i, j;
+                                for ( size_t ind = range.begin(); ind < range.end(); ++ind )
+                                {
+                                        i = ind / w;
+                                        j = ind - i * w;
+
+                                        vec4 color_total;
+                                        for (int s = 0; s < aa; s++)
+                                        {
+                                                color_total += ray_tracing(cam->get_ray(i, j, s), depth);
+                                        }
+                                        color_total /= static_cast<float>(aa);
+                                        vbuf[ind] = to_color(color_total);
+                                }
+                        }, ap
+                );
+
+                #endif
 
                 //timer.Stop();
                 //fps = static_cast<float>(timer.OperationPerSecond());
@@ -129,6 +155,11 @@ namespace rt2
 	void Engine::set_threads(int t)
 	{
 		threads = t;
+                #ifndef use_tbb
+                        omp_set_num_threads(threads);
+                #else
+                        init.initialize(threads);
+                #endif
 	}
 
 	void Engine::set_depth(int d)
