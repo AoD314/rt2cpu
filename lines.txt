@@ -40,12 +40,12 @@ Lines:   Count byte:      File name:
    38           813       plane.cpp                     
    67          1714       sphere.cpp                    
   118          3700       bvh.cpp                       
-   69          1415       triangle.cpp                  
-   60          1094       engine.hpp                    
+   70          1467       triangle.cpp                  
+   60          1092       engine.hpp                    
    23           455       primitive.hpp                 
-  125          3757       scene.cpp                     
-  175          5383       engine.cpp                    
-   33           634       triangle.hpp                  
+  125          3756       scene.cpp                     
+  173          5594       engine.cpp                    
+   32           641       triangle.hpp                  
    31           589       sphere.hpp                    
    35           563       ray.hpp                       
   107          2538       bbox.cpp                      
@@ -75,7 +75,7 @@ Lines:   Count byte:      File name:
     4           268       specfactorial.tex             
     5           300       definetemplate.tex            
    17           999       triangle.tex                  
-  840         93652       rt2cpu.tex                    
+  842         93754       rt2cpu.tex                    
 
 module python:
 Lines:   Count byte:      File name:
@@ -87,9 +87,9 @@ Lines:   Count byte:      File name:
 
 All:
 Total count source files : 69
-Total lines source code : 5390
-Total lines docs : 989
+Total lines source code : 5321
+Total lines docs : 991
 Total lines python scripts : 306
-Total size source code  : 133422 byte = 130 KByte
+Total size source code  : 129868 byte = 126 KByte
  
-TOTAL LINE WORK: 6685
+TOTAL LINE WORK: 6618
