@@ -54,7 +54,7 @@ namespace rt2
                 cout << "total triangles is " << obj.GetCountTriangle() << "\n";
 		cout.flush();
 
-                //*/
+                /*/
                 v.push_back( new Triangle
                 (
                         vec4( 2.0f, -1.25f,  2.0f, 0.0f),
