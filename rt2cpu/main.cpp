@@ -31,24 +31,32 @@ using namespace std;
 unsigned int * InitSDL(const Settings & settings)
 {
         unsigned int * buf = NULL;
-        screen = NULL;
 
-	if ( (SDL_Init ( SDL_INIT_VIDEO )) < 0 )
-	{
-		printf ( "Don't init SDL: %s\n", SDL_GetError ( ) );
-		return NULL;
-	}
+        if (settings.benchmark_mode == true)
+        {
+                buf = new unsigned int[settings.width * settings.height];
+        }
+        else
+        {
+                screen = NULL;
 
-	screen = SDL_SetVideoMode ( settings.width, settings.height, bpp, SDL_HWSURFACE );
-	if ( screen == NULL )
-	{
-		printf ( "Don't init resolution (%dx%d) : %s\n", settings.width, settings.height, SDL_GetError ( ) );
-		return NULL;
-	}
+                if ( (SDL_Init ( SDL_INIT_VIDEO )) < 0 )
+                {
+                        printf ( "Don't init SDL: %s\n", SDL_GetError ( ) );
+                        return NULL;
+                }
 
-	SDL_WM_SetCaption ( "Engine: RT2", 0 );
-	buf = static_cast<unsigned int *>(screen->pixels);
-	SDL_UpdateRect ( screen, 0, 0, settings.width, settings.height);
+                screen = SDL_SetVideoMode ( settings.width, settings.height, bpp, SDL_HWSURFACE );
+                if ( screen == NULL )
+                {
+                        printf ( "Don't init resolution (%dx%d) : %s\n", settings.width, settings.height, SDL_GetError ( ) );
+                        return NULL;
+                }
+
+                SDL_WM_SetCaption ( "Engine: RT2", 0 );
+                buf = static_cast<unsigned int *>(screen->pixels);
+                SDL_UpdateRect ( screen, 0, 0, settings.width, settings.height);
+        }
 
 	return buf;
 }
