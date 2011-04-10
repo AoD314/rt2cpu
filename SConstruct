@@ -16,10 +16,10 @@ if 'd' in mode:
 	flgs += ' -g -ggdb -O0 '
 
 if 'r' in mode:
-	flgs += ' -O3 '
+        flgs += ' -O3 '
 
 if 'p' in mode:
-	flgs += ' -pg '
+        flgs += ' -O3 -g '
 
 if 'w' in mode:
 	flgs += ' -Wall -Wextra -pedantic -Weffc++ -Wconversion -Wsign-conversion -Wold-style-cast ' 
@@ -29,7 +29,6 @@ e = Environment(CC = 'g++')
 e.Append(CCFLAGS = '-msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -std=c++0x -fopenmp -msahf -fstack-protector-all')
 e.Append(CCFLAGS = flgs)
 e.Append(LINKFLAGS = '-fopenmp')
-e.Append(LINKFLAGS = '-Wl,-R./build')
 
 e['PRINT_CMD_LINE_FUNC'] = print_cmd_line
 
