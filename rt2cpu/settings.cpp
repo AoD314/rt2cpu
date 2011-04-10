@@ -8,15 +8,15 @@ Settings::Settings (int argc, char ** argv)
 {
         ConsoleParameters params(argc, argv);
 
-        lights   = params.get("--lights  | -l", 4);
-        depth    = params.get("--depth   | -d", 4);
+        lights   = params.get("--lights  | -l", 2);
+        depth    = params.get("--depth   | -d", 2);
         threads  = params.get("--threads | -t", 12);
         width    = params.get("--width   | -w", 512);
         height   = params.get("--height  | -h", 512);
 
         antialiasing = params.get("--antialiasing | -a ", 4);
 
-        count_frame              = params.get<size_t>("--frame  | -f",  4);
+        count_frame              = params.get<size_t>("--frame  | -f",  3);
         max_count_objects_in_bvh = params.get<size_t>("--bvhobj | -bo", 8);
 
         benchmark_mode = params.has("--benchmark | -b");
