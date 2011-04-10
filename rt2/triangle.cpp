@@ -47,6 +47,7 @@ namespace rt2
 
         float Triangle::crossing(const Ray & r)
 	{
+                //_mm_prefetch(&v0, _MM_HINT_T0);
                 vec4 pos = r.pos();
                 vec4 dir = r.dir();
                 vec4 t = v0 - pos;
@@ -57,7 +58,7 @@ namespace rt2
                 vec4 tuv = tmp * 1.0f / dot (dir, normal);
 
                 int b = (tuv[1]>=0.0f && tuv[2]>=0.0f && tuv[0]>=0.0f && (tuv[1] + tuv[2] <= 1.0f));
-                return b*tuv[0] + b - 1;
+                return b*tuv[0] + (b - 1);
         }
 }
 

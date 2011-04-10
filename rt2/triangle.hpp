@@ -13,8 +13,7 @@ namespace rt2
         class Triangle : public Primitive
 	{
 		private:
-			mlib::vec4 v0, v1, v2, normal;
-			mlib::vec4 e1, e2;
+                        mlib::vec4 v0, e1, e2, normal, v1, v2;
 
 		public:
                         Triangle(mlib::vec4 a, mlib::vec4 b, mlib::vec4 c);
