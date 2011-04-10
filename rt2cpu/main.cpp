@@ -101,85 +101,18 @@ int main ( int argc, char ** argv )
                 engine.set_threads(settings.threads);                
                 engine.set_depth(settings.depth);
 
-                //timer.Start();
-
-                SDL_Event event;
-                bool exit = false;
+                timer.Start();
 
                 for (size_t i = 0; i < settings.count_frame; i++)
 		{
-                        /*/
-                        while (SDL_PollEvent(&event))
-                        {
-                                switch( event.type )
-                                {
-                                        case SDL_KEYDOWN:
-                                                switch( event.key.keysym.sym )
-                                                {
-                                                        case SDLK_w:
-                                                                camera->rotate_x(1);
-                                                        break;
-                                                        case SDLK_q:
-                                                                camera->rotate_x(-1);
-                                                        break;
-
-                                                        case SDLK_a:
-                                                                camera->rotate_y(1);
-                                                        break;
-                                                        case SDLK_s:
-                                                                camera->rotate_y(-1);
-                                                        break;
-
-                                                        case SDLK_z:
-                                                                camera->rotate_z(1);
-                                                        break;
-                                                        case SDLK_x:
-                                                                camera->rotate_z(-1);
-                                                        break;
-
-                                                        case SDLK_UP:
-                                                                cam_pos(0, cam_pos[0] + 0.1f);
-                                                        break;
-                                                        case SDLK_DOWN:
-                                                                cam_pos(0, cam_pos[0] - 0.1f);
-                                                        break;
-
-                                                        case SDLK_LEFT:
-                                                                cam_pos(1, cam_pos[1] + 0.1f);
-                                                        break;
-                                                        case SDLK_RIGHT:
-                                                                cam_pos(1, cam_pos[1] - 0.1f);
-                                                        break;
-
-                                                        case SDLK_LESS:
-                                                                cam_pos(2, cam_pos[2] + 0.1f);
-                                                        break;
-                                                        case SDLK_GREATER:
-                                                                cam_pos(2, cam_pos[2] - 0.1f);
-                                                        break;
-
-                                                        case SDLK_ESCAPE:
-                                                                exit = true;
-                                                        break;
-
-                                                        default:
-                                                        break;
-                                                }
-                                        break;
-                                }
-                        }
-                        camera->move(cam_pos);
-                        //*/
-
 			engine.rendering();
 
 			if ( settings.file_write == true )
 			{
-				SDL_SaveBMP ( screen, string(Long::ToString(engine.get_num_frame(), 8) + ".bmp").c_str() );
+                                SDL_SaveBMP ( screen, string(Long::ToString(engine.get_num_frame(), 8) + ".bmp").c_str() );
 			}
-                        std::cout << "\nframe [" << Long::ToString(engine.get_num_frame(), 5) << "] = " << Float::ToString(engine.get_fps(), 3) << " fps"; std::cout.flush();
+                        cout << "\nframe [" << Long::ToString(engine.get_num_frame(), 5) << "] = " << Float::ToString(engine.get_fps(), 3) << " fps"; cout.flush();
 			SDL_UpdateRect ( screen, 0, 0, settings.width, settings.height);
-                        if (exit == true) break;
 		}
 
                 timer.Stop ();

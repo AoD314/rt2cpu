@@ -29,7 +29,7 @@ namespace rt2
 
 			unsigned long long num_frame;
 			float fps;
-                        //mlib::Timer timer;
+                        mlib::Timer timer;
 
                         #ifdef use_tbb
 

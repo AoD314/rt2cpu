@@ -84,7 +84,7 @@ namespace rt2
 
 	void Engine::rendering()
 	{
-                //timer.Start();
+                timer.Start();
 
                 unsigned int w = scene->get_cam()->get_width();
                 unsigned int h = scene->get_cam()->get_height();
@@ -101,7 +101,7 @@ namespace rt2
                                 for (i = 0; i < w; i++)
                                 {
                                         vec4 color_total;
-                                        for (int s = 0; s < aa; s++)
+                                        for (unsigned int s = 0; s < aa; s++)
                                         {
                                                 color_total += ray_tracing(cam->get_ray(i, j, s), depth);
                                         }
@@ -111,34 +111,32 @@ namespace rt2
 
                 #else
 
-
-
-                tbb::parallel_for
-                (
-                        tbb::blocked_range<size_t> ( size_t(0), w * h, w ),
-                        [&]( const tbb::blocked_range<size_t>& range)
-                        {
-                                size_t i, j;
-                                for ( size_t ind = range.begin(); ind < range.end(); ++ind )
+                        tbb::parallel_for
+                        (
+                                tbb::blocked_range<unsigned int> ( static_cast<unsigned int>(0), w * h ),
+                                [&]( const tbb::blocked_range<unsigned int> & range)
                                 {
-                                        i = ind / w;
-                                        j = ind - i * w;
-
-                                        vec4 color_total;
-                                        for (int s = 0; s < aa; s++)
+                                        unsigned int i, j;
+                                        for ( unsigned int ind = range.begin(); ind < range.end(); ind++ )
                                         {
-                                                color_total += ray_tracing(cam->get_ray(i, j, s), depth);
+                                                i = ind / w;
+                                                j = ind - i * w;
+
+                                                vec4 color_total;
+                                                for (unsigned int s = 0; s < aa; s++)
+                                                {
+                                                        color_total += ray_tracing(cam->get_ray(i, j, s), depth);
+                                                }
+                                                color_total /= static_cast<float>(aa);
+                                                vbuf[ind] = to_color(color_total);
                                         }
-                                        color_total /= static_cast<float>(aa);
-                                        vbuf[ind] = to_color(color_total);
-                                }
-                        }, ap
-                );
+                                }, ap
+                        );
 
                 #endif
 
-                //timer.Stop();
-                //fps = static_cast<float>(timer.OperationPerSecond());
+                timer.Stop();
+                fps = static_cast<float>(timer.OperationPerSecond());
 		num_frame++;
 	}
 
