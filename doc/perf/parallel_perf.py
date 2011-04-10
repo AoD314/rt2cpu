@@ -89,7 +89,7 @@ plt.plot(range(1, th+1), perf[3], 'gs-', aa=True, label=level[3])
 
 ax.legend(loc='lower right')
 
-plt.ylabel(unicode('fps', 'utf-8'))
+plt.ylabel(unicode('Ускорение', 'utf-8'))
 plt.xlabel(unicode('Количесво активных потоков', 'utf-8'))
 plt.title (unicode('Эффективность реализации параллельного алгоритма', 'utf-8'))
 plt.grid(True)
