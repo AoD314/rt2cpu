@@ -1,0 +1,67 @@
+\documentclass[utf8]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+%выбор темы
+\usetheme{Madrid}
+\useoutertheme{shadow}
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}[frame number]
+
+\title{Трассировка лучей в реальном времени на~x64~архитектуре}
+\author{Морозов А.С.}
+\date{01.06.2011 г.}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Постановка задачи}
+Высокопроизводительная реализация алгоритма трассировки лучей:
+\begin{itemize}
+\item векторизация (SIMD)
+\item параллелизация (TBB, OpenMP)
+\item алгоритмическая оптимизация
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Трассировка лучей}
+$$
+ \vec{I}_{local} =  K_{amb} \cdot \vec{I}_{amb} +  K_{diff} \cdot \vec{I}_{diff} \cdot \left( \vec{L},\vec{N} \right) + K_{spec} \cdot \vec{I}_{spec} \cdot \left( \vec{R},\vec{V} \right)^n
+$$
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Оптимизация}
+\end{frame}
+
+\begin{frame}
+\frametitle{Результаты}
+\end{frame}
+
+\begin{frame}
+\frametitle{Результаты}
+\end{frame}
+
+\begin{frame}
+\frametitle{Результаты}
+\end{frame}
+
+\begin{frame}
+\frametitle{Выводы}
+\end{frame}
+
+\begin{frame}
+\frametitle{Вопросы ?}
+\begin{center}
+{\huge Спасибо за внимание !}
+\end{center}
+\end{frame}
+
+
+\end{document}
