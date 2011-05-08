@@ -21,7 +21,6 @@ namespace rt2
                 return i - 2.0f * n * dot (n, i);
         }
 
-
         vec4 Engine::ray_tracing(const Ray & ray, int depth_local)
 	{
                 vec4 point;
@@ -40,14 +39,10 @@ namespace rt2
                         vec4 rpos = ray.pos();
                         point = rpos + t * rdir;
 
-
-                        vec4 normal = obj->get_normal(point);
-
                         int cl = scene->get_lights();
 
+                        vec4 normal = obj->get_normal(point);
                         vec4 ref = reflect(normal, rdir);
-
-                        cl += scene->get_lights();
 
                         Light light;
 

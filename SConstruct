@@ -8,8 +8,7 @@ def print_cmd_line(s, target, src, env):
 	#sys.stdout.write(" (CC) %s \n"% (' and '.join([str(x) for x in target])))
 	sys.stdout.write("%s\n"%s); # by default
 
-optimize  = '-fexpensive-optimizations -finline-functions -flto-report -foptimize-register-move -ftree-loop-optimize '
-optimize += '-foptimize-sibling-calls -fprefetch-loop-arrays -frename-registers -freorder-blocks -freorder-blocks-and-partition -freorder-functions '
+optimize  = '-finline-functions -ftree-loop-optimize -foptimize-sibling-calls'
 
 mode = 'r'  # [ r - release], [d - debug], [p - profile], [w - warrning]
 
