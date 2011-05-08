@@ -43,6 +43,7 @@ for t in range(1, th + 1):
         else:
             f.write("&")
 f.write("\\hline\n")
+f.write("\\caption{Производительность реализации параллельного алгоритма}\\label{tab:perf_parallel_alg}")
 f.write("\\end{longtable}\n")
 f.write("\\end{center}\n\n")
     
@@ -69,7 +70,6 @@ ax.legend(loc='best')
 
 plt.ylabel(unicode('fps', 'utf-8'))
 plt.xlabel(unicode('Количесво активных потоков', 'utf-8'))
-plt.title (unicode('Эффективность реализации параллельного алгоритма', 'utf-8'))
 plt.grid(True)
 plt.savefig("table_perf.eps")
 
@@ -91,7 +91,6 @@ ax.legend(loc='lower right')
 
 plt.ylabel(unicode('Ускорение', 'utf-8'))
 plt.xlabel(unicode('Количесво активных потоков', 'utf-8'))
-plt.title (unicode('Эффективность реализации параллельного алгоритма', 'utf-8'))
 plt.grid(True)
 plt.savefig("table_perf_eff.eps")
     
