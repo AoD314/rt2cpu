@@ -56,9 +56,9 @@
 \newcommand{\HRule}{\noindent\rule{\linewidth}{0.45mm}}
 
 \newcounter{sourcecode}
-\setcounter{sourcecode}{1}
-\newcommand*{\cppsource}[2]{\par{\HRule \small \tt \bf \noindent \ Листинг \arabic{sourcecode}. {\rm \small #2} \vspace{0.25cm}}%
-\addtocounter{sourcecode}{1} \input{#1} \HRule}
+\setcounter{sourcecode}{0}
+\newcommand*{\cppsource}[2]{\refstepcounter{sourcecode} \par{\HRule \small \tt \bf \noindent \ Листинг \arabic{sourcecode}. {\rm \small #2} \vspace{0.25cm}}%
+\input{#1} \HRule}
 
 \makeindex
 
@@ -923,7 +923,7 @@ for(std::size_t i = 0; i < size; ++i)
 
 \cppsource{src/defvectoret.tex}{Определение структуры vector с ET}
 
-Данный класс очень похож на класс, который был продемонстрирован выше, но все же с отличием. Перегружен специальным образом оператор присваивания. Это сделано для того, что бы каждому элементу data[i] вычислить выражение стоящие в правой части выражения. Подробнее рассмотрим, что же это за выражение и каким образом к нему применимы операции (expr[i]).
+Данный класс очень похож на класс, который был продемонстрирован выше, но все же с отличием. Перегружен специальным образом оператор присваивания. Это сделано для того, что бы каждому элементу $data[i]$ вычислить выражение стоящие в правой части выражения. Подробнее рассмотрим, что же это за выражение и каким образом к нему применимы операции ($expr[i]$).
 
 \cppsource{src/defx.tex}{Определение структуры X}
 
@@ -939,8 +939,6 @@ for(std::size_t i = 0; i < size; ++i)
 \subsubsection{Базовые операции в классе vec4}
 
 \subsubsection{Скалярное произведение векторов}
-
-\cppsource{src/asm_reflect.tex}{Метод reflect}
 
 \subsection{Ускоряющие структуры}
 
@@ -1004,7 +1002,18 @@ Intel Core i7 980X -- это процессор семейства Gulftown вы
 
 \subsubsection{Эксперименты с высокоточным таймером}
 
-\subsection{Вектора и Expression templates}
+\subsection{Вектора и Expression Templates}
+
+\subsubsection{Оптимизация метода reflect}
+
+Посмотрим на результаты применения техники Expression Templates. По формуле~(\ref{eq_reflect}) на стр.~\pageref{eq_reflect} запрограммируем метод reflect.
+ А вот в исходнике (\ref{cource_reflect}) на стр.~\pageref{cource_reflect}.
+
+\cppsource{src/cpp_reflect.tex}{Исходный код метода reflect}\label{cource_reflect}
+
+Посмотрим на получаемый ассемблерный код.
+
+\cppsource{src/asm_reflect.tex}{Метод reflect}
 
 \subsection{Тестовая сцена}
 
