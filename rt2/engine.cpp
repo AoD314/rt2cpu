@@ -16,7 +16,7 @@ namespace rt2
 		num_frame = 0;
 	}
 
-        vec4 Engine::reflect(vec4 n, vec4 i)
+        inline vec4 Engine::reflect(const vec4 & n, const vec4 & i)
         {
                 return i - 2.0f * n * dot (n, i);
         }
@@ -36,12 +36,18 @@ namespace rt2
                 }
                 else
                 {
-                        point = ray.pos() + t * ray.dir();
+                        vec4 rdir = ray.dir();
+                        vec4 rpos = ray.pos();
+                        point = rpos + t * rdir;
+
+
+                        vec4 normal = obj->get_normal(point);
 
                         int cl = scene->get_lights();
 
-                        vec4 normal = obj->get_normal(point);
-                        vec4 ref = reflect(normal, ray.dir());
+                        vec4 ref = reflect(normal, rdir);
+
+                        cl += scene->get_lights();
 
                         Light light;
 
@@ -63,7 +69,7 @@ namespace rt2
                                         if (d < 0.0f) d = 0.0f;
                                         color += l_col * d;
 
-                                        float tt = dot(ref, normalize(ray.pos() - point));
+                                        float tt = dot(ref, normalize(rpos - point));
 
                                         if (tt > 0.0f)
                                         {

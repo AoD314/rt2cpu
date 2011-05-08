@@ -38,7 +38,7 @@ namespace rt2
 
                         #endif
 
-                        mlib::vec4 reflect(mlib::vec4 n, mlib::vec4 i);
+                        inline mlib::vec4 reflect(const mlib::vec4 & n, const mlib::vec4 & i);
                         mlib::vec4 ray_tracing(const Ray & ray, int d);
 
 		public:
