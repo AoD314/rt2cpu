@@ -26,7 +26,10 @@ def gettex(str):
   
 	if (str in ['{', '}', '#', '%', '&', '$', '_', ' ']):
 		return '\\' + str
-  
+ 
+ 	if (str == '~'):
+		return '$\\sim$'
+
 	if (str == '\n'):
 		return '\\\\\n'
 	
