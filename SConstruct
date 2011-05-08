@@ -8,6 +8,9 @@ def print_cmd_line(s, target, src, env):
 	#sys.stdout.write(" (CC) %s \n"% (' and '.join([str(x) for x in target])))
 	sys.stdout.write("%s\n"%s); # by default
 
+optimize  = '-fexpensive-optimizations -finline-functions -flto-report -foptimize-register-move -ftree-loop-optimize '
+optimize += '-foptimize-sibling-calls -fprefetch-loop-arrays -frename-registers -freorder-blocks -freorder-blocks-and-partition -freorder-functions '
+
 mode = 'r'  # [ r - release], [d - debug], [p - profile], [w - warrning]
 
 flgs = ''
@@ -16,10 +19,10 @@ if 'd' in mode:
 	flgs += ' -g -ggdb -O0 '
 
 if 'r' in mode:
-        flgs += ' -O3 '
+        flgs += ' -O3 ' + optimize
 
 if 'p' in mode:
-        flgs += ' -O3 -g '
+        flgs += ' -O3 -g ' + optimize
 
 if 'w' in mode:
 	flgs += ' -Wall -Wextra -pedantic -Weffc++ -Wconversion -Wsign-conversion -Wold-style-cast ' 
@@ -42,15 +45,16 @@ perf_src = ['tests/performance_tests_mlib.cpp']
 cmp_src  = ['tests/cmp_tests.cpp']
 
 
-e.SharedLibrary('./build/mlib.so', mlib_src)
-e.SharedLibrary('./build/rt2.so', rt2_src, CPPPATH='./mlib/', LIBS=['gomp', 'tbb'])
+#StaticLibrary
+#SharedLibrary
+e.StaticLibrary('./build/mlib', mlib_src)
+e.StaticLibrary('./build/rt2', rt2_src, CPPPATH='./mlib/', LIBS=['gomp', 'tbb', 'mlib'])
 
-e.Program('./build/rt2cpu', rt2cpu_src, CPPPATH=['./mlib/', './rt2/'], LIBS=['SDL', 'gomp', 'mlib', 'rt2'], LIBPATH='./build')
+e.Program('./build/rt2cpu', rt2cpu_src, CPPPATH=['./mlib/', './rt2/'], LIBS=['SDL', 'gomp', 'rt2', 'mlib'], LIBPATH='./build')
 
 e.Program('./build/correct_tests_mlib',  tests_src_mlib,   CPPPATH='./mlib/',             LIBS=['gomp', 'mlib'], LIBPATH='./build')
-e.Program('./build/correct_tests_rt2',   tests_src_rt2cpu, CPPPATH=['./mlib/', './rt2/'], LIBS=['gomp', 'mlib', 'rt2'], LIBPATH='./build')
-e.Program('./build/performance_tests_mlib', perf_src, CPPPATH=['./mlib/','./rt2/'], LIBS=['gomp', 'mlib', 'rt2'], LIBPATH='./build')
+e.Program('./build/correct_tests_rt2',   tests_src_rt2cpu, CPPPATH=['./mlib/', './rt2/'], LIBS=['gomp', 'rt2', 'mlib'], LIBPATH='./build')
+e.Program('./build/performance_tests_mlib', perf_src, CPPPATH=['./mlib/','./rt2/'], LIBS=['gomp', 'rt2', 'mlib'], LIBPATH='./build')
 e.Program('./build/cmp_tests', cmp_src, CPPPATH='./mlib/', LIBS=['gomp', 'mlib'], LIBPATH='./build')
-
 e.Program('doc/apps/cmp_virtual_method',  ['doc/apps/cmp_virtual_method.cpp'],  CPPPATH='./mlib/', LIBS=['gomp', 'mlib'], LIBPATH='./build')
 
