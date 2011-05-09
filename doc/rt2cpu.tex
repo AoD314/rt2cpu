@@ -1021,8 +1021,16 @@ Intel Core i7 980X -- это процессор семейства Gulftown вы
 Как можно видеть, команды, которые вычисляют непосредственно выражение это строки [07-11] включительно. 
 Если был бы использован класс std::valarray, то нам потребовалось бы 16 операций = 9 умножений + 3 сложения + 4 вычитания. А в оптимизированном случае получили всего 5 инструкций.
 
-\subsection{Тестовая сцена}
+\subsubsection{Результаты вычисления арифметических выражений}
 
+\begin{equation}
+\vec{R} = \left(b - \frac{3}{4} \cdot a, b \cdot \left(a, b - a\right)\right) \cdot b + \frac{1}{400} \cdot a \cdot b \cdot \left(a, b\right)
+\label{test_equation}
+\end{equation}
+
+{\small \input{apps/table_cmp_et.tex} }
+
+\subsection{Тестовая сцена}
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{imgs/stul.png}

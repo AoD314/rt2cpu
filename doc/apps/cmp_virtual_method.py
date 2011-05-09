@@ -59,7 +59,7 @@ def create_test(f, r):
 
 	plt.ylabel(unicode('Накладные расходы (в \%)', 'utf-8'))
 	plt.xlabel(unicode('Количесво объектов в массиве', 'utf-8'))
-	plt.title (unicode('Накладные расходы при наследование', 'utf-8'))
+	#plt.title (unicode('Накладные расходы при наследование', 'utf-8'))
 	plt.grid(True)
 	plt.savefig(f)
 
