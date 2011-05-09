@@ -1,5 +1,6 @@
 
 #include "mlib/randomize.hpp"
+#include "mlib/integer.hpp"
 
 namespace mlib
 {
@@ -18,5 +19,9 @@ namespace mlib
 		return ((rand()) % (to-from) + from);
 	}
 
+        float Rand::NextFloat()
+        {
+                return static_cast<float>(rand()) / static_cast<float>(Int::MaxValue());
+        }
 }
 
