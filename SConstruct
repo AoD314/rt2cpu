@@ -55,5 +55,7 @@ e.Program('./build/correct_tests_mlib',  tests_src_mlib,   CPPPATH='./mlib/',   
 e.Program('./build/correct_tests_rt2',   tests_src_rt2cpu, CPPPATH=['./mlib/', './rt2/'], LIBS=['gomp', 'rt2', 'mlib'], LIBPATH='./build')
 e.Program('./build/performance_tests_mlib', perf_src, CPPPATH=['./mlib/','./rt2/'], LIBS=['gomp', 'rt2', 'mlib'], LIBPATH='./build')
 e.Program('./build/cmp_tests', cmp_src, CPPPATH='./mlib/', LIBS=['gomp', 'mlib'], LIBPATH='./build')
+
 e.Program('doc/apps/cmp_virtual_method',  ['doc/apps/cmp_virtual_method.cpp'],  CPPPATH='./mlib/', LIBS=['gomp', 'mlib'], LIBPATH='./build')
+e.Program('doc/apps/cmp_et',  ['doc/apps/cmp_et.cpp'],  CPPPATH='./mlib/', LIBS=['gomp', 'mlib'], LIBPATH='./build')
 

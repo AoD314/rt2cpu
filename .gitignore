@@ -28,6 +28,7 @@ build/
 *.nav
 *.snm
 doc/apps/cmp_virtual_method
+doc/apps/cmp_et
 doc/src/*.tex
 *eps-converted-to.pdf
 rt2cpu.creator.user

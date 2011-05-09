@@ -57,4 +57,6 @@ tests/correct_tests_mlib.cpp
 tests/correct_tests_rt2cpu.cpp
 tests/performance_tests_mlib.cpp
 tests/tests.hpp
+doc/apps/cmp_virtual_method.cpp
+doc/apps/cmp_et.cpp
 SConstruct
