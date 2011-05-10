@@ -3,7 +3,7 @@
 #ifndef __RAY_HPP__
 #define __RAY_HPP__
 
-#include "mlib/fixed_vector.hpp"
+#include <mlib/fixed_vector.hpp>
 
 namespace rt2
 {

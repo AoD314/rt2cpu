@@ -24,6 +24,7 @@ namespace rt2
                         BVH(const BVH & bvh);
 
                         Primitive * crossing(const Ray & ray, float & t);
+                        ~BVH();
         };
 }
 

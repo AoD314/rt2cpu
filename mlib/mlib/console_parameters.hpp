@@ -18,7 +18,7 @@ class ConsoleParameters
     public:
         ConsoleParameters(int argc, char ** argv): argc(argc), argv(argv), path(argv[0])
         {
-                path = path.substr(0,path.find_last_of("/\\"));
+                path = path.substr(0, path.find_last_of("/\\"));
         }
 
         bool has(const std::string& param);

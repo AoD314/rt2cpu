@@ -6,6 +6,7 @@ using namespace mlib;
 
 namespace rt2
 {
+
         BVH::BVH(const BVH & bvh)
         {
                 one = bvh.one;
@@ -115,4 +116,9 @@ namespace rt2
                 return NULL;
         }
 
+        BVH::~BVH()
+        {
+                delete one;
+                delete two;
+        }
 }

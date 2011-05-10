@@ -29,7 +29,7 @@ TYPE ConsoleParameters::get(std::string param, TYPE def_value)\
 \
 	while (i < argc)\
 	{\
-		for (std::vector<std::string>::iterator it = params.begin(); it != params.end(); it++)\
+                for (std::vector<std::string>::iterator it = params.begin(); it != params.end(); ++it)\
 		{\
 			if ((*it).compare(argv[i]) == 0)\
 			{\
@@ -57,7 +57,7 @@ std::vector<TYPE> ConsoleParameters::get_vec(std::string param, TYPE def_value, 
 \
 	while (i < argc)\
 	{\
-		for (std::vector<std::string>::const_iterator it = params.begin(); it != params.end(); it++)\
+                for (std::vector<std::string>::const_iterator it = params.begin(); it != params.end(); ++it)\
 		{\
 			if ((*it).compare(argv[i]) == 0)\
 			{\
@@ -97,7 +97,7 @@ bool ConsoleParameters::has(const std::string& param)
 
 		std::vector<std::string> params = get_aliases_from_string(param);
 
-		for (std::vector<std::string>::iterator it = params.begin(); it != params.end(); it++)
+                for (std::vector<std::string>::iterator it = params.begin(); it != params.end(); ++it)
 			compare = compare || ((*it).compare(argv[i]) == 0);
 
 		if (compare)

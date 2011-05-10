@@ -3,7 +3,10 @@
 
 using namespace mlib;
 
-Light::Light(){}
+Light::Light()
+{
+        this->intens = 1.0f;
+}
 
 void Light::set(vec4 pos, float intens)
 {

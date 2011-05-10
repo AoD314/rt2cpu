@@ -86,7 +86,7 @@ namespace mlib
 			data = expression();
 		}
 
-		inline void operator = (const vec4 & val)
+                inline void operator = (const vec4 & val)
 		{
 			data = val.data;
 		}

@@ -14,6 +14,9 @@ namespace rt2
 		scene = s;
 		vbuf = vbuffer;
 		num_frame = 0;
+                threads = 2;
+                depth = 2;
+                fps = 0;
 	}
 
         inline vec4 Engine::reflect(const vec4 & n, const vec4 & i)
