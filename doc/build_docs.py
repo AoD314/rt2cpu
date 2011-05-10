@@ -14,6 +14,10 @@ os.system('cd ./imgs/; python aa_pattern.py')
 
 print "create compare"
 os.system('cd ./apps/; python ./cmp_virtual_method.py')
+os.system('cd ./apps/; python ./cmp_et.py')
+
+print "create table parallel perfrormance "
+os.system('cd ./perf/; python ./parallel_perf.py')
 
 print "generate docs"
 os.system('texi2pdf rt2cpu.tex')
