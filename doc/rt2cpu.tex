@@ -54,6 +54,7 @@
 \def\VECXYZ#1{\left( \begin{array}{c} x_#1 \\ y_#1 \\ z_#1 \end{array} \right) }
 
 \newcommand{\HRule}{\noindent\rule{\linewidth}{0.45mm}}
+\def\cf#1{\texttt{\small #1}}
 
 \newcounter{sourcecode}
 \setcounter{sourcecode}{0}
@@ -934,11 +935,69 @@ for(std::size_t i = 0; i < size; ++i)
 Используя данные структуры, компилятор самостоятельно разберет выражение в качестве дерева и с оптимизирует полученное выражение. Таким образом мы значительно выигрываем по скорости работы, но трудность разработки таких классов достаточна велика. Остальные шаблоны описывают различные комбинации левых и правых частей в выражении. Использование таких шаблонов ничем не отличается от обычных классов векторов. 
 
 \subsection{SIMD инструкции}
-
-Применение SIMD инструкций в классе vec4.
 \subsubsection{Базовые операции в классе vec4}
 
+\begin{center}
+\begin{longtable}{|p{5cm}|p{10cm}|}
+\hline
+Метод & Описание \\ \hline
+\multicolumn{2}{|c|}{\bf Конструкторы} \\ \hline
+\cf{vec4 (expression)} & На вход принимает выражение из vec4. Например: \cf{vec4 b, c; vec4 a(b + 3.0f * c); } \\ \hline
+\cf{vec4 ()} & По умолчанию, все элементы равны нулю \\ \hline
+\cf{vec4 (float x, float y, float z, float w)} & Полученный вектор составляется из значений, переданных в качестве параметров \\ \hline
+\cf{vec4 (const vec4 \& v)} & Конструктор копирования \\ \hline
+\cf{vec4 (const \_\_m128 d)} & Конструктор преобразования из типа \cf{\_\_m128} \\ \hline
+\cf{inline vec4 (const float * data\_a)} & Загружает 4 float по указателю \\ \hline
+\multicolumn{2}{|c|}{\bf Методы} \\ \hline
+\cf{void set (float x, float y, float z, float w)} & Устанавливает значения в уже созданный вектор \\ \hline
+\cf{static inline vec4 zero ()} & Возвращает нулевой вектор \\ \hline
+\cf{inline void normalize ()} & Нормализует данный вектор \\ \hline
+\cf{inline void clamp (float min, float max)} & 
+$$ 
+vec[i] = \left\{ 
+\begin{array}{cc}
+min, & \mbox{если } vec[i] < min \\
+max, & \mbox{если } vec[i] > max \\
+\end{array}
+\right. i = \overline{1,4}
+$$ \\ \hline
+\multicolumn{2}{|c|}{\bf Операторы} \\ \hline
+\cf{inline void operator -= (const vec4 \& val)} & Оператор вычитания \\ \hline
+\cf{inline void operator += (const vec4 \& val)} & Оператор сложения \\ \hline
+\cf{inline void operator *= (const vec4 \& val)} & Оператор умножения \\ \hline
+\cf{inline void operator /= (const vec4 \& val)} & Оператор деления \\ \hline
+\cf{inline bool operator == (const vec4 \& val)} & Оператор равенства \\ \hline
+\cf{inline bool operator != (const vec4 \& val)} & Оператор неравенства \\ \hline
+\cf{inline bool operator > (const vec4 \& val)} & Возвращает истину, если все компоненты вектора больше аналогичных компонент вектора \cf{val}  \\ \hline
+\cf{inline bool operator < (const vec4 \& val)} & Возвращает истину, если все компоненты вектора меньше аналогичных компонент вектора \cf{val} \\ \hline
+\cf{inline bool operator >= (const vec4 \& val)} & Возвращает истину, если все компоненты вектора больше или равны аналогичных компонент вектора \cf{val} \\ \hline
+\cf{inline bool operator <= (const vec4 \& val)} & Возвращает истину, если все компоненты вектора меньше или равны аналогичных компонент вектора \cf{val} \\ \hline
+\cf{inline void operator = (const vec4 \& val)} & Оператор присваивания \\ \hline
+\multicolumn{2}{|c|}{\bf Методы} \\ \hline
+\cf{inline std::string str (const vec4 \& a)} & Конвертирование \cf{vec4} в \cf{std::string} \\ \hline
+\cf{inline vec4 cross (const vec4 \& v1, const vec4 \& v2)} & Векторное произведение двух векторов \\ \hline
+\cf{inline size\_t to\_color (const vec4 \& color)} & Преобразование вектора (RGB) в цвет: $$ 0.0 \le vec[i] \le 255.0 \quad : \quad i = \overline{1,3} $$ \\ \hline
+\cf{inline float calc\_distance (const vec4 \& a, const vec4 \& b)} & Вычисление евклидова расстояния между двумя точками пространства : 
+$$ \sqrt{\Bigl( a-b, a-b \Bigr)} $$ \\ \hline
+\cf{inline vec4 abs (const vec4 \& a)} & Возвращает вектор с абсолютными значениями \\ \hline
+\cf{inline vec4 normalize (const vec4 \& a)} & Возвращает нормализованный вектор \\ \hline
+\cf{inline float dot (const vec4 \& a, const vec4 \& b)} & Возвращает скалярное произведение двух векторов \\ \hline
+
+\caption{Базовые операции класса vec4}\label{tab:base_op_vec4}
+\end{longtable}
+\end{center}
+Для большинства методов существуют их перегруженные аналоги с выражением в качестве параметра, например:
+\begin{verbatim}
+vec4 a(1.0);
+vec4 b(3.0);
+vec4 c = normalize(b - a * dot(a + b,b));
+\end{verbatim}
+
 \subsubsection{Скалярное произведение векторов}
+
+\cppsource{src/defdot.tex}{Реализация скалярного произведения}
+
+Для того, что бы данная реализация заработала, требуется поддержка SSE4.2 инструкций.
 
 \subsection{Ускоряющие структуры}
 
