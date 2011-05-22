@@ -100,7 +100,7 @@ for file_n in files:
 		j = j + 1
 
 
-	text = '\\spacing{0.85}{\\noindent \\tt \\footnotesize ' + text[:-3] + '}\\spacing{\\heightline}'
+	text = '\\spacing{0.8}{\\noindent \\tt \\footnotesize \n' + text[:-3] + '}\\spacing{\\heightline}'
 
 	f = open( file_n + '.tex' , 'w')
 	f.write(text)
