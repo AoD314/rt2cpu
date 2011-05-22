@@ -1,12 +1,25 @@
-\documentclass[14pt, a4paper]{extarticle}
-%, draft
+\documentclass[12pt, a4paper, utf8, draft]{article}
+%draft
+%T2A 
 \usepackage[utf8]{inputenc}
-\usepackage{ucs}
-\usepackage[russian]{babel} 
 \usepackage[T2A]{fontenc}
-\usepackage[pdftex]{graphicx}
-\usepackage{amstext}
-\usepackage{amsmath}
+\usepackage[english, russian]{babel}
+\usepackage{xltxtra}
+\usepackage{xecyr}
+
+\usepackage{fontspec}
+\defaultfontfeatures{Scale=MatchLowercase}
+\setmainfont[Mapping=tex-text]{Liberation Serif}
+\setsansfont[Mapping=tex-text]{Liberation Sans}
+\setmonofont{Droid Sans Mono}
+
+%\setromanfont{CMU Serif}
+%\setsansfont{CMU Sans Serif}
+%\setmonofont{CMU Typewriter Text}
+
+\usepackage{ucs}
+\usepackage{graphicx}
+\usepackage{amstext, amsmath}
 \usepackage{cmap} % чтобы был поиск по pdf
 \usepackage{textcomp}
 \usepackage{multicol}
@@ -27,14 +40,24 @@
 
 \newcommand{\normalize}{\mathrm{normalize}}
 
+% переопределяем окружение verbatim
+\makeatletter 
+\renewcommand*\verbatim@font{% 
+\normalfont\ttfamily\small 
+\hyphenchar\font\m@ne 
+\let\do\do@noligs 
+\verbatim@nolig@list 
+} 
+\makeatother 
+
 % отступ при наборе формул в блоке multline
 \multlinegap=2cm
 
 % будем считать что переполнения не было, если строка вышла за границу не более чем 0.01pt
 \hfuzz=0.01pt
 
-% разрешаю увеличить расстояние между словами не больше чем на 11pt, что бы не было переполнения
-\emergencystretch=11pt
+% разрешаю увеличить расстояние между словами не больше чем на 14pt, что бы не было переполнения
+\emergencystretch=14pt
 
 % изменение межстрочного интервала
 \def\heightline{1.3}
@@ -53,7 +76,7 @@
 \def\VEC#1#2#3{\left( \begin{array}{c} #1 \\ #2 \\ #3 \end{array} \right) }
 \def\VECXYZ#1{\left( \begin{array}{c} x_#1 \\ y_#1 \\ z_#1 \end{array} \right) }
 
-\newcommand{\HRule}{\noindent\rule{\linewidth}{0.45mm}}
+\newcommand{\HRule}{\noindent\rule{\linewidth}{0.35mm}}
 \def\cf#1{\texttt{\small #1}}
 
 \newcounter{sourcecode}
@@ -161,17 +184,17 @@
 
 Одни из базовых понятий для производительности процессора:
 \begin{itemize}
-\item Количества тактов процессора затрачиваемое на обработку инструкции пока она проходит все стадии в процессоре(Latency)
-\item Количества тактов процессора необходимое на принятие инструкции на обработку(Throughput)
+\item Количества тактов процессора затрачиваемое на обработку инструкции пока она проходит все стадии в процессоре (Latency)
+\item Количества тактов центрального процессора, необходимое на принятие инструкции на обработку (Throughput)
 \end{itemize}
 
 \noindent
 В процессоре используется различный уровень параллелизма:
 \begin{itemize}
 \item Суперскалярность — имеется несколько исполнительных блоков
-\item SIMD(Single Instruction, Multiple Data) – параллельная обработка по данным
+\item SIMD (Single Instruction, Multiple Data) -- параллельная обработка по данным
 \item Конвеерность
-\item SMT – Simultaneous Multi-Threading – одновременное использование ресурсов несколькими процессами, конвеер использоется лучше, вычислительные блоки не простаивают
+\item SMT (Simultaneous Multi-Threading) -- одновременное использование ресурсов несколькими процессами, конвеер использоется лучше, вычислительные блоки не простаивают
 \item SMP – Symmetric Multi-Processing (многоядерные процессоры)
 \end{itemize}
 
@@ -268,8 +291,8 @@ x86-64 (также x64/AMD64/Intel64/EM64T) -- это  64-битная аппа�
 
 \begin{figure}
 \centering
-\includegraphics[width=0.35\textwidth]{imgs/corei7.jpg}
-\includegraphics[width=0.45\textwidth]{imgs/radeon6990.jpg}
+\includegraphics[width=0.4\textwidth]{imgs/corei7.jpg}
+\includegraphics[width=0.5\textwidth]{imgs/radeon6990.jpg}
 \caption[Самый быстрый CPU и GPU]{Самый быстрый центральный процессор Intel Core i7 990X и самая быстрая видеокарта AMD Radeon HD 6990 на Q2 2011}\label{fig:imgs_corei7}
 \end{figure}
 
@@ -833,6 +856,7 @@ $\vec{\tilde {N}} = (\vec{\tilde {E_2}} \times \vec{\tilde{E_1}})$.
 \begin{verbatim}
 cout << factorial(7) << endl;
 \end{verbatim}
+
 Вызывать рекурсивно функцию - это очень большие накладные расходы. Несмотря на то, что мы указало компилятору встроить функцию (inline), компилятор проигнорирует это, так как он не может сделать постановку в рекурсию. Можно добиться большего успеха, если реализовывать это, как класс с шаблоном.
 
 \cppsource{src/templatefactorial.tex}{Реализация факториала на шаблонах}
@@ -872,7 +896,6 @@ $$
 x_{k+1} = \frac{1}{2}\left[ x_k + \frac{A}{x_k} \right]
 $$
 
-\noindent 
 Воспользуемся данной формулой и напишем следующую шаблонную структуру:
 \cppsource{src/defroot.tex}{Шаблонное определение структуры root}
 
@@ -887,7 +910,7 @@ cout << Root<10>::ret << endl;
 Из примеров видно, что очень часто вычисление во время компиляции это рекурсивные задачи.
 
 \subsubsection{Шаблонные выражения(expression templates)}
-Expression templates или шаблоны выражений -- это специальная техника в программировании на языке C++, которая использует шаблоны для разбора выражений во время компиляции.
+Expression templates\index{expression templates} или шаблоны выражений -- это специальная техника в программировании на языке C++, которая использует шаблоны для разбора выражений во время компиляции.
 
 \cppsource{src/defvector.tex}{Определение структуры vector}
 
@@ -936,7 +959,6 @@ for(std::size_t i = 0; i < size; ++i)
 
 \subsection{SIMD инструкции}
 \subsubsection{Базовые операции в классе vec4}
-
 \begin{center}
 \begin{longtable}{|p{5cm}|p{10cm}|}
 \hline
@@ -982,7 +1004,6 @@ $$ \sqrt{\Bigl( a-b, a-b \Bigr)} $$ \\ \hline
 \cf{inline vec4 abs (const vec4 \& a)} & Возвращает вектор с абсолютными значениями \\ \hline
 \cf{inline vec4 normalize (const vec4 \& a)} & Возвращает нормализованный вектор \\ \hline
 \cf{inline float dot (const vec4 \& a, const vec4 \& b)} & Возвращает скалярное произведение двух векторов \\ \hline
-
 \caption{Базовые операции класса vec4}\label{tab:base_op_vec4}
 \end{longtable}
 \end{center}
@@ -1017,6 +1038,26 @@ vec4 c = normalize(b - a * dot(a + b,b));
 В качестве ускоряющей структуры было выбрано дерево BVH
 
 \subsubsection{Алгоритм построения BVH}
+
+Bounding Volume Hierarchy (BVH\index{BVH}) - Иерархия ограничивающих объемов. Исторически BVH деревья используются для рассчета столкновений (физика). Однако в последнее время BVH активно стараются задействовать в рейтрейсинге в связи с тем, что в анимированных сценах BVH можно быстрее перестраивать, и как правило можно перестраивать не все дерево.
+Очевидно, что разновидностей BVH деревьев можно придумать сколько угодно. Достаточно взять некую произвольную фигуру и использовать ее в качестве ограничивающего объема. Исторически выделяют 5 типов BVH деревьев\index{tree}:
+\begin{itemize}
+\item Sphere tree\index{tree!sphere}
+\item AABB tree (Axis Aligned Bounding Box)\index{tree!aabb}
+\item OBB tree (Oriented Bounding Box)\index{tree!obb}
+\item k-DOP (Discrete Oriented Polytope)\index{tree!k-dop}
+\item SSV (Swept Sphere Volume)\index{tree!ssv}
+\end{itemize}
+
+Чаще всего используется AABB tree. AABB намного лучше подходят в качестве ограничивающего объема чем сферы. Также хорошо, что с AABB довольно легко считать пересечения. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{imgs/aabb.png} 
+\caption{Построение AABB tree}\label{fig:aabb_tree}
+\end{figure}
+
+В данной работе реализован следующий алгоритм построения AABB tree\index{tree!aabb}. 
 
 \subsubsection{Алгоритм траверса луча через BVH}
 
@@ -1171,10 +1212,10 @@ Intel Core i7 980X -- это процессор семейства Gulftown вы
 	\bibitem{straustrupcpp} Б. Страуструп Язык программирования C++. Специальное издание / Пер. с англ. --- М.: ООО ''Бином-Пресс'', 2006. --- 1104 с.: ил.
 	\bibitem{sivakov} Сиваков И. Как компьютер рассчитывает изображения. Технология программного рендеринга, 11.03.2004. \\ (\href{http://www.fcenter.ru/online.shtml?articles/hardware/videos/8749}{http://www.fcenter.ru/online.shtml?articles/hardware/videos/8749})
 	\bibitem{biovulf} Дмитрий Мороз. "Беовульф": Создание фильма, 11.12.2007.\\ (\href{http://www.3dnews.ru/editorial/beowulf}{http://www.3dnews.ru/editorial/beowulf})
-	\bibitem{intelintrinsic} Intel® C++ Intrinsics Reference \\ (\href{http://www.intel.com/products/processor/manuals/}{http://www.intel.com/products/processor/manuals/})
+	\bibitem{intelintrinsic} Intel C++ Intrinsics Reference \\ (\href{http://www.intel.com/products/processor/manuals/}{http://www.intel.com/products/processor/manuals/})
 	\bibitem{intelmanual} Intel 64 and IA-32.Architectures Software Developer's Manual \\ (\href{http://www.intel.com/products/processor/manuals/}{http://www.intel.com/products/processor/manuals/})
-	\bibitem{tbbtutor} Intel® Threading Building Blocks. Tutorial \\ (\href{http://www.threadingbuildingblocks.org/}{http://www.threadingbuildingblocks.org/})
-	\bibitem{tbbmanual} Intel® Threading Building Blocks. Reference Manual \\ (\href{http://www.threadingbuildingblocks.org/}{http://www.threadingbuildingblocks.org/})
+	\bibitem{tbbtutor} Intel Threading Building Blocks. Tutorial \\ (\href{http://www.threadingbuildingblocks.org/}{http://www.threadingbuildingblocks.org/})
+	\bibitem{tbbmanual} Intel Threading Building Blocks. Reference Manual \\ (\href{http://www.threadingbuildingblocks.org/}{http://www.threadingbuildingblocks.org/})
 	\bibitem{cppexpressiontemplate} C++ Expression Templates An Introduction to the Principles of Expression Templates, 2003 \\ (\href{http://www.angelikalanger.com/Articles/Cuj/ExpressionTemplates/ExpressionTemplates.htm}{http://www.angelikalanger.com/.../ExpressionTemplates.htm})
 	\bibitem{intelcore980x} Шесть ядер для десктопа: Intel Core i7-980X Extreme Edition, 07.04.2010 \\ (\href{http://www.fcenter.ru/online.shtml?articles/hardware/processors/28480}{\small http://www.fcenter.ru/online.shtml?articles/hardware/processors/28480})
 	\bibitem{rdtscp} How to Benchmark Code Execution Times on Intel IA-32 and IA-64 Instruction Set Architectures. September 2010
