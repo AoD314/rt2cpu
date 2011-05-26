@@ -1,95 +1,109 @@
 
 module mlib:
 Lines:   Count byte:      File name:
-  139          2941       processor.cpp                 
-   20           250       randomize.hpp                 
-  104          2228       timer.hpp                     
-   22           346       integer.hpp                   
-   46           806       logger.hpp                    
-   74          1599       objfile.hpp                   
-  105          2219       minmax.hpp                    
-   44           877       processor.hpp                 
-   41           968       console_parameters.hpp        
-   21           303       double.hpp                    
-  145          3962       list.hpp                      
-  724         22197       fixed_vector.hpp              
-   22           348       float.hpp                     
-   27           397       exception.hpp                 
-   22           371       long.hpp                      
-   42           601       mmemory.hpp                   
-   34           564       ifthenelse.hpp                
-   58           952       long.cpp                      
-   52           790       float.cpp                     
-   42           541       double.cpp                    
-  160          3058       console_parameters.cpp        
-   82          1456       objfile.cpp                   
-   22           257       randomize.cpp                 
-   17           285       exception.cpp                 
    15           147       mmemory.cpp                   
+   17           285       exception.cpp                 
+   21           301       randomize.hpp                 
+   21           303       double.hpp                    
+   22           346       integer.hpp                   
+   22           348       float.hpp                     
+   22           371       long.hpp                      
+   27           397       exception.hpp                 
+   27           426       randomize.cpp                 
+   34           564       ifthenelse.hpp                
+   41           969       console_parameters.hpp        
+   42           541       double.cpp                    
+   42           601       mmemory.hpp                   
+   44           877       processor.hpp                 
+   46           806       logger.hpp                    
+   52           790       float.cpp                     
    58           930       integer.cpp                   
+   58           952       long.cpp                      
+   74          1599       objfile.hpp                   
+   82          1456       objfile.cpp                   
+  104          2228       timer.hpp                     
+  105          2219       minmax.hpp                    
+  139          2941       processor.cpp                 
+  145          3962       list.hpp                      
+  160          3100       console_parameters.cpp        
   201          3938       timer.cpp                     
+  724         22211       fixed_vector.hpp              
 
 module rt2:
 Lines:   Count byte:      File name:
-   29           668       plane.hpp                     
-   43          1027       camera.hpp                    
+    2            26       primitive.cpp                 
+    9            92       config.hpp                    
    19           349       light.hpp                     
    23           246       ray.cpp                       
-   44           882       bbox.hpp                      
-    2            26       primitive.cpp                 
-   38           813       plane.cpp                     
-   67          1714       sphere.cpp                    
-  118          3700       bvh.cpp                       
-   70          1467       triangle.cpp                  
-   60          1092       engine.hpp                    
    23           455       primitive.hpp                 
-  125          3756       scene.cpp                     
-  173          5594       engine.cpp                    
-   32           641       triangle.hpp                  
+   25           282       light.cpp                     
+   29           668       plane.hpp                     
    31           589       sphere.hpp                    
+   31           658       bvh.hpp                       
+   32           641       triangle.hpp                  
    35           563       ray.hpp                       
-  107          2538       bbox.cpp                      
-  159          5293       camera.cpp                    
+   38           813       plane.cpp                     
+   43          1027       camera.hpp                    
+   44           882       bbox.hpp                      
    47           971       scene.hpp                     
-    9            94       config.hpp                    
-   30           626       bvh.hpp                       
-   22           251       light.cpp                     
+   60          1115       engine.hpp                    
+   67          1714       sphere.cpp                    
+   70          1467       triangle.cpp                  
+  107          2538       bbox.cpp                      
+  124          3797       bvh.cpp                       
+  125          3756       scene.cpp                     
+  159          5293       camera.cpp                    
+  177          5771       engine.cpp                    
 
 module tests:
 Lines:   Count byte:      File name:
-  340          9880       correct_tests_rt2cpu.cpp      
-  130          2988       cmp_tests.cpp                 
    35           600       tests.hpp                     
-  209          4466       performance_tests_mlib.cpp    
+  130          2988       cmp_tests.cpp                 
+  209          4468       performance_tests_mlib.cpp    
+  340          9880       correct_tests_rt2cpu.cpp      
   475         13755       correct_tests_mlib.cpp        
 
 module docs:
 Lines:   Count byte:      File name:
+    4           290       rekfactorial.tex              
+    4           318       cpp_reflect.tex               
+    5           268       specfactorial.tex             
+    5           285       definetemplate.tex            
+    5           306       finfactorial.tex              
+    5           313       templatefactorial.tex         
+    5           332       defrootsp.tex                 
+    7           612       defroot.tex                   
+    8           461       defplus.tex                   
+    8           525       defdot.tex                    
+    9           493       deftemplate.tex               
+    9           494       deftemplate2.tex              
+   13           637       asm_reflect.tex               
+   13          1577       table_cmp_et.tex              
+   18           999       triangle.tex                  
+   31          1538       table_perf.tex                
+   31          2002       timer.tex                     
+   51          2606       defvector.tex                 
+   54          3012       defvectoret.tex               
+   57          3640       defx.tex                      
    65          6977       t-platform.tex                
-   30          2002       timer.tex                     
-    8           490       deftemplate.tex               
-    4           306       finfactorial.tex              
-    9           509       deftemplate2.tex              
-    3           287       rekfactorial.tex              
-    4           313       templatefactorial.tex         
-    4           268       specfactorial.tex             
-    5           300       definetemplate.tex            
-   17           999       triangle.tex                  
-  842         93754       rt2cpu.tex                    
+   66          1536       presentation.tex              
+ 1236        147305       rt2cpu.tex                    
 
 module python:
 Lines:   Count byte:      File name:
-  106          2519       convert-cpp-to-tex.py         
-   72          1770       cmp_virtual_method.py         
-   21           449       build_docs.py                 
+   25           589       build_docs.py                 
    48          1033       aa_pattern.py                 
+   49          1329       cmp_et.py                     
    59          1263       aa_example.py                 
+   72          1771       cmp_virtual_method.py         
+   96          3174       parallel_perf.py              
+  109          2558       convert-cpp-to-tex.py         
 
 All:
-Total count source files : 69
-Total lines source code : 5321
-Total lines docs : 991
-Total lines python scripts : 306
-Total size source code  : 129868 byte = 126 KByte
+Total count source files : 78
+Total lines source code : 5626
+Total lines docs : 1709
+Total lines python scripts : 458
+Total size source code  : 136896 byte = 133 KByte
  
-TOTAL LINE WORK: 6618
+TOTAL LINE WORK: 7793
