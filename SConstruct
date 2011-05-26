@@ -49,7 +49,7 @@ cmp_src  = ['tests/cmp_tests.cpp']
 e.StaticLibrary('./build/mlib', mlib_src)
 e.StaticLibrary('./build/rt2', rt2_src, CPPPATH='./mlib/', LIBS=['gomp', 'tbb', 'mlib'])
 
-e.Program('./build/rt2cpu', rt2cpu_src, CPPPATH=['./mlib/', './rt2/'], LIBS=['SDL', 'gomp', 'rt2', 'mlib'], LIBPATH='./build')
+e.Program('./build/rt2cpu', rt2cpu_src, CPPPATH=['./mlib/', './rt2/'], LIBS=['SDL', 'gomp', 'rt2', 'mlib', 'tbb'], LIBPATH='./build')
 
 e.Program('./build/correct_tests_mlib',  tests_src_mlib,   CPPPATH='./mlib/',             LIBS=['gomp', 'mlib'], LIBPATH='./build')
 e.Program('./build/correct_tests_rt2',   tests_src_rt2cpu, CPPPATH=['./mlib/', './rt2/'], LIBS=['gomp', 'rt2', 'mlib'], LIBPATH='./build')
