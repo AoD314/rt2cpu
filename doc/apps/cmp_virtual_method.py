@@ -65,8 +65,8 @@ def create_test(f, r):
 
 if __name__ == '__main__':
 	t = time.time()
-	create_test('compare_virtual_methods_l.eps', range(1,31))
-	create_test('compare_virtual_methods_b.eps', range(1,501,5))
+	create_test('compare_virtual_methods_l.pdf', range(1,31))
+	create_test('compare_virtual_methods_b.pdf', range(1,501,5))
 	t = (time.time() - t)
 	print "TIME : " + str(t)
 

@@ -55,5 +55,5 @@ ax1.plot([0,l],[0,1], 'r-')
 
 ###########################################
 
-plt.savefig('aa_example.eps')
+plt.savefig('aa_example.pdf')
 #plt.show()

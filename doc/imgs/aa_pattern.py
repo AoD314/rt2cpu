@@ -43,6 +43,6 @@ ax2.plot(x,y, 'bo')
 
 ###########################################
 
-plt.savefig('aa_pattern.eps')
+plt.savefig('aa_pattern.pdf')
 
 #plt.show()
