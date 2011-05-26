@@ -1,9 +1,7 @@
-\documentclass[12pt, a4paper, utf8, draft]{article}
-%draft
-%T2A 
+\documentclass[12pt, a4paper, utf8]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[T2A]{fontenc}
 \usepackage[english, russian]{babel}
+\usepackage[T2A]{fontenc}
 \usepackage{xltxtra}
 \usepackage{xecyr}
 
@@ -325,7 +323,7 @@ x86-64 (также x64/AMD64/Intel64/EM64T) -- это  64-битная аппа�
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{imgs/Ray_trace_diagram_rus.eps} 
+\includegraphics[width=0.75\textwidth]{imgs/Ray_trace_diagram_rus.png} 
 \caption{Обратный метод трассировки лучей}\label{fig:alg_ray_tracing}
 \end{figure}
 
@@ -450,7 +448,7 @@ $$
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.75]{imgs/camera.eps} 
+\includegraphics[scale=0.75]{imgs/camera.png} 
 \caption{Модель камеры}\label{fig:camera_model}
 \end{figure}
 
@@ -520,7 +518,7 @@ $$
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=1]{imgs/aa_pattern.eps}
+\includegraphics[scale=1]{imgs/aa_pattern.pdf}
 \caption{Паттерны расположения субпикселов}\label{fig:pattern_subpixel}
 \end{figure}
 
@@ -528,7 +526,7 @@ $$
 
 \begin{figure}[H]
 \centering
-{\hspace*{-2.35cm}\includegraphics[scale=1]{imgs/aa_example.eps}}
+{\hspace*{-2.35cm}\includegraphics[scale=1]{imgs/aa_example.pdf}}
 \caption{Сравнение паттернов}\label{fig:compare_pattern_subpixel}
 \end{figure}
 
@@ -939,7 +937,7 @@ d = a + b + c;
 \end{verbatim}
 переходит в следующий код:
 \begin{verbatim}
-for(std::size_t i = 0; i < size; ++i)
+for(size_t i = 0; i < size; ++i)
     d[i] = a[i] + b[i] + c[i];
 \end{verbatim}
 
@@ -1057,7 +1055,9 @@ Bounding Volume Hierarchy (BVH\index{BVH}) - Иерархия ограничив
 \caption{Построение AABB tree}\label{fig:aabb_tree}
 \end{figure}
 
+На рис.~\ref{fig:aabb_tree} изображено, как исходный объект ограничивается AABB.
 В данной работе реализован следующий алгоритм построения AABB tree\index{tree!aabb}. 
+
 
 \subsubsection{Алгоритм траверса луча через BVH}
 
@@ -1084,7 +1084,7 @@ Intel Core i7 980X -- это процессор семейства Gulftown вы
 Для очень точной оценки времени работы алгоритмов, был специально написан высокоточный таймер на языке c++, с использованием вставок на AT\&T ассемблере.
 Таймер выдает время в тактах процессора и включает в себя разные режимы подсчета времени.
 
-%{\hspace*{-2.25cm}\includegraphics[scale=1]{apps/compare_virtual_methods_l.eps} }
+%{\hspace*{-2.25cm}\includegraphics[scale=1]{apps/compare_virtual_methods_l.pdf} }
 
 \subsubsection{Алгоритм работы высокоточного таймера}
 Основной код, выполняющий замеры времения приведен ниже.
@@ -1143,13 +1143,13 @@ Intel Core i7 980X -- это процессор семейства Gulftown вы
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{perf/table_perf.eps}
+\includegraphics[width=\textwidth]{perf/table_perf.pdf}
 \caption{Производительность реализации параллельного алгоритма}\label{fig:perf_parallel_alg}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{perf/table_perf_eff.eps}
+\includegraphics[width=\textwidth]{perf/table_perf_eff.pdf}
 \caption{Эффективность реализации параллельного алгоритма}\label{fig:eff_parallel_alg}
 \end{figure}
 
@@ -1170,7 +1170,7 @@ Intel Core i7 980X -- это процессор семейства Gulftown вы
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{apps/compare_virtual_methods_l.eps}
+\includegraphics[width=\textwidth]{apps/compare_virtual_methods_l.pdf}
 \caption[Накладные расходы при наследование $\No$1]{Накладные расходы при наследование для малого количества объектов}\label{fig:compare_virtual_methods_1}
 \end{figure}
 
@@ -1178,7 +1178,7 @@ Intel Core i7 980X -- это процессор семейства Gulftown вы
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{apps/compare_virtual_methods_b.eps}
+\includegraphics[width=\textwidth]{apps/compare_virtual_methods_b.pdf}
 \caption[Накладные расходы при наследование $\No$2]{Накладные расходы при наследование для большого количества объектов}\label{fig:compare_virtual_methods_2}
 \end{figure}
 
