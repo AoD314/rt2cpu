@@ -12,6 +12,7 @@ class Settings
         int lights;
         int depth;
         int threads;
+        int grainsize;
         int antialiasing;
         int width;
         int height;
