@@ -13,7 +13,6 @@ build/libmlib.*
 build/librt2.*
 build/performance_tests_mlib
 build/rt2cpu
-build/
 *.dvi
 *.aux
 *.idx
