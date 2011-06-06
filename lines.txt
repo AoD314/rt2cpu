@@ -32,7 +32,7 @@ Lines:   Count byte:      File name:
 module rt2:
 Lines:   Count byte:      File name:
     2            26       primitive.cpp                 
-    9            92       config.hpp                    
+    9            94       config.hpp                    
    19           349       light.hpp                     
    23           246       ray.cpp                       
    23           455       primitive.hpp                 
@@ -46,14 +46,14 @@ Lines:   Count byte:      File name:
    43          1027       camera.hpp                    
    44           882       bbox.hpp                      
    47           971       scene.hpp                     
-   60          1115       engine.hpp                    
+   63          1395       engine.hpp                    
    67          1714       sphere.cpp                    
    70          1467       triangle.cpp                  
   107          2538       bbox.cpp                      
   124          3797       bvh.cpp                       
   125          3756       scene.cpp                     
   159          5293       camera.cpp                    
-  177          5771       engine.cpp                    
+  198          6406       engine.cpp                    
 
 module tests:
 Lines:   Count byte:      File name:
@@ -75,35 +75,38 @@ Lines:   Count byte:      File name:
     7           612       defroot.tex                   
     8           461       defplus.tex                   
     8           525       defdot.tex                    
+    9           426       asm_reflect2.tex              
     9           493       deftemplate.tex               
     9           494       deftemplate2.tex              
    13           637       asm_reflect.tex               
-   13          1577       table_cmp_et.tex              
+   13          1559       table_cmp_et.tex              
    18           999       triangle.tex                  
-   31          1538       table_perf.tex                
+   29          1324       timer_ex1.tex                 
    31          2002       timer.tex                     
+   32          1549       table_perf.tex                
+   33          2270       publications.tex              
    51          2606       defvector.tex                 
    54          3012       defvectoret.tex               
    57          3640       defx.tex                      
    65          6977       t-platform.tex                
    66          1536       presentation.tex              
- 1236        147305       rt2cpu.tex                    
+ 1334        154630       rt2cpu.tex                    
 
 module python:
 Lines:   Count byte:      File name:
-   25           589       build_docs.py                 
+   25           585       build_docs.py                 
    48          1033       aa_pattern.py                 
    49          1329       cmp_et.py                     
    59          1263       aa_example.py                 
    72          1771       cmp_virtual_method.py         
-   96          3174       parallel_perf.py              
+   96          3187       parallel_perf.py              
   109          2558       convert-cpp-to-tex.py         
 
 All:
-Total count source files : 78
-Total lines source code : 5626
-Total lines docs : 1709
+Total count source files : 80
+Total lines source code : 5699
+Total lines docs : 1879
 Total lines python scripts : 458
-Total size source code  : 136896 byte = 133 KByte
+Total size source code  : 139006 byte = 135 KByte
  
-TOTAL LINE WORK: 7793
+TOTAL LINE WORK: 8036
