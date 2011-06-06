@@ -37,7 +37,7 @@ for t in range(1, th + 1):
             if vmax < float(v):
                 vmax = float(v)
         perf[j].append(vmax)
-        f.write(" " + str(vmax) + " ")
+        f.write(" " + '{0:.3f}'.format(vmax) + " ")
         if j == 3:
             f.write("\\\\ \n")
         else:
