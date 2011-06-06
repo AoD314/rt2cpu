@@ -24,8 +24,9 @@ namespace rt2
 			unsigned int * vbuf;
                         Scene * scene;
 
-			int threads;
-			int depth;
+                        size_t threads;
+                        size_t depth;
+                        size_t grainsize;
 
 			unsigned long long num_frame;
 			float fps;
@@ -33,13 +34,13 @@ namespace rt2
 
                         #ifdef use_tbb
 
-                                tbb::task_scheduler_init init;
-                                tbb::affinity_partitioner ap;
+                                //tbb::task_scheduler_init init;
+                                //tbb::affinity_partitioner ap;
 
                         #endif
 
                         inline mlib::vec4 reflect(const mlib::vec4 & n, const mlib::vec4 & i);
-                        mlib::vec4 ray_tracing(const Ray & ray, int d);
+                        mlib::vec4 ray_tracing(const Ray & ray, size_t d);
 
 		public:
                         Engine(Scene * s, unsigned int * vbuffer);
@@ -47,12 +48,14 @@ namespace rt2
 
 			unsigned long long get_num_frame();
 
-			float get_fps();
-			int get_threads();
+                        float  get_fps();
+                        size_t get_threads();
 
-			void set_threads(int t);
-			void set_depth(int d);
+                        void set_threads(size_t t);
+                        void set_depth(size_t d);
+                        void set_grainsize(size_t g);
 
+                        ~Engine();
 	};
 
 }

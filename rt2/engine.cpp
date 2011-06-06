@@ -1,11 +1,10 @@
+#include <omp.h>
+#include <math.h>
 
 #include "engine.hpp"
-#include <omp.h>
 
 #include <mlib/fixed_vector.hpp>
 using namespace mlib;
-
-#include <math.h>
 
 namespace rt2
 {
@@ -17,6 +16,12 @@ namespace rt2
                 threads = 2;
                 depth = 2;
                 fps = 0;
+
+                #ifdef use_tbb
+                        grainsize = 1024;
+                #else
+                        grainsize = 2;
+                #endif
 	}
 
         inline vec4 Engine::reflect(const vec4 & n, const vec4 & i)
@@ -24,7 +29,7 @@ namespace rt2
                 return i - 2.0f * n * dot (n, i);
         }
 
-        vec4 Engine::ray_tracing(const Ray & ray, int depth_local)
+        vec4 Engine::ray_tracing(const Ray & ray, size_t depth_local)
 	{
                 vec4 point;
                 float t;
@@ -100,7 +105,7 @@ namespace rt2
 
                 #ifndef use_tbb
 
-                        #pragma omp parallel for private(i, j) schedule(static, 1)
+                        #pragma omp parallel for private(i, j) firstprivate(aa) schedule(static, grainsize)
                         for (j = 0; j < h; j++)
                                 for (i = 0; i < w; i++)
                                 {
@@ -115,26 +120,30 @@ namespace rt2
 
                 #else
 
+                        //static tbb::task_scheduler_init init ( threads );
+                        //static tbb::affinity_partitioner ap;
+
                         tbb::parallel_for
                         (
-                                tbb::blocked_range<unsigned int> ( static_cast<unsigned int>(0), w * h ),
-                                [&]( const tbb::blocked_range<unsigned int> & range)
+                                tbb::blocked_range<size_t> ( static_cast<size_t>(0), w * h, grainsize),
+                                [&]( const tbb::blocked_range<size_t> & range )
                                 {
-                                        unsigned int i, j;
-                                        for ( unsigned int ind = range.begin(); ind < range.end(); ind++ )
+                                        size_t i, j;
+                                        for ( size_t ind = range.begin(); ind < range.end(); ++ind)
                                         {
                                                 i = ind / w;
                                                 j = ind - i * w;
 
                                                 vec4 color_total;
-                                                for (unsigned int s = 0; s < aa; s++)
+                                                for (size_t s = 0; s < aa; ++s)
                                                 {
                                                         color_total += ray_tracing(cam->get_ray(i, j, s), depth);
                                                 }
                                                 color_total /= static_cast<float>(aa);
                                                 vbuf[ind] = to_color(color_total);
                                         }
-                                }, ap
+                                }//, ap
+                                //, tbb::auto_partitioner()
                         );
 
                 #endif
@@ -149,22 +158,34 @@ namespace rt2
 		return num_frame;
 	}
 
-	int Engine::get_threads()
+        size_t Engine::get_threads()
 	{
 		return threads;
 	}
 
-	void Engine::set_threads(int t)
+        void Engine::set_threads(size_t t)
 	{
 		threads = t;
                 #ifndef use_tbb
                         omp_set_num_threads(threads);
                 #else
-                        init.initialize(threads);
+                        //init.initialize(threads);
                 #endif
 	}
 
-	void Engine::set_depth(int d)
+        Engine::~Engine()
+        {
+                #ifdef use_tbb
+                        //init.terminate();
+                #endif
+        }
+
+        void Engine::set_grainsize(size_t g)
+        {
+                grainsize = g;
+        }
+
+        void Engine::set_depth(size_t d)
 	{
 		depth = d;
 	}

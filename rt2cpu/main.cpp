@@ -24,6 +24,10 @@ SDL_Surface *screen;
 #include <mlib/long.hpp>
 #include <mlib/exception.hpp>
 
+#ifdef use_tbb
+        #include <tbb/task_scheduler_init.h>
+#endif
+
 using namespace mlib;
 using namespace rt2;
 using namespace std;
@@ -70,6 +74,10 @@ int main ( int argc, char ** argv )
 		settings.print_params();
 
                 #ifdef use_tbb
+                        tbb::task_scheduler_init init(settings.threads);
+                #endif
+
+                #ifdef use_tbb
                         std::cout << "using : TBB\n";
                 #else
                         std::cout << "using : OpenMP\n";
@@ -102,12 +110,14 @@ int main ( int argc, char ** argv )
                 timer.Stop();
                 std::cout << "Time build BVH: ";
                 std::cout << timer.GetTotalTimeInMSeconds() << " ms \n";
+                //std::cout << "Done !!!\n";
                 std::cout.flush();
                 timer.Reset();
 
 		Engine engine(scene, InitSDL(settings));
                 engine.set_threads(settings.threads);                
                 engine.set_depth(settings.depth);
+                engine.set_grainsize(settings.grainsize);
 
                 timer.Start();
 
