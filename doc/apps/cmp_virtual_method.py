@@ -27,7 +27,7 @@ def pcall(r, ind, x, mn, av):
 		i = ind[j]
 		v = r[j]
 		x[i] = v * 4
-		s = run(v, 1024 * 256).split(' ')
+		s = run(v, 1024 * 512).split(' ')
 		mn[i] = int(s[0])
 		av[i] = int(s[1])
 
@@ -58,7 +58,7 @@ def create_test(f, r):
 	ax.legend(loc='upper right')
 
 	plt.ylabel(unicode('Накладные расходы (в \%)', 'utf-8'))
-	plt.xlabel(unicode('Количесво объектов в массиве', 'utf-8'))
+	plt.xlabel(unicode('Количество объектов в массиве', 'utf-8'))
 	#plt.title (unicode('Накладные расходы при наследование', 'utf-8'))
 	plt.grid(True)
 	plt.savefig(f)
