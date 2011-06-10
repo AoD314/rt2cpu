@@ -26,7 +26,7 @@ f.write("\\hline & \\multicolumn{4}{c|}{Режим подсчета} \\\\ \n")
 f.write("\\hline \\vbox{\\hbox{\\strut Кол-во}\\hbox{итераций}} & " + " & ".join(mode) + "\\\\ \n")
 f.write("\\hline ")
 
-for i in range(1, 7):
+for i in range(1, 8):
 	f.write('$10^'+str(i) + "$ & ")
 	for m in range(4):
 		i1, i2,	err = -1, -1, -1
@@ -34,7 +34,7 @@ for i in range(1, 7):
 			i1, i2, err = app_run(10 ** i , m)
 
 		res = '{0:.2f}'.format(float(i2) / float(i1))
-		f.write('$\\cfrac{\\strut ' + str(i1)+ '}{\\strut ' + str(i2)+ '} = ' + res +' $')
+		f.write('$\\cfrac{\\strut ' + str(i2)+ '}{\\strut ' + str(i1)+ '} = ' + res +' $')
 
 		if m == 3:
 			f.write("\\\\ \n\\hline ")
