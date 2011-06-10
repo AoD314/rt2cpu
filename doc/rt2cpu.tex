@@ -1213,10 +1213,6 @@ Intel Core i7 980X -- это процессор семейства Gulftown вы
 \caption{Тестовая сцена}\label{fig:test_scene}
 \end{figure}
 
-\subsection{Производительность реализации}
-
-На различных наборах данных при различных параметрах показать производительность.
-
 \subsection{Эффективность расспаралеливания (OpenMP, TBB)}
 
 \input{perf/table_perf.tex}
@@ -1233,9 +1229,62 @@ Intel Core i7 980X -- это процессор семейства Gulftown вы
 \caption{Эффективность реализации параллельного алгоритма}\label{fig:eff_parallel_alg}
 \end{figure}
 
-\subsection{Скорость работы BVH}
 
+\subsection{Скорость работы в зависимости от различных параметров}
 
+\subsubsection{Зависимость от количества субпикселей}
+
+\input{perf/performance_aa.tex}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{perf/performance_aa.pdf}
+\caption{Скорость работы в зависимости от количества субпикселей}\label{fig:performance_aa}
+\end{figure}
+
+\subsubsection{Зависимость от количества источников света}
+
+\input{perf/performance_light.tex}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{perf/performance_light.pdf}
+\caption{Скорость работы в зависимости от источников света}\label{fig:performance_light}
+\end{figure}
+
+\subsubsection{Зависимость от количества глубины рекурсии}
+
+\input{perf/performance_d.tex}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{perf/performance_d.pdf}
+\caption{Скорость работы в зависимости от глубины рекурсии}\label{fig:performance_d}
+\end{figure}
+
+\subsubsection{Зависимость от количества объектов в листе BVH}
+
+\input{perf/performance_bvh.tex}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{perf/performance_bvh.pdf}
+\caption{Скорость работы в зависимости от количества объектов в листе BVH}\label{fig:performance_bvh}
+\end{figure}
+
+\subsubsection{Зависимость от размера зерна}
+
+\input{perf/performance_gs.tex}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{perf/performance_gs.pdf}
+\caption{Скорость работы в зависимости от количества порций данных на один поток}\label{fig:performance_gs}
+\end{figure}
+
+\subsection{Производительность реализации}
+
+На различных наборах данных при различных параметрах показать производительность.
 
 \subsection{Наследование и полиморфизм}
 

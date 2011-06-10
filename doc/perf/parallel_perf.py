@@ -4,10 +4,10 @@
 import subprocess
 import re, os
 
-sc = [['-f', '60', '-a', '1', '-w', '640',   '-h', '480',  '-d', '1', '-l', '1', '-b'],
-      ['-f', '30', '-a', '1', '-w', '1024',  '-h', '768',  '-d', '2', '-l', '1', '-b'],
-      ['-f', '20', '-a', '2', '-w', '1400',  '-h', '1050', '-d', '4', '-l', '2', '-b'],
-      ['-f', '10', '-a', '3', '-w', '1920',  '-h', '1080', '-d', '4', '-l', '2', '-b']
+sc = [['-f', '40', '-a', '1', '-w', '512',   '-h', '512',  '-d', '1', '-l', '1', '-b'],
+      ['-f', '30', '-a', '2', '-w', '800',   '-h', '600',  '-d', '2', '-l', '1', '-b'],
+      ['-f', '20', '-a', '3', '-w', '1024',  '-h', '768',  '-d', '4', '-l', '2', '-b'],
+      ['-f', '10', '-a', '3', '-w', '1920',  '-h', '1080', '-d', '8', '-l', '2', '-b']
       ]
 
 level = ['low', 'middle', 'hard', ' very hard']
@@ -69,7 +69,7 @@ plt.plot(range(1, th+1), perf[3], 'gs-', aa=True, label=level[3])
 ax.legend(loc='best')
 
 plt.ylabel(unicode('fps', 'utf-8'))
-plt.xlabel(unicode('Количесво активных потоков', 'utf-8'))
+plt.xlabel(unicode('Количество активных потоков', 'utf-8'))
 plt.grid(True)
 plt.savefig("table_perf.pdf")
 
@@ -90,7 +90,7 @@ plt.plot(range(1, th+1), perf[3], 'gs-', aa=True, label=level[3])
 ax.legend(loc='lower right')
 
 plt.ylabel(unicode('Ускорение', 'utf-8'))
-plt.xlabel(unicode('Количесво активных потоков', 'utf-8'))
+plt.xlabel(unicode('Количество активных потоков', 'utf-8'))
 plt.grid(True)
 plt.savefig("table_perf_eff.pdf")
     
