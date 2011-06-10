@@ -326,7 +326,6 @@ int main(int argc, char ** argv)
 
 	TEST (test_rt2_camera_gen_ray_to_center,             "test_rt2_camera_gen_ray_to_center")
 	TEST (test_rt2_camera_gen_ray_to_up_right,           "test_rt2_camera_gen_ray_to_up_right")
-	TEST (test_rt2_camera_gen_ray_to_up_right_with_aa,   "test_rt2_camera_gen_ray_to_up_right_with_aa")
 
 	timer.Stop();
 
