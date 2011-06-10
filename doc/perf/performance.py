@@ -35,7 +35,7 @@ def calc(filename, param, label_p, label_t, label_c):
     f = open(filename + ".tex", "wt")
     f.write("\\begin{center}\n")
     f.write("\\begin{longtable}{|c|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}\n")
-    f.write("\\hline & \\multicolumn{4}{c|}{Сложность сцены (fps)} \\\\ \n")
+    f.write("\\hline & \\multicolumn{4}{c|}{Сложность сцены} \\\\ \n")
     f.write("\\hline " + label_t + " & " + " & ".join(level) + "\\\\ \n")
     for p in param:
         f.write("\\hline ")
