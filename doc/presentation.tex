@@ -1,6 +1,8 @@
-\documentclass[utf8]{beamer}
+\documentclass[utf8, 12pt]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
+
+\usepackage{eulervm}
 
 %выбор темы
 \usetheme{Madrid}
@@ -8,14 +10,48 @@
 \beamertemplatenavigationsymbolsempty
 \setbeamertemplate{footline}[frame number]
 
-\title{Трассировка лучей в реальном времени на~x64~архитектуре}
-\author{Морозов А.С.}
-\date{01.06.2011 г.}
+\usepackage{fontspec}
+\defaultfontfeatures{Scale=MatchLowercase}
+\setmainfont[Mapping=tex-text]{Liberation Serif}
+\setsansfont[Mapping=tex-text]{Liberation Sans}
+\setmonofont{Droid Sans Mono}
+
+% переопределяем окружение verbatim
+\makeatletter 
+\renewcommand*\verbatim@font{% 
+\normalfont\ttfamily\small 
+\hyphenchar\font\m@ne 
+\let\do\do@noligs \verbatim@nolig@list 
+} 
+\makeatother 
+
+\title{Трассировка лучей в реальном времени \\ на~x64~архитектуре}
+\author{}\date{}
 
 \begin{document}
-
 \begin{frame}
+\begin{center}
+{\tiny
+Министерство образования и науки Российской Федерации\\ 
+Государственное образовательное учреждение \\ 
+высшего профессионального образования \\ 
+<<Нижегородский государственный университет им. Н.И. Лобачевского>>\\
+\bf{Факультет вычислительной математики и кибернетики \\
+Кафедра математического обеспечения ЭВМ} \\
+}
+\end{center}
 \titlepage
+\vspace*{-1cm}
+\begin{flushright}
+\begin{tabular}{rl}
+Исполнитель: & Морозов А.С. \\
+Научный руководитель: & Турлапов В.Е.
+\end{tabular}
+\end{flushright}
+\vspace*{1.75cm}
+\begin{center}
+\small Нижний Новгород, 2011г.
+\end{center}
 \end{frame}
 
 \begin{frame}
@@ -30,9 +66,23 @@
 
 \begin{frame}
 \frametitle{Трассировка лучей}
+\begin{itemize}
+\item Алгоритм обратной трассировки лучей
+\begin{itemize}
+\item Модель Фонга
 $$
  \vec{I}_{local} =  K_{amb} \cdot \vec{I}_{amb} +  K_{diff} \cdot \vec{I}_{diff} \cdot \left( \vec{L},\vec{N} \right) + K_{spec} \cdot \vec{I}_{spec} \cdot \left( \vec{R},\vec{V} \right)^n
 $$
+$$
+ \vec{I}_{total} = \vec{I}_{local} + K_{reflection} \cdot \vec{I}_{reflection} + K_{refraction} \cdot \vec{I}_{refraction}
+$$
+\item Теневые лучи
+\item Расчет отражений
+$$
+\vec{R} = \vec{I} - 2 \cdot \vec{N} (\vec{N} , \vec{I})
+$$
+\end{itemize}
+\end{itemize}
 \end{frame}
 
 
@@ -44,12 +94,13 @@ $$
 \frametitle{Результаты}
 \end{frame}
 
-\begin{frame}
+\frame[containsverbatim]{
 \frametitle{Результаты}
-\end{frame}
+}
 
 \begin{frame}
 \frametitle{Результаты}
+
 \end{frame}
 
 \begin{frame}
