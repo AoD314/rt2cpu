@@ -1145,7 +1145,7 @@ Intel Core i7 980X -- это процессор семейства Gulftown вы
 \end{itemize}
 
 \noindent
-Отчет свёрстан в системе \LaTeX \ (\cite{latex}, \cite{alloftex}).
+Отчет свёрстан в системе \LaTeX \ (\cite{alloftex}, \cite{latex}).
 
 \subsection{Timer}
 Для того, чтобы точно оценивать время работы каждого из алгоритмов, очень важно иметь высокоточный таймер. Проблема в том, что стандартные методы операционных систем не работают с нужной точностью. Когда идет речь о том, чтобы оценить время алгоритма, который должен исполнятся много миллионов раз в секунду, важен каждый такт процессора и точность в секундах просто неприемлема.
@@ -1444,53 +1444,59 @@ return b*tuv[0] + b - 1;
 
 \newpage
 \begin{thebibliography}{99}
+\addcontentsline{toc}{section}{Список литературы}
+
+	\bibitem{rdtscp} Gabriele Paoloni. How to Benchmark Code Execution Times on Intel IA-32 and IA-64 Instruction Set Architectures, September 2010
+	
+	\bibitem{intelmanual} Intel 64 and IA-32.Architectures Software Developer's Manual \\ (\href{http://www.intel.com/products/processor/manuals/}{http://www.intel.com/products/processor/manuals/})
+
+	\bibitem{tbbmanual} Intel Threading Building Blocks. Reference Manual \\ (\href{http://www.threadingbuildingblocks.org/}{http://www.threadingbuildingblocks.org/})
+
+	\bibitem{tbbtutor} Intel Threading Building Blocks. Tutorial \\ (\href{http://www.threadingbuildingblocks.org/}{http://www.threadingbuildingblocks.org/})
+
+	\bibitem{cppexpressiontemplate}Klaus Kreft, Angelika Langer. C++ Expression Templates An Introduction to the Principles of Expression Templates, March 2003 \\ (\href{http://www.angelikalanger.com/Articles/Cuj/ExpressionTemplates/ExpressionTemplates.htm}{http://www.angelikalanger.com/.../ExpressionTemplates.htm})
+	
+    \bibitem{perf_core_i7}Rob Williams. Intel's Core i7 - 980X Extreme Edition - Ready for Sick Scores? : [\href{http://techgage.com/print/intels_core_i7-980x_extreme_edition_-_ready_for_sick_scores}{\small http://techgage.com/print/intels\_core\_i7-980x\_extreme\_edition\_-\_ready\_for\_sick\_scores}], March 10, 2010.
+	
+	\bibitem{perf_radeon6990}Scott Wasson. AMD's Radeon HD 6990 graphics card: [\href{http://techreport.com/articles.x/20537}{\small http://techreport.com/articles.x/20537}], March 7, 2011
+	
+	\bibitem{straustrupcpp} Б. Страуструп Язык программирования C++. Специальное издание / Пер. с англ. --- М.: ООО ''Бином-Пресс'', 2006. --- 1104 с.: ил.
+
+	\bibitem{templatecpp} Вандевурд, Дэвид, Джосаттис, Николаи М. Шаблоны C++: справочник разработчика. : Пер. с англ. --- М. : Издательский дом ''Вильямс'', 2008. --- 544 с. : ил. --- парал. тит. англ.
+	
+	\bibitem{inteloptimize} Гербер Р., Бик А., Смит К., Тиан К. Оптимизация ПО. Сборник рецептов. --- СПб.: Питер, 2010. --- 352 с.: ил. --- (Серия ''Библиотека программиста'').
+
+	\bibitem{biovulf} Дмитрий Мороз. "Беовульф": Создание фильма: [\href{http://www.3dnews.ru/editorial/beowulf}{http://www.3dnews.ru/editorial/beowulf}], 11.12.2007.
+
+	\bibitem{alloftex} Кнут, Дональд, Э. Все про \TeX. : Пер. с англ. --- М. : Издательский дом ''Вильямс'', 2003. --- 560 с. : ил. --- Парал. Тит. англ.
+	
+	\bibitem{latex} Львовский С.М. Набор и верстка в системе \LaTeX. – 4-е изд., стереотипн. – М.: МЦНМО, 2006
+	
 	\bibitem{morozov_kazan} Морозов А. С. Трассировка лучей в реальном времени на многоядерном процессоре. Высокопроизводительные параллельные вычисления на кластерных системах (HPC-2008). Материалы Восьмой Международной конференции -  семинара. Казань, ноябрь 17-19, 2008. Труды конференции — Казань: Изд. КГТУ, 2008. - С. 241.
 
 	\bibitem{morozov_microsoft} Морозов А. С. Высокопроизводительная реализация трассировки лучей с использованием Microsoft MPI. Технологии Microsoft в теории и практике программирования. Материалы конференции / Под ред. Проф. В.П. Гергеля. - Нижний Новгород: Изд-во Нижегородского госуниверситета, 2009. - 527 с.
 
 	\bibitem{morozov_pavt} Морозов А. С. Сравнительный анализ алгоритма трассировки лучей на системах с общей и разделяемой памятью. Параллельные вычислительные технологии (ПаВТ’2009): Труды международной научной конференции (Нижний Новгород, 30 марта - 3 апреля 2009 г.). - Челябинск: Изд. ЮурГУ, 2009. - 839 с
 
-	\bibitem{sivakov} Сиваков И. Как компьютер рассчитывает изображения. Технология программного рендеринга: [\href{http://www.fcenter.ru/online.shtml?articles/hardware/videos/8749}{http://www.fcenter.ru/online.shtml?articles/hardware/videos/8749}] , 11.03.2004.
-
-	\bibitem{inteloptimize} Гербер Р., Бик А., Смит К., Тиан К. Оптимизация ПО. Сборник рецептов. --- СПб.: Питер, 2010. --- 352 с.: ил. --- (Серия ''Библиотека программиста'').
-
-	\bibitem{straustrupcpp} Б. Страуструп Язык программирования C++. Специальное издание / Пер. с англ. --- М.: ООО ''Бином-Пресс'', 2006. --- 1104 с.: ил.
-
-	\bibitem{templatecpp} Вандевурд, Дэвид, Джосаттис, Николаи М. Шаблоны C++: справочник разработчика. : Пер. с англ. --- М. : Издательский дом ''Вильямс'', 2008. --- 544 с. : ил. --- парал. тит. англ.
-
-	\bibitem{biovulf} Дмитрий Мороз. "Беовульф": Создание фильма: [\href{http://www.3dnews.ru/editorial/beowulf}{http://www.3dnews.ru/editorial/beowulf}], 11.12.2007.
-
-	\bibitem{intelmanual} Intel 64 and IA-32.Architectures Software Developer's Manual \\ (\href{http://www.intel.com/products/processor/manuals/}{http://www.intel.com/products/processor/manuals/})
-
-	\bibitem{tbbtutor} Intel Threading Building Blocks. Tutorial \\ (\href{http://www.threadingbuildingblocks.org/}{http://www.threadingbuildingblocks.org/})
-
-	\bibitem{tbbmanual} Intel Threading Building Blocks. Reference Manual \\ (\href{http://www.threadingbuildingblocks.org/}{http://www.threadingbuildingblocks.org/})
-
-	\bibitem{cppexpressiontemplate} C++ Expression Templates An Introduction to the Principles of Expression Templates, 2003 \\ (\href{http://www.angelikalanger.com/Articles/Cuj/ExpressionTemplates/ExpressionTemplates.htm}{http://www.angelikalanger.com/.../ExpressionTemplates.htm})
-
-	\bibitem{intelcore980x} Шесть ядер для десктопа: Intel Core i7-980X Extreme Edition, 07.04.2010 \\ (\href{http://www.fcenter.ru/online.shtml?articles/hardware/processors/28480}{\small http://www.fcenter.ru/online.shtml?articles/hardware/processors/28480})
-
-	\bibitem{rdtscp} How to Benchmark Code Execution Times on Intel IA-32 and IA-64 Instruction Set Architectures. September 2010
-	
 	\bibitem{pahomov} Сергей Пахомов. Тестируем Prescott \\ (\href{http://www.compress.ru/article.aspx?id=10204&iid=421}{\small http://www.compress.ru/article.aspx?id=10204\&iid=421})
 
-    \bibitem{perf_core_i7}Rob Williams. Intel's Core i7 - 980X Extreme Edition - Ready for Sick Scores? : [\href{http://techgage.com/print/intels_core_i7-980x_extreme_edition_-_ready_for_sick_scores}{\small http://techgage.com/print/intels\_core\_i7-980x\_extreme\_edition\_-\_ready\_for\_sick\_scores}], March 10, 2010.
+	\bibitem{sivakov} Сиваков И. Как компьютер рассчитывает изображения. Технология программного рендеринга: [\href{http://www.fcenter.ru/online.shtml?articles/hardware/videos/8749}{http://www.fcenter.ru/online.shtml?articles/hardware/videos/8749}] , 11.03.2004.
+
+	\bibitem{intelcore980x} Шесть ядер для десктопа: Intel Core i7-980X Extreme Edition, 07.04.2010 \\ (\href{http://www.fcenter.ru/online.shtml?articles/hardware/processors/28480}{\small http://www.fcenter.ru/online.shtml?articles/hardware/processors/28480})
 	
-	\bibitem{perf_radeon6990}Scott Wasson. AMD's Radeon HD 6990 graphics card: [\href{http://techreport.com/articles.x/20537}{\small http://techreport.com/articles.x/20537}], March 7, 2011
-	
-	\bibitem{latex} Львовский С.М. Набор и верстка в системе \LaTeX. – 4-е изд., стереотипн. – М.: МЦНМО, 2006
-	
-	\bibitem{alloftex} Кнут, Дональд, Э. Все про \TeX. : Пер. с англ. --- М. : Издательский дом ''Вильямс'', 2003. --- 560 с. : ил. --- Парал. Тит. англ.
-	
+
 \end{thebibliography}
 
 \newpage
+\addcontentsline{toc}{section}{Список иллюстраций}
 \listoffigures
 
 \newpage
+\addcontentsline{toc}{section}{Список таблиц}
 \listoftables
 
 \newpage
+\addcontentsline{toc}{section}{Предметный указатель}
 \input{rt2cpu.ind}
 
 \end{document}
