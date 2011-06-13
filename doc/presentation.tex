@@ -42,10 +42,11 @@
 \end{center}
 \titlepage
 \vspace*{-1.75cm}
-{\small
+{\footnotesize
 \begin{flushright}
 \begin{tabular}{l}
 \bf{Исполнитель}: \\ 
+магистрант группы 86М1 \\
 Морозов Андрей Сергеевич \\
 \bf{Научный руководитель}: \\
 д. т. н., профессор кафедры МО ЭВМ \\
@@ -55,13 +56,13 @@
 }
 \vspace*{1.2cm}
 \begin{center}
-\small Нижний Новгород, 2011г.
+\footnotesize Нижний Новгород, 2011г.
 \end{center}
 \end{frame}
 
 \begin{frame}
 \frametitle{Постановка задачи}
-Реализовать и исследовать высокопроизводительный алгоритм трассировки лучей на центральном процессоре:
+Разработать, реализовать и исследовать высокопроизводительный алгоритм трассировки лучей на центральном процессоре:
 \begin{itemize}
 \item алгоритмическая оптимизация (ускоряющие структуры)
 \item параллелизм на уровне данных
@@ -206,7 +207,7 @@ very hard & 1920 & 1080 & 3 & 8 & 2 \\ \hline
 \end{frame}
 
 \begin{frame}
-\frametitle{Выводы}
+\frametitle{Заключение}
 \begin{itemize}
 \item Удалось реализовать высокопроизводительный алгоритм трассировки лучей
 \begin{itemize}
@@ -218,9 +219,14 @@ very hard & 1920 & 1080 & 3 & 8 & 2 \\ \hline
 \item Основной вклад в ускорение алгоритма:
 \begin{itemize}
 \item BVH ( 12 -- 13 раз )
-\item OpenMP ( 5 -- 7.6 раз ) ( HT $\approx$+30\% )
+\item OpenMP ( 5 -- 7.6 раз ) ( Hyper-Threading $\approx$+30\% )
 \item SSE + ET (7 -- 8 раз)
 \item Итоговое ускорение : $\approx$ 640 раз
+\end{itemize}
+\item Характеристика проекта:
+\begin{itemize}
+\item 55 + 10 файлов, 5700 + 650 строк кода.
+\item OC: Calculate Linux 11.3 x64, QtCreator, Scons, GCC, Python, \LaTeX
 \end{itemize}
 \end{itemize}
 \end{frame}
